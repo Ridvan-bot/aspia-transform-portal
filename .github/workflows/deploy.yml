@@ -69,13 +69,13 @@ jobs:
          run: |
               az container create \
                 --resource-group pohlmanprotean \
-                --name ${{ env.BRANCH_NAME }}-az-automation-platfrom \
-                --image ${{ secrets.ACR_NAME }}.azurecr.io/automation-platfrom:latest \
+                --name ${{ env.BRANCH_NAME }}-az-automation-portal \
+                --image ${{ secrets.ACR_NAME }}.azurecr.io/automation-portal:latest \
                 --registry-login-server ${{ secrets.ACR_NAME }}.azurecr.io \
                 --os-type Linux \
                 --cpu 1 \
                 --memory 1 \
                 --registry-username $(az acr credential show --name ${{ secrets.ACR_NAME }} --query "username" --output tsv) \
                 --registry-password $(az acr credential show --name ${{ secrets.ACR_NAME }} --query "passwords[0].value" --output tsv) \
-                --dns-name-label ${{ env.BRANCH_NAME }}-az-automation-platfrom-pohlmanprotean-dns \
+                --dns-name-label ${{ env.BRANCH_NAME }}-az-automation-portal-pohlmanprotean-dns \
                 --ports 8080
