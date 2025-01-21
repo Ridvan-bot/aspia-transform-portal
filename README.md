@@ -22,9 +22,11 @@ This project is an automation portal designed to streamline and automate various
 4. Run the application using `npm start`
 
 ### Access
-You can access the automation portal via this URL:
+You can access the dev automation portal via this URL:
 [http://dev-az-automation-portal-pohlmanprotean-dns.northeurope.azurecontainer.io:8080/](http://dev-az-automation-portal-pohlmanprotean-dns.northeurope.azurecontainer.io:8080/)
 
+You can access the prod automation portal via this URL:
+[http://main-az-automation-portal-pohlmanprotean-dns.northeurope.azurecontainer.io:8080/](http://main-az-automation-portal-pohlmanprotean-dns.northeurope.azurecontainer.io:8080/)
 
 ##
 <p align="center">
