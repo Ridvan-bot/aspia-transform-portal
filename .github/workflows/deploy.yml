@@ -14,7 +14,7 @@ jobs:
   execute-code-quality-validation:
     uses: ./.github/workflows/validate.yml
     with:
-      eslint-enable: false
+      eslint-enable: true
       unit-test-enable: false
     secrets:
       token: ${{ secrets.GH_TOKEN }}
