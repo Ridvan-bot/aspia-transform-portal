@@ -24,3 +24,9 @@ This project is an automation portal designed to streamline and automate various
 ### Access
 You can access the automation portal via this URL:
 [http://dev-az-automation-portal-pohlmanprotean-dns.northeurope.azurecontainer.io:8080/](http://dev-az-automation-portal-pohlmanprotean-dns.northeurope.azurecontainer.io:8080/)
+
+
+##
+<p align="center">
+  Crafted with care by <strong>Robin Pohlman</strong> at <strong>Pohlman Protean AB</strong>.
+</p>
