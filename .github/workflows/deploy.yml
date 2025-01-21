@@ -77,5 +77,5 @@ jobs:
                 --memory 1 \
                 --registry-username $(az acr credential show --name ${{ secrets.ACR_NAME }} --query "username" --output tsv) \
                 --registry-password $(az acr credential show --name ${{ secrets.ACR_NAME }} --query "passwords[0].value" --output tsv) \
-                --dns-name-label ${{ env.BRANCH_NAME }}-pohlmanprotean-dns \
+                --dns-name-label ${{ env.BRANCH_NAME }}-az-automation-platfrom-pohlmanprotean-dns \
                 --ports 8080
