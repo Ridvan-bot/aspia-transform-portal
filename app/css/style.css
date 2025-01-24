@@ -49,6 +49,24 @@ body {
   text-align: center;
 }
 
+.container-tabell {
+  width: 100%;
+  height: auto; 
+  /*border: 2px solid blue;*/
+  text-align: center;
+  overflow: auto;
+}
+
+.table-auto {
+  width: 100%;
+  table-layout: fixed; 
+}
+
+.table-auto th,
+.table-auto td {
+  padding: 0.25rem; 
+}
+
 .container,
 body {
   min-width: 992px !important;
