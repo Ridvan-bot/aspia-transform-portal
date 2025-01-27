@@ -1,21 +1,14 @@
-import fs from 'fs';
-import path from 'path';
 import Papa from 'papaparse';
 
-const csvFilePath = path.join(__dirname, '../../csvFiles/header.csv');
 const expectedHeadersWithHeader = ['EmployeeCode', 'DepartmentCode', 'ProjectCode', 'SalaryTypeCode', 'Quantity', 'PeriodStart', 'PeriodEnd'];
 
-const readCsvFile = (filePath: string): Promise<any[]> => {
+const readCsvFile = (file: File): Promise<any[]> => {
   return new Promise((resolve, reject) => {
-    console.log(`Reading file: ${filePath}`);
-    const fileStream = fs.createReadStream(filePath, 'utf8');
+    const reader = new FileReader();
 
-    let csvData = '';
-    fileStream.on('data', (chunk) => {
-      csvData += chunk;
-    });
+    reader.onload = (event) => {
+      const csvData = event.target?.result as string;
 
-    fileStream.on('end', () => {
       // Check if the first line contains headers
       const firstLine = csvData.split('\n')[0];
       const hasHeader = expectedHeadersWithHeader.every(header => firstLine.includes(header));
@@ -42,22 +35,27 @@ const readCsvFile = (filePath: string): Promise<any[]> => {
           reject(error);
         },
       });
-    });
+    };
 
-    fileStream.on('error', (error) => {
+    reader.onerror = (error) => {
       console.error('Error reading the file:', error);
       reject(error);
-    });
+    };
+
+    reader.readAsText(file);
   });
 };
 
-export const convert = async () => {
+export const convert = async (file: File) => {
   try {
-    const data = await readCsvFile(csvFilePath);
-    console.log('All data from the file:');
-    console.log(data[0]);
+    const data = await readCsvFile(file);
+    if (typeof data === 'object') {
+    return data;
+    }
+    else {
+      throw new Error('Data is not an object');
+    }
   } catch (error) {
     console.error('Error reading the file:', error);
   }
 };
-

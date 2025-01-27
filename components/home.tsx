@@ -1,10 +1,11 @@
 "use client";
 import React, { useRef, useState } from 'react';
-
+import { convert } from './utils/converter';
 
 const Home: React.FC = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
+  const [fileContent, setFileContent] = useState<any[]>([]);
 
   const handleImportClick = () => {
     if (fileInputRef.current) {
@@ -12,12 +13,20 @@ const Home: React.FC = () => {
     }
   };
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       console.log('Selected file:', file.name);
       setUploadedFileName(file.name);
-      console.log(file);
+
+      try {
+        const data = await convert(file);
+        if (data) {
+          setFileContent(data);
+        }
+      } catch (error) {
+        console.error('Error converting file:', error);
+      }
     }
   };
 
@@ -46,6 +55,30 @@ const Home: React.FC = () => {
       {uploadedFileName && (
         <div className="mt-4 text-green-600">
           Filen "{uploadedFileName}" har blivit importerad.
+        </div>
+      )}
+      {fileContent.length > 0 && (
+        <div className="container-tabell">
+          <div className="flex justify-center pt-4 w-full max-h-screen overflow-auto">
+            <table className="table-auto border-collapse border border-gray-400 w-full">
+              <thead className="sticky top-0 bg-white">
+                <tr>
+                  {Object.keys(fileContent[0]).map((key) => (
+                    <th key={key} className="border border-gray-300 px-2 py-2">{key}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {fileContent.map((row, rowIndex) => (
+                  <tr key={rowIndex}>
+                    {Object.values(row).map((value, colIndex) => (
+                      <td key={colIndex} className="border border-gray-300 px-2 py-2">{value as React.ReactNode}</td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       )}
     </div>
