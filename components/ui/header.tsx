@@ -10,15 +10,6 @@ const Header: React.FC = () => {
             <img src="/images/Aspia_logo.png" alt="Aspia Logo" className="h-20" />
           </button>
         </div>
-
-        {/* Desktop sign in links */}
-        <ul className="flex items-center gap-3">
-          <li>
-          <button className="button-custom px-4 py-2 bg-customButton text-customButtonTextColor rounded">
-              Logga in
-            </button>
-          </li>
-        </ul>
       </div>
     </header>
   );
