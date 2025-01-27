@@ -1,6 +1,7 @@
 "use client";
 import React, { useRef, useState } from 'react';
 import { convert } from './utils/converter';
+import Convert from './convert';
 
 const Home: React.FC = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -57,30 +58,7 @@ const Home: React.FC = () => {
           Filen "{uploadedFileName}" har blivit importerad.
         </div>
       )}
-      {fileContent.length > 0 && (
-        <div className="container-tabell">
-          <div className="flex justify-center pt-4 w-full max-h-screen overflow-auto">
-            <table className="table-auto border-collapse border border-gray-400 w-full">
-              <thead className="sticky top-0 bg-white">
-                <tr>
-                  {Object.keys(fileContent[0]).map((key) => (
-                    <th key={key} className="border border-gray-300 px-2 py-2">{key}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {fileContent.map((row, rowIndex) => (
-                  <tr key={rowIndex}>
-                    {Object.values(row).map((value, colIndex) => (
-                      <td key={colIndex} className="border border-gray-300 px-2 py-2">{value as React.ReactNode}</td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      )}
+      {fileContent.length > 0 && <Convert fileContent={fileContent} />}
     </div>
   );
 };
