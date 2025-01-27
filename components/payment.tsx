@@ -2,7 +2,13 @@ import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
-const Payment: React.FC = () => {
+interface PaymentProps {
+  onDateSelected: (date: Date | null, field1Value: string, field2Value: string) => void;
+  handleExport: (selectedDate: Date | null, field1Value: string, field2Value: string) => void;
+  dateSelected: boolean;
+}
+
+const Payment: React.FC<PaymentProps> = ({ onDateSelected, handleExport, dateSelected }) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [field1Value, setField1Value] = useState<string>('');
@@ -21,6 +27,8 @@ const Payment: React.FC = () => {
       newDate2.setMonth(newDate2.getMonth());
       newDate2.setDate(0); // set to last day of previous month
       setField2Value(newDate2.toLocaleDateString()); // update field 2 value
+
+      onDateSelected(date, newDate1.toLocaleDateString(), newDate2.toLocaleDateString()); // Anropa callback-funktionen
     }
   };
 
@@ -30,6 +38,10 @@ const Payment: React.FC = () => {
 
   const handleField2Change = (event: React.ChangeEvent<HTMLInputElement>) => {
     setField2Value(event.target.value);
+  };
+
+  const handleExportClick = () => {
+    handleExport(selectedDate, field1Value, field2Value);
   };
 
   return (
@@ -47,7 +59,7 @@ const Payment: React.FC = () => {
           placeholder="Första dagen i föregående månad"
           value={field1Value}
           onChange={handleField1Change}
-          style={{ fontSize: '1vw', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+          style={{ fontSize: '2vw', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
         />
         <input
           type="text"
@@ -55,7 +67,7 @@ const Payment: React.FC = () => {
           placeholder="Sista dagen i föregående månad"
           value={field2Value}
           onChange={handleField2Change}
-          style={{ fontSize: '1vw', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+          style={{ fontSize: '2vw', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
         />
       </div>
       {showDatePicker && (
@@ -64,16 +76,17 @@ const Payment: React.FC = () => {
             selected={selectedDate}
             onChange={handleDateChange}
             inline
-            popperModifiers={[
-              {
-                name: 'offset',
-                options: {
-                  offset: [0, 10],
-                },
-                fn: ({ x, y }) => ({ x, y }),
-              },
-            ]}
           />
+        </div>
+      )}
+      {dateSelected && (
+        <div className="mt-4">
+          <button
+            className="button-custom px-4 py-2 bg-customButton text-customButtonTextColor rounded"
+            onClick={handleExportClick}
+          >
+            Exportera
+          </button>
         </div>
       )}
     </div>
