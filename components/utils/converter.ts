@@ -51,7 +51,7 @@ const readCsvFile = (filePath: string): Promise<any[]> => {
   });
 };
 
-const mainfunc = async () => {
+export const convert = async () => {
   try {
     const data = await readCsvFile(csvFilePath);
     console.log('All data from the file:');
@@ -61,4 +61,3 @@ const mainfunc = async () => {
   }
 };
 
-mainfunc();

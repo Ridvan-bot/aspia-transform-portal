@@ -1,6 +1,7 @@
 "use client";
 import React, { useRef, useState } from 'react';
 
+
 const Home: React.FC = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
@@ -16,6 +17,7 @@ const Home: React.FC = () => {
     if (file) {
       console.log('Selected file:', file.name);
       setUploadedFileName(file.name);
+      console.log(file);
     }
   };
 
