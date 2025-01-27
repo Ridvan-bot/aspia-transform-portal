@@ -17,6 +17,7 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
     const newHeaders = [...headers];
     newHeaders[colIndex] = value;
     setHeaders(newHeaders);
+    console.log('Updated headers:', newHeaders);
   };
 
   const formatDate = (date: Date | null): string => {
@@ -27,16 +28,24 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
     return `${year}${month}${day}`;
   };
 
-  const handleExport = (selectedDate: Date | null, field1Value: string, field2Value: string) => {
+  const handleExport = () => {
     if (editedContent.length > 0) {
       const dataObjects = editedContent.map(row => {
         return headers.reduce((acc, header, index) => {
           acc[header] = row[Object.keys(row)[index]];
           return acc;
         }, {} as Record<string, any>);
-      })
+      });
 
-      console.log('Data object:', dataObjects);
+      // Add date fields to each data object
+      dataObjects.forEach(dataObject => {
+        dataObject['Utbetalningsdatum'] = selectedDate ? formatDate(selectedDate) : null;
+        dataObject['Första dagen i föregående månad'] = field1Value;
+        dataObject['Sista dagen i föregående månad'] = field2Value;
+      });
+
+      console.log('Data objects:', dataObjects);
+
       // Format dates
       const formattedSelectedDate = formatDate(selectedDate);
       const formattedField1Value = field1Value.split('/').reverse().join('');
@@ -49,24 +58,29 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
         formattedField2Value,
       ];
 
-       // Create rows 3 and 4 based on options and dataObject
-       let row3 = dataObjects.map(dataObject => options.map(option => dataObject[option] || '').join('\t')).join('\n');
-       const optionRow = options.join('\t');
- 
-       // Remove the last row from row3
-       const row3Lines = row3.split('\n');
-       row3Lines.pop();
-       row3 = row3Lines.join('\n');
- 
-       console.log('Row 3:', row3);
-       console.log('Option Row:', optionRow);
+      // Create rows 3 and 4 based on options and dataObject
+      let row3 = dataObjects.map(dataObject => options.map(option => dataObject[option] || '').join('\t')).join('\n');
+      const optionRow = options.join('\t');
+
+      // Remove the last row from row3 if it's empty
+      const row3Lines = row3.split('\n');
+      if (row3Lines[row3Lines.length - 1].trim() === '') {
+        row3Lines.pop();
+      }
+      row3 = row3Lines.join('\n');
+
+      console.log('Row 3:', row3);
+      console.log('Option Row:', optionRow);
+
       // Create CSV content with tab-separated values
       const csvContent = [
         'Version: 1.3 Ursprung: Flex HRM Time', // Fixed first line
         exportData.join('\t'), // Data values separated by tabs
         row3, // Row 3 with values from dataObject or tabs
         optionRow // Row 4 with options
-      ].join('\n');
+      ].filter(line => line.trim() !== '').join('\n'); // Filter out any empty lines
+
+      console.log('CSV Content:', csvContent);
 
       // Create a blob and trigger download
       const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
@@ -79,7 +93,7 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
       link.click();
       document.body.removeChild(link);
 
-      return exportData;
+      return dataObjects;
     } else {
       console.log('No data available in the table.');
     }
@@ -108,7 +122,7 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
     '0-1=1-100%',
   ];
 
-  // remove empty rows
+  // Filtrera bort tomma rader
   const filteredContent = editedContent.filter(row => Object.values(row).some(value => value !== ''));
 
   return (
