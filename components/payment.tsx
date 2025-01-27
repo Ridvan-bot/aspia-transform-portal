@@ -5,22 +5,59 @@ import 'react-datepicker/dist/react-datepicker.css';
 const Payment: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [showDatePicker, setShowDatePicker] = useState(false);
+  const [field1Value, setField1Value] = useState<string>('');
+  const [field2Value, setField2Value] = useState<string>('');
 
   const handleDateChange = (date: Date | null) => {
     setSelectedDate(date);
     setShowDatePicker(false);
+    if (date) {
+      const newDate1 = new Date(date);
+      newDate1.setMonth(newDate1.getMonth() - 1);
+      newDate1.setDate(1);
+      setField1Value(newDate1.toLocaleDateString()); // Update field 1 value
+
+      const newDate2 = new Date(date);
+      newDate2.setMonth(newDate2.getMonth());
+      newDate2.setDate(0); // set to last day of previous month
+      setField2Value(newDate2.toLocaleDateString()); // update field 2 value
+    }
+  };
+
+  const handleField1Change = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setField1Value(event.target.value);
+  };
+
+  const handleField2Change = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setField2Value(event.target.value);
   };
 
   return (
     <div className="payment-container">
-      <div className="flex justify-start mt-4">
+      <div className="flex justify-start mt-4 space-x-4">
         <button
-          className="button-custom px-4 py-2 bg-customButton text-customButtonTextColor rounded "
+          className="button-custom px-4 py-2 bg-customButton text-customButtonTextColor rounded"
           onClick={() => setShowDatePicker(true)}
         >
           Utbetalningsdatum
         </button>
-        {showDatePicker && (
+        <input
+          type="text"
+          className="input-custom px-4 py-2 border rounded"
+          placeholder="Fält 1"
+          value={field1Value}
+          onChange={handleField1Change}
+        />
+        <input
+          type="text"
+          className="input-custom px-4 py-2 border rounded"
+          placeholder="Fält 2"
+          value={field2Value}
+          onChange={handleField2Change}
+        />
+      </div>
+      {showDatePicker && (
+        <div className="mt-4">
           <DatePicker
             selected={selectedDate}
             onChange={handleDateChange}
@@ -35,8 +72,8 @@ const Payment: React.FC = () => {
               },
             ]}
           />
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };
