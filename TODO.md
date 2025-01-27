@@ -13,6 +13,7 @@
 - [w] make sure dates are in the correct format
 - [x] verify that all the data is relevant
 - [ ] add multiple lines in .csv file
+- [ ] aspia logo should be a link to home
 
 
 

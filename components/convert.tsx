@@ -29,12 +29,14 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
 
   const handleExport = (selectedDate: Date | null, field1Value: string, field2Value: string) => {
     if (editedContent.length > 0) {
-      const row1 = editedContent[0];
-      const dataObject = headers.reduce((acc, header, index) => {
-        acc[header] = row1[Object.keys(row1)[index]];
-        return acc;
-      }, {} as Record<string, any>);
+      const dataObjects = editedContent.map(row => {
+        return headers.reduce((acc, header, index) => {
+          acc[header] = row[Object.keys(row)[index]];
+          return acc;
+        }, {} as Record<string, any>);
+      })
 
+      console.log('Data object:', dataObjects);
       // Format dates
       const formattedSelectedDate = formatDate(selectedDate);
       const formattedField1Value = field1Value.split('/').reverse().join('');
@@ -47,15 +49,23 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
         formattedField2Value,
       ];
 
-      // Create rows 3 and 4 based on options and dataObject
-      const row3 = options.map(option => dataObject[option] || '').join('\t');
-      const row4 = options.join('\t');
+       // Create rows 3 and 4 based on options and dataObject
+       let row3 = dataObjects.map(dataObject => options.map(option => dataObject[option] || '').join('\t')).join('\n');
+       const optionRow = options.join('\t');
+ 
+       // Remove the last row from row3
+       const row3Lines = row3.split('\n');
+       row3Lines.pop();
+       row3 = row3Lines.join('\n');
+ 
+       console.log('Row 3:', row3);
+       console.log('Option Row:', optionRow);
       // Create CSV content with tab-separated values
       const csvContent = [
         'Version: 1.3 Ursprung: Flex HRM Time', // Fixed first line
         exportData.join('\t'), // Data values separated by tabs
         row3, // Row 3 with values from dataObject or tabs
-        row4 // Row 4 with options
+        optionRow // Row 4 with options
       ].join('\n');
 
       // Create a blob and trigger download
