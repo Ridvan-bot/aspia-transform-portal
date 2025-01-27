@@ -15,6 +15,20 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
     setHeaders(newHeaders);
   };
 
+  const handleSave = () => {
+    if (editedContent.length > 0) {
+      const row1 = editedContent[0];
+      const dataObject = headers.reduce((acc, header, index) => {
+        acc[header] = row1[Object.keys(row1)[index]];
+        return acc;
+      }, {} as Record<string, any>);
+      console.log('Data object:', dataObject);
+      return dataObject;
+    } else {
+      console.log('No data available in the table.');
+    }
+  };
+
   const options = [
     'Anst.nr', 
     'Löneart', 
@@ -38,7 +52,7 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
     '0-1=1-100%',
   ];
 
-  // Filtrera bort tomma rader
+  // remove empty rows
   const filteredContent = editedContent.filter(row => Object.values(row).some(value => value !== ''));
 
   return (
@@ -75,6 +89,14 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
             ))}
           </tbody>
         </table>
+        <div>
+          <button
+            className="button-custom px-4 py-2 bg-customButton text-customButtonTextColor rounded"
+            onClick={handleSave}
+          >
+            Spara
+          </button>
+        </div>
       </div>
       <Payment />
     </div>
