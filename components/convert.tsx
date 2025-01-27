@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Payment from './payment';
 
 interface ConvertProps {
   fileContent: any[];
@@ -14,7 +15,28 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
     setHeaders(newHeaders);
   };
 
-  const options = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J'];
+  const options = [
+    'Anst.nr', 
+    'Löneart', 
+    'Konto', 
+    'dim3', 
+    'dim4', 
+    'dim5', 
+    'dim6', 
+    'dim7', 
+    'dim8', 
+    'dim9', 
+    'dim10', 
+    'antal', 
+    'enhet', 
+    'ápris', 
+    'belopp', 
+    'From datum', 
+    'Tom datum', 
+    'notering', 
+    'Omfatting',
+    '0-1=1-100%',
+  ];
 
   // Filtrera bort tomma rader
   const filteredContent = editedContent.filter(row => Object.values(row).some(value => value !== ''));
@@ -26,11 +48,11 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
           <thead className="sticky top-0 bg-white">
             <tr>
               {headers.map((header, colIndex) => (
-                <th key={colIndex} className="border border-gray-300 px-2 py-2">
+                <th key={colIndex} className="border border-gray-300 px-2 py-2 text-ellipsis overflow-hidden whitespace-nowrap">
                   <select
                     value={header}
                     onChange={(e) => handleHeaderChange(colIndex, e.target.value)}
-                    className="border border-gray-300 px-2 py-1"
+                    className="border border-gray-300 px-2 py-1 w-full"
                   >
                     <option value={header}>{header}</option>
                     {options.map((option) => (
@@ -54,6 +76,7 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
           </tbody>
         </table>
       </div>
+      <Payment />
     </div>
   );
 };

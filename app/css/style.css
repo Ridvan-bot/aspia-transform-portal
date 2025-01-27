@@ -71,3 +71,9 @@ body {
 body {
   min-width: 992px !important;
 }
+
+.payment-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
