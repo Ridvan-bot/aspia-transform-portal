@@ -98,7 +98,7 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
     '0-1=1-100%',
   ];
 
-  // Filtrera bort tomma rader
+  // remove empty rows
   const filteredContent = editedContent.filter(row => Object.values(row).some(value => value !== ''));
 
   return (

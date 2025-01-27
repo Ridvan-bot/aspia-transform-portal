@@ -28,7 +28,7 @@ const Payment: React.FC<PaymentProps> = ({ onDateSelected, handleExport, dateSel
       newDate2.setDate(0); // set to last day of previous month
       setField2Value(newDate2.toLocaleDateString()); // update field 2 value
 
-      onDateSelected(date, newDate1.toLocaleDateString(), newDate2.toLocaleDateString()); // Anropa callback-funktionen
+      onDateSelected(date, newDate1.toLocaleDateString(), newDate2.toLocaleDateString()); // calling parent function
     }
   };
 
@@ -59,7 +59,7 @@ const Payment: React.FC<PaymentProps> = ({ onDateSelected, handleExport, dateSel
           placeholder="Första dagen i föregående månad"
           value={field1Value}
           onChange={handleField1Change}
-          style={{ fontSize: '2vw', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+          style={{ fontSize: '1vw', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
         />
         <input
           type="text"
@@ -67,7 +67,7 @@ const Payment: React.FC<PaymentProps> = ({ onDateSelected, handleExport, dateSel
           placeholder="Sista dagen i föregående månad"
           value={field2Value}
           onChange={handleField2Change}
-          style={{ fontSize: '2vw', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+          style={{ fontSize: '1vw', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
         />
       </div>
       {showDatePicker && (
@@ -82,7 +82,7 @@ const Payment: React.FC<PaymentProps> = ({ onDateSelected, handleExport, dateSel
       {dateSelected && (
         <div className="mt-4">
           <button
-            className="button-custom px-4 py-2 bg-customButton text-customButtonTextColor rounded"
+            className="button-custom px-4 py-2 bg-customButton text-customButtonTextColor rounded fontSize '1vw'"
             onClick={handleExportClick}
           >
             Exportera
