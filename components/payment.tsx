@@ -44,16 +44,18 @@ const Payment: React.FC = () => {
         <input
           type="text"
           className="input-custom px-4 py-2 border rounded"
-          placeholder="Fält 1"
+          placeholder="Första dagen i föregående månad"
           value={field1Value}
           onChange={handleField1Change}
+          style={{ fontSize: '1vw', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
         />
         <input
           type="text"
           className="input-custom px-4 py-2 border rounded"
-          placeholder="Fält 2"
+          placeholder="Sista dagen i föregående månad"
           value={field2Value}
           onChange={handleField2Change}
+          style={{ fontSize: '1vw', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
         />
       </div>
       {showDatePicker && (
