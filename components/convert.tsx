@@ -17,7 +17,6 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
     const newHeaders = [...headers];
     newHeaders[colIndex] = value;
     setHeaders(newHeaders);
-    console.log('Updated headers:', newHeaders);
   };
 
   const formatDate = (date: Date | null): string => {
@@ -48,14 +47,9 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
         formattedField2Value,
       ];
 
-      console.log('Export data:', exportData);
-
       // Create rows 3 and 4 based on options and dataObject
       const row3 = options.map(option => dataObject[option] || '').join('\t');
       const row4 = options.join('\t');
-      console.log('Row 3:', row3);
-      console.log('Row 4:', row4);
-
       // Create CSV content with tab-separated values
       const csvContent = [
         'Version: 1.3 Ursprung: Flex HRM Time', // Fixed first line
@@ -63,8 +57,6 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
         row3, // Row 3 with values from dataObject or tabs
         row4 // Row 4 with options
       ].join('\n');
-
-      console.log('CSV Content:', csvContent);
 
       // Create a blob and trigger download
       const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
