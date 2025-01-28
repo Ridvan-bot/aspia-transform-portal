@@ -77,7 +77,6 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
         'Version: 1.3 Ursprung: Flex HRM Time', // Fixed first line
         exportData.join('\t'), // Data values separated by tabs
         row3, // Row 3 with values from dataObject or tabs
-        optionRow // Row 4 with options
       ].filter(line => line.trim() !== '').join('\n'); // Filter out any empty lines
 
       console.log('CSV Content:', csvContent);

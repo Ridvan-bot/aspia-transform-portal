@@ -33,6 +33,7 @@
     "conventional-changelog-conventionalcommits": "^8.0.0",
     "framer-motion": "^11.11.17",
     "fs": "^0.0.1-security",
+    "glob": "^11.0.1",
     "next": "^15.0.3",
     "nodemailer": "^6.9.16",
     "papaparse": "^5.5.1",
