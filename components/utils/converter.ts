@@ -3,7 +3,7 @@ import Papa from 'papaparse';
 const expectedHeadersWithHeader = ['EmployeeCode', 'DepartmentCode', 'ProjectCode', 'SalaryTypeCode', 'Quantity', 'PeriodStart', 'PeriodEnd'];
 
 const detectDelimiter = (firstLine: string): string => {
-  const delimiters = [',', ';', '\t', '|', '~', '" "'];
+  const delimiters = [',', ';', '\t', '|', '~', ' ', '" "'];
   let detectedDelimiter = ',';
 
   delimiters.forEach(delimiter => {
@@ -12,7 +12,16 @@ const detectDelimiter = (firstLine: string): string => {
     }
   });
 
+  console.log(`Detected delimiter: ${detectedDelimiter}`);
   return detectedDelimiter;
+};
+
+const preprocessCsvData = (csvData: string): string => {
+  // Replace all " with an empty string
+  let preprocessedData = csvData.replace(/"/g, '');
+
+  console.log('Preprocessed CSV data:', preprocessedData);
+  return preprocessedData;
 };
 
 const readCsvFile = (file: File): Promise<any[]> => {
@@ -20,11 +29,16 @@ const readCsvFile = (file: File): Promise<any[]> => {
     const reader = new FileReader();
 
     reader.onload = (event) => {
-      const csvData = event.target?.result as string;
+      let csvData = event.target?.result as string;
+
+      // Preprocess CSV data
+      csvData = preprocessCsvData(csvData);
 
       // Check if the first line contains headers
       const firstLine = csvData.split('\n')[0];
+      console.log(`First line of CSV: ${firstLine}`);
       const hasHeader = expectedHeadersWithHeader.every(header => firstLine.includes(header));
+      console.log(`Has header: ${hasHeader}`);
 
       // Detect the delimiter
       const delimiter = detectDelimiter(firstLine);
@@ -32,7 +46,10 @@ const readCsvFile = (file: File): Promise<any[]> => {
       Papa.parse(csvData, {
         header: hasHeader,
         delimiter: delimiter,
+        skipEmptyLines: false,
+        dynamicTyping: true,
         complete: (results) => {
+          console.log('Parsing complete:', results);
           if (!hasHeader) {
             const emptyHeaderArray = results.data.map((row: any) => {
               const rowData: any = {};
