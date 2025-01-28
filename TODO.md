@@ -17,14 +17,4 @@
 - [ ] make the deployment faster
 - [ ] Add info about header options
 - [ ] Add number converter?
-
-
-
-
-
-
-
-
-
-
-
+- [ ] Users should be able to change utbetalningsdatum via filed1 and field2
