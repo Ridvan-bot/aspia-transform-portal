@@ -53,8 +53,8 @@ const Home: React.FC = () => {
         </button>
       </div>
       {uploadedFileName && (
-        <div className="mt-4 text-green-600">
-          Filen "{uploadedFileName}" har blivit importerad.
+        <div className="">
+          Filen {uploadedFileName} har blivit importerad
         </div>
       )}
       {fileContent.length > 0 && <Convert fileContent={fileContent} />}
