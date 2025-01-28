@@ -14,7 +14,10 @@
 - [x] add seperater(delimiter) ,
 - [x] add seperater(delimiter) "value" space "value"
 - [x] check date form before converting"
+- [x] Users should be able to change utbetalningsdatum via filed1 and field2
+- [ ] setup auto test
 - [ ] make the deployment faster
 - [ ] Add info about header options
 - [ ] Add number converter?
-- [ ] Users should be able to change utbetalningsdatum via filed1 and field2
+
+
