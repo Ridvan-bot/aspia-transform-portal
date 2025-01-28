@@ -3,7 +3,7 @@ import Papa from 'papaparse';
 const expectedHeadersWithHeader = ['EmployeeCode', 'DepartmentCode', 'ProjectCode', 'SalaryTypeCode', 'Quantity', 'PeriodStart', 'PeriodEnd'];
 
 const detectDelimiter = (firstLine: string): string => {
-  const delimiters = [',', ';', '\t ', '|', '~', '" "'];
+  const delimiters = [',', ';', '\t', '|', '~', '" "'];
   let detectedDelimiter = ',';
 
   delimiters.forEach(delimiter => {

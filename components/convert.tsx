@@ -26,6 +26,10 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
     const day = String(date.getDate()).padStart(2, '0');
     return `${year}${month}${day}`;
   };
+  const isValidDateFormat = (dateString: string): boolean => {
+    // validate date format yyyyMMdd
+    return /^\d{8}$/.test(dateString);
+  };
 
   const handleExport = () => {
     if (editedContent.length > 0) {
@@ -41,13 +45,14 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
         dataObject['Utbetalningsdatum'] = selectedDate ? formatDate(selectedDate) : null;
         dataObject['Första dagen i föregående månad'] = field1Value;
         dataObject['Sista dagen i föregående månad'] = field2Value;
-      // Convert "Tom Datum" and "From Datum" to Date objects
-      if (dataObject['Tom datum']) {
-        dataObject['Tom datum'] = formatDate (new Date(dataObject['Tom datum']));
-      }
-      if (dataObject['From datum']) {
-        dataObject['From datum'] = formatDate (new Date(dataObject['From datum']));
-      }
+
+        // Convert "Tom Datum" and "From Datum" to Date objects if not already in correct format
+        if (dataObject['Tom datum'] && !isValidDateFormat(dataObject['Tom datum'])) {
+          dataObject['Tom datum'] = formatDate(new Date(dataObject['Tom datum']));
+        }
+        if (dataObject['From datum'] && !isValidDateFormat(dataObject['From datum'])) {
+          dataObject['From datum'] = formatDate(new Date(dataObject['From datum']));
+        }
     });
 
       // Format dates

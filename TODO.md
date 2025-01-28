@@ -15,7 +15,7 @@
 - [x] add seperater(delimiter) Tilde
 - [x] add seperater(delimiter) ,
 - [ ] add seperater(delimiter) "value" space "value"
-- [ ] check date form before converting"
+- [x] check date form before converting"
 
 
 
