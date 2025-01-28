@@ -17,7 +17,6 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
     const newHeaders = [...headers];
     newHeaders[colIndex] = value;
     setHeaders(newHeaders);
-    console.log('Updated headers:', newHeaders);
   };
 
   const formatDate = (date: Date | null): string => {
@@ -26,6 +25,10 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
     return `${year}${month}${day}`;
+  };
+  const isValidDateFormat = (dateString: string): boolean => {
+    // validate date format yyyyMMdd
+    return /^\d{8}$/.test(dateString);
   };
 
   const handleExport = () => {
@@ -42,9 +45,15 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
         dataObject['Utbetalningsdatum'] = selectedDate ? formatDate(selectedDate) : null;
         dataObject['Första dagen i föregående månad'] = field1Value;
         dataObject['Sista dagen i föregående månad'] = field2Value;
-      });
 
-      console.log('Data objects:', dataObjects);
+        // Convert "Tom Datum" and "From Datum" to Date objects if not already in correct format
+        if (dataObject['Tom datum'] && !isValidDateFormat(dataObject['Tom datum'])) {
+          dataObject['Tom datum'] = formatDate(new Date(dataObject['Tom datum']));
+        }
+        if (dataObject['From datum'] && !isValidDateFormat(dataObject['From datum'])) {
+          dataObject['From datum'] = formatDate(new Date(dataObject['From datum']));
+        }
+    });
 
       // Format dates
       const formattedSelectedDate = formatDate(selectedDate);
@@ -69,17 +78,12 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
       }
       row3 = row3Lines.join('\n');
 
-      console.log('Row 3:', row3);
-      console.log('Option Row:', optionRow);
-
       // Create CSV content with tab-separated values
       const csvContent = [
         'Version: 1.3 Ursprung: Flex HRM Time', // Fixed first line
         exportData.join('\t'), // Data values separated by tabs
         row3, // Row 3 with values from dataObject or tabs
       ].filter(line => line.trim() !== '').join('\n'); // Filter out any empty lines
-
-      console.log('CSV Content:', csvContent);
 
       // Create a blob and trigger download
       const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });

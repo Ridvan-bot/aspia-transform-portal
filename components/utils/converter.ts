@@ -2,6 +2,19 @@ import Papa from 'papaparse';
 
 const expectedHeadersWithHeader = ['EmployeeCode', 'DepartmentCode', 'ProjectCode', 'SalaryTypeCode', 'Quantity', 'PeriodStart', 'PeriodEnd'];
 
+const detectDelimiter = (firstLine: string): string => {
+  const delimiters = [',', ';', '\t', '|', '~', '" "'];
+  let detectedDelimiter = ',';
+
+  delimiters.forEach(delimiter => {
+    if (firstLine.includes(delimiter)) {
+      detectedDelimiter = delimiter;
+    }
+  });
+
+  return detectedDelimiter;
+};
+
 const readCsvFile = (file: File): Promise<any[]> => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -13,15 +26,18 @@ const readCsvFile = (file: File): Promise<any[]> => {
       const firstLine = csvData.split('\n')[0];
       const hasHeader = expectedHeadersWithHeader.every(header => firstLine.includes(header));
 
+      // Detect the delimiter
+      const delimiter = detectDelimiter(firstLine);
+
       Papa.parse(csvData, {
         header: hasHeader,
-        delimiter: ';',
+        delimiter: delimiter,
         complete: (results) => {
           if (!hasHeader) {
             const emptyHeaderArray = results.data.map((row: any) => {
               const rowData: any = {};
               row.forEach((column: string, index: number) => {
-                rowData[`Header${index + 1}`] = column;
+                rowData[`Tom${index + 1}`] = column;
               });
               return rowData;
             });
