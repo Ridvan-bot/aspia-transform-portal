@@ -9,12 +9,14 @@
 - [x] fix date in second row
 - [ ] make the deployment faster
 - [ ] Add info about header options
-- [ ] add seperater(delimiter) tab
+- [x] add seperater(delimiter) tab
 - [x] add seperater(delimiter) ;
-- [ ] add seperater(delimiter) Pipe
-- [ ] add seperater(delimiter) Tilde
+- [x] add seperater(delimiter) Pipe
+- [x] add seperater(delimiter) Tilde
 - [x] add seperater(delimiter) ,
 - [ ] add seperater(delimiter) "value" space "value"
+- [ ] check date form before converting"
+
 
 
 
