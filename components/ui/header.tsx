@@ -15,8 +15,12 @@ const Header: React.FC = () => {
     setShowTooltip(false);
   };
 
+  const handleLogoClick = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    event.preventDefault();
+    window.location.reload();
+  };
+
   const headerDescriptions = [
-    { header: 'Information om olika headers' },
     { header: 'Anst.nr', description: 'Anställningsnummer' },
     { header: 'Löneart', description: 'Löneart' },
     { header: 'Konto', description: 'Konto' },
@@ -30,13 +34,13 @@ const Header: React.FC = () => {
     { header: 'dim10', description: 'Dimension 10' },
     { header: 'antal', description: 'Antal' },
     { header: 'enhet', description: 'Enhet' },
-    { header: 'ápris', description: 'Pris' },
+    { header: 'ápris', description: 'Ápris' },
     { header: 'belopp', description: 'Belopp' },
-    { header: 'From datum', description: 'Från och med datum' },
-    { header: 'Tom datum', description: 'Till och med datum' },
+    { header: 'From datum', description: 'Från datum' },
+    { header: 'Tom datum', description: 'Till datum' },
     { header: 'notering', description: 'Notering' },
     { header: 'Omfatting', description: 'Omfattning' },
-    { header: 'Tomt', description: 'Om värde inte ska med i export' },
+    { header: 'Tomt', description: 'Tomt' },
   ];
 
   return (
@@ -45,7 +49,7 @@ const Header: React.FC = () => {
         {/* Site branding */}
         <div className="flex items-center h-full">
           <Link href="/" legacyBehavior>
-            <a className="h-full">
+            <a className="h-full" onClick={handleLogoClick}>
               <img src="/images/Aspia_logo.png" alt="Aspia Logo" className="h-20" />
             </a>
           </Link>
