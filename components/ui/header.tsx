@@ -31,13 +31,13 @@ const Header: React.FC = () => {
     { header: 'dim10', description: 'Dimension 10' },
     { header: 'antal', description: 'Antal' },
     { header: 'enhet', description: 'Enhet' },
-    { header: 'ápris', description: 'Ápris' },
+    { header: 'ápris', description: 'pris' },
     { header: 'belopp', description: 'Belopp' },
-    { header: 'From datum', description: 'Från datum' },
-    { header: 'Tom datum', description: 'Till datum' },
+    { header: 'From datum', description: 'Från och med datum' },
+    { header: 'Tom datum', description: 'Till och med datum' },
     { header: 'notering', description: 'Notering' },
     { header: 'Omfatting', description: 'Omfattning' },
-    { header: 'Tomt', description: 'Tomt' },
+    { header: 'Tomt', description: 'Om värde inte ska med i export' },
   ];
 
   return (
@@ -61,7 +61,7 @@ const Header: React.FC = () => {
             onMouseLeave={handleMouseLeave}
           />
           {showTooltip && (
-            <div className="absolute top-full right-0 mt-2 w-64 p-2 bg-white border border-gray-300 rounded shadow-lg z-50">
+            <div className="absolute top-full right-0 mt-2 w-80 p-2 bg-white border border-gray-300 rounded shadow-lg z-50">
               <ul>
                 {headerDescriptions.map((item, index) => (
                   <li key={index}>
