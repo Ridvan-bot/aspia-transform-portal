@@ -46,10 +46,11 @@ const Payment: React.FC<PaymentProps> = ({ onDateSelected, handleExport, dateSel
 
   return (
     <div className="payment-container">
-      <div className="flex justify-start mt-4 space-x-4">
+      <div className="flex justify-start mt-4 space-x-4 items-center">
         <button
           className="button-custom px-4 py-2 bg-customButton text-customButtonTextColor rounded"
           onClick={() => setShowDatePicker(true)}
+          style={{ height: '2.5rem', fontSize: '1rem' }}
         >
           Utbetalningsdatum
         </button>
@@ -59,7 +60,7 @@ const Payment: React.FC<PaymentProps> = ({ onDateSelected, handleExport, dateSel
           placeholder="Första dagen i föregående månad"
           value={field1Value}
           onChange={handleField1Change}
-          style={{ fontSize: '1vw', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+          style={{ height: '2.5rem', fontSize: '1rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
         />
         <input
           type="text"
@@ -67,7 +68,7 @@ const Payment: React.FC<PaymentProps> = ({ onDateSelected, handleExport, dateSel
           placeholder="Sista dagen i föregående månad"
           value={field2Value}
           onChange={handleField2Change}
-          style={{ fontSize: '1vw', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+          style={{ height: '2.5rem', fontSize: '1rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
         />
       </div>
       {showDatePicker && (
@@ -80,10 +81,11 @@ const Payment: React.FC<PaymentProps> = ({ onDateSelected, handleExport, dateSel
         </div>
       )}
       {dateSelected && (
-          <div className="mt-4 ml-4">
+        <div className="mt-4 ml-4">
           <button
             className="button-custom px-4 py-2 bg-customButton text-customButtonTextColor rounded"
             onClick={handleExportClick}
+            style={{ height: '2.5rem', fontSize: '1rem' }}
           >
             Exportera
           </button>
