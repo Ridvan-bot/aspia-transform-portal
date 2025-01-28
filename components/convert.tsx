@@ -48,8 +48,8 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
 
       // Format dates
       const formattedSelectedDate = formatDate(selectedDate);
-      const formattedField1Value = field1Value.split('/').reverse().join('');
-      const formattedField2Value = field2Value.split('/').reverse().join('');
+      const formattedField1Value = formatDate(new Date(field1Value));
+      const formattedField2Value = formatDate(new Date(field2Value));
 
       // Create a new array with only the values
       const exportData = [
@@ -118,7 +118,7 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
     'Tom datum', 
     'notering', 
     'Omfatting',
-    '0-1=1-100%',
+    'Tom'
   ];
 
   // Filtrera bort tomma rader

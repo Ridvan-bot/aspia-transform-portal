@@ -21,7 +21,7 @@ const readCsvFile = (file: File): Promise<any[]> => {
             const emptyHeaderArray = results.data.map((row: any) => {
               const rowData: any = {};
               row.forEach((column: string, index: number) => {
-                rowData[`${index + 1}`] = column;
+                rowData[`Header${index + 1}`] = column;
               });
               return rowData;
             });
@@ -50,9 +50,8 @@ export const convert = async (file: File) => {
   try {
     const data = await readCsvFile(file);
     if (typeof data === 'object') {
-    return data;
-    }
-    else {
+      return data;
+    } else {
       throw new Error('Data is not an object');
     }
   } catch (error) {
