@@ -1,3 +1,5 @@
+## [1.1.0](https://github.com/Ridvan-bot/az-auto-protal/compare/v1.0.0...v1.1.0) (2025-01-28)
+
 ## 1.0.0 (2025-01-21)
 
 ### Bug Fixes
