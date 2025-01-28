@@ -27,7 +27,7 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
     return `${year}${month}${day}`;
   };
   const isValidDateFormat = (dateString: string): boolean => {
-    // v
+    // validate date format (YYYYMMDD)
     return /^\d{8}$/.test(dateString);
   };
 
