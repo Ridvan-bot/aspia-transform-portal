@@ -122,7 +122,7 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
     'Tom datum', 
     'notering', 
     'Omfatting',
-    'Tom'
+    'Tomt'
   ];
 
   // Filtrera bort tomma rader

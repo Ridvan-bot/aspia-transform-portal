@@ -54,7 +54,7 @@ const readCsvFile = (file: File): Promise<any[]> => {
             const emptyHeaderArray = results.data.map((row: any) => {
               const rowData: any = {};
               row.forEach((column: string, index: number) => {
-                rowData[`Tom${index + 1}`] = column;
+                rowData[`Tomt${index + 1}`] = column;
               });
               return rowData;
             });
