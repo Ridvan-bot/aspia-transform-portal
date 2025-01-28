@@ -3,7 +3,79 @@
 @tailwind utilities;
 
 body {
-    background-color: rgb(243, 241, 241);
-    color: #004b61;
-  }
+  background-color: rgb(243, 241, 241);
+  color: #004b61;
+  padding-top: 3rem; /* Minska padding-top för att flytta texten högre upp */
+}
 
+.services {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.services__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  padding: 2rem 184px 4.25rem;
+  text-align: center;
+}
+
+.services__header {
+  color: #004b61;
+  font-size: 3rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+.services__text {
+  max-width: 660px;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.container,
+.container-fluid {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  /* border: 2px solid red; */
+  text-align: center;
+}
+
+.container-tabell {
+  width: 100%;
+  height: auto; 
+  flex-direction: column;
+  /*border: 2px solid blue;*/
+  text-align: center;
+  overflow: auto;
+}
+
+.table-auto {
+  width: 100%;
+  table-layout: fixed; 
+}
+
+.table-auto th,
+.table-auto td {
+  padding: 0.25rem; 
+}
+
+.container,
+body {
+  min-width: 992px !important;
+}
+
+.payment-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 5%;
+}
