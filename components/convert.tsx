@@ -27,7 +27,7 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
     return `${year}${month}${day}`;
   };
   const isValidDateFormat = (dateString: string): boolean => {
-    // validate date format yyyyMMdd
+    // validate date format (YYYYMMDD)
     return /^\d{8}$/.test(dateString);
   };
 
@@ -122,7 +122,7 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
     'Tom datum', 
     'notering', 
     'Omfatting',
-    'Tom'
+    'Tomt'
   ];
 
   // Filtrera bort tomma rader

@@ -49,7 +49,7 @@ body {
   text-align: center;
 }
 
-.container-tabell {
+.container-tabel {
   width: 100%;
   height: auto; 
   flex-direction: column;
@@ -60,14 +60,50 @@ body {
 
 .table-auto {
   width: 100%;
-  table-layout: fixed; 
+  table-layout: fixed;
+  border-collapse: separate; /* Ensure border-radius works */
+  border-spacing: 0; /* Remove spacing between cells */
+  border-radius: 10px; /* Rounded corners for the table */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow to the table */
 }
 
 .table-auto th,
 .table-auto td {
-  padding: 0.25rem; 
+  padding: 0.25rem;
+  border: 3px solid rgb(200, 200, 200); /* Darker border color */
 }
 
+/* Add rounded corners to the first and last cells in the first and last rows */
+.table-auto tr:first-child th:first-child {
+  border-top-left-radius: 10px;
+}
+
+.table-auto tr:first-child th:last-child {
+  border-top-right-radius: 10px;
+}
+
+.table-auto tr:last-child td:first-child {
+  border-bottom-left-radius: 10px;
+}
+
+.table-auto tr:last-child td:last-child {
+  border-bottom-right-radius: 10px;
+}
+
+.table-auto tr:nth-child(even) {
+  background-color: rgb(223, 221, 221); /* Slightly darker than the original color */
+  color: #000000; /* Black text for better readability */
+}
+
+.table-auto tr:nth-child(odd) {
+  background-color: rgb(243, 241, 241); /* Original color for odd rows */
+  color: #000000; /* Black text for better readability */
+}
+
+/* Optional: Add hover effect */
+.table-auto tr:hover {
+  background-color: #e0e0e0; /* Slightly darker grey on hover */
+}
 .container,
 body {
   min-width: 992px !important;
@@ -78,4 +114,28 @@ body {
   justify-content: center;
   width: 100%;
   margin-top: 5%;
+}
+
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  marginRight: '-50%';
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  borderRadius: 10px;
+  boxShadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  backgroundColor: rgba(0, 0, 0, 0.75);
 }
