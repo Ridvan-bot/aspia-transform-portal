@@ -17,7 +17,6 @@ const Header: React.FC = () => {
 
   const headerDescriptions = [
     { header: 'Information om olika headers' },
-
     { header: 'Anst.nr', description: 'Anställningsnummer' },
     { header: 'Löneart', description: 'Löneart' },
     { header: 'Konto', description: 'Konto' },
@@ -31,7 +30,7 @@ const Header: React.FC = () => {
     { header: 'dim10', description: 'Dimension 10' },
     { header: 'antal', description: 'Antal' },
     { header: 'enhet', description: 'Enhet' },
-    { header: 'ápris', description: 'pris' },
+    { header: 'ápris', description: 'Pris' },
     { header: 'belopp', description: 'Belopp' },
     { header: 'From datum', description: 'Från och med datum' },
     { header: 'Tom datum', description: 'Till och med datum' },

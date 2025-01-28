@@ -53,7 +53,7 @@ const Payment: React.FC<PaymentProps> = ({ onDateSelected, handleExport, dateSel
 
   return (
     <div className="payment-container">
-      <div className="flex justify-start mt-4 space-x-4 items-center">
+      <div className="flex justify-start mt-4 space-x-4 items-center mb-10">
         <button
           className="button-custom px-4 py-2 bg-customButton text-customButtonTextColor rounded"
           onClick={() => setShowDatePicker(true)}
