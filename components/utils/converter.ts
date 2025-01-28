@@ -21,7 +21,7 @@ const readCsvFile = (file: File): Promise<any[]> => {
             const emptyHeaderArray = results.data.map((row: any) => {
               const rowData: any = {};
               row.forEach((column: string, index: number) => {
-                rowData[`Header${index + 1}`] = column;
+                rowData[`Tom${index + 1}`] = column;
               });
               return rowData;
             });

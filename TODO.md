@@ -13,8 +13,8 @@
 - [w] make sure dates are in the correct format
 - [x] verify that all the data is relevant
 - [x] add multiple lines in .csv file
-- [ ] aspia logo should be a link to home
-- [ ] fix date in second row
+- [x] aspia logo should be a link to home
+- [x] fix date in second row
 
 
 
