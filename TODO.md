@@ -7,15 +7,17 @@
 - [x] add multiple lines in .csv file
 - [x] aspia logo should be a link to home
 - [x] fix date in second row
-- [ ] make the deployment faster
-- [ ] Add info about header options
 - [x] add seperater(delimiter) tab
 - [x] add seperater(delimiter) ;
 - [x] add seperater(delimiter) Pipe
 - [x] add seperater(delimiter) Tilde
 - [x] add seperater(delimiter) ,
-- [ ] add seperater(delimiter) "value" space "value"
+- [x] add seperater(delimiter) "value" space "value"
 - [x] check date form before converting"
+- [ ] make the deployment faster
+- [ ] Add info about header options
+- [ ] Add number converter?
+
 
 
 
