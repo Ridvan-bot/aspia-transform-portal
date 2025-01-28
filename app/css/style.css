@@ -70,7 +70,7 @@ body {
 .table-auto th,
 .table-auto td {
   padding: 0.25rem;
-  border: 1px solid rgb(200, 200, 200); /* Darker border color */
+  border: 3px solid rgb(200, 200, 200); /* Darker border color */
 }
 
 /* Add rounded corners to the first and last cells in the first and last rows */
