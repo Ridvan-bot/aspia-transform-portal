@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+'use client';
+import React, { useState, useEffect } from 'react';
 import Payment from './payment';
 
 interface ConvertProps {
@@ -6,12 +7,19 @@ interface ConvertProps {
 }
 
 const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
-  const [editedContent, setEditedContent] = useState(fileContent);
-  const [headers, setHeaders] = useState(Object.keys(fileContent[0]));
+  const [editedContent, setEditedContent] = useState(fileContent || []);
+  const [headers, setHeaders] = useState<string[]>([]);
   const [dateSelected, setDateSelected] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [field1Value, setField1Value] = useState<string>('');
   const [field2Value, setField2Value] = useState<string>('');
+
+  useEffect(() => {
+    if (fileContent && fileContent.length > 0) {
+      setEditedContent(fileContent);
+      setHeaders(Object.keys(fileContent[0]));
+    }
+  }, [fileContent]);
 
   const handleHeaderChange = (colIndex: number, value: string) => {
     const newHeaders = [...headers];
@@ -26,8 +34,8 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
     const day = String(date.getDate()).padStart(2, '0');
     return `${year}${month}${day}`;
   };
+
   const isValidDateFormat = (dateString: string): boolean => {
-    // validate date format (YYYYMMDD)
     return /^\d{8}$/.test(dateString);
   };
 
@@ -53,7 +61,7 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
         if (dataObject['From datum'] && !isValidDateFormat(dataObject['From datum'])) {
           dataObject['From datum'] = formatDate(new Date(dataObject['From datum']));
         }
-    });
+      });
 
       // Format dates
       const formattedSelectedDate = formatDate(selectedDate);
@@ -95,8 +103,6 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-
-      return dataObjects;
     } else {
       console.log('No data available in the table.');
     }
@@ -126,7 +132,7 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
   ];
 
   // Filtrera bort tomma rader
-  const filteredContent = editedContent.filter(row => Object.values(row).some(value => value !== ''));
+  const filteredContent = editedContent ? editedContent.filter(row => Object.values(row).some(value => value !== '')) : [];
 
   return (
     <div className="container-tabell">
@@ -163,16 +169,18 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
           </tbody>
         </table>
       </div>
-      <Payment
-        onDateSelected={(date, field1, field2) => {
-          setDateSelected(true);
-          setSelectedDate(date);
-          setField1Value(field1);
-          setField2Value(field2);
-        }}
-        handleExport={handleExport}
-        dateSelected={dateSelected}
-      />
+      {fileContent.length > 0 && (
+        <Payment
+          onDateSelected={(date, field1, field2) => {
+            setDateSelected(true);
+            setSelectedDate(date);
+            setField1Value(field1);
+            setField2Value(field2);
+          }}
+          handleExport={handleExport}
+          dateSelected={dateSelected}
+        />
+      )}
     </div>
   );
 };
