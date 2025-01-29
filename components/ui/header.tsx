@@ -7,41 +7,41 @@ import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 const Header: React.FC = () => {
   const [showTooltip, setShowTooltip] = useState(false);
 
-  const handleMouseEnter = () => {
-    setShowTooltip(true);
-  };
-
-  const handleMouseLeave = () => {
-    setShowTooltip(false);
-  };
-
   const handleLogoClick = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     event.preventDefault();
     window.location.reload();
   };
 
+  
+  const toggleTooltip = () => {
+    setShowTooltip(prevState => !prevState);
+  };
   const headerDescriptions = [
-    { header: 'Anst.nr', description: 'Anställningsnummer' },
-    { header: 'Löneart', description: 'Löneart' },
-    { header: 'Konto', description: 'Konto' },
-    { header: 'dim2', description: 'Dimension 2' },
-    { header: 'dim3', description: 'Dimension 3' },
-    { header: 'dim4', description: 'Dimension 4' },
-    { header: 'dim5', description: 'Dimension 5' },
-    { header: 'dim6', description: 'Dimension 6' },
-    { header: 'dim7', description: 'Dimension 7' },
-    { header: 'dim8', description: 'Dimension 8' },
-    { header: 'dim9', description: 'Dimension 9' },
-    { header: 'dim10', description: 'Dimension 10' },
-    { header: 'antal', description: 'Antal' },
-    { header: 'enhet', description: 'Enhet' },
-    { header: 'ápris', description: 'Pris' },
-    { header: 'belopp', description: 'Belopp' },
-    { header: 'From datum', description: 'Från och med datum' },
-    { header: 'Tom datum', description: 'Till och med datum' },
-    { header: 'notering', description: 'Notering' },
-    { header: 'Omfatting', description: 'Omfattning' },
-    { header: 'Tomt', description: 'Tomt' },
+    { header: 'Anställningsnummer', description: 'Anställningsnummer kopplat till posten. (Alfanumeriskt, max 10 tecken).' },
+    { header: 'Löneartsnr', description: 'Löneartsnummer (Numeriskt, max 3 tecken).' },
+    { header: 'Konteringsnivå 1', description: 'Konteringsnivå 1 i Flex Payroll (’Konto’) (Alfanumeriskt fält).' },
+    { header: 'Konteringsnivå 2', description: 'Konteringsnivå 2 i Flex Payroll (vanligtvis ’K-ställe’) (Alfanumeriska fält).' },
+    { header: 'Konteringsnivå 3', description: 'Konteringsnivå 3 i Flex Payroll (Alfanumeriska fält).' },
+    { header: 'Konteringsnivå 4', description: '4 Konteringsnivå 4 i Flex Payroll (Alfanumeriska fält).' },
+    { header: 'Konteringsnivå 5', description: '5 Konteringsnivå 5 i Flex Payroll (Alfanumeriska fält).' },
+    { header: 'Konteringsnivå 6', description: '6 Konteringsnivå 6 i Flex Payroll (Alfanumeriska fält).' },
+    { header: 'Konteringsnivå 7', description: '7 Konteringsnivå 7 i Flex Payroll (Alfanumeriska fält).' },
+    { header: 'Konteringsnivå 8', description: '8 Konteringsnivå 8 i Flex Payroll (Alfanumeriska fält)' },
+    { header: 'Konteringsnivå 9', description: '9 Konteringsnivå 9 i Flex Payroll (Alfanumeriska fält).' },
+    { header: 'Konteringsnivå 10', description: '10 Konteringsnivå 10 i Flex Payroll (Alfanumeriska fält).' },
+    { header: 'Antal', description: 'Kvantitet (decimaltal)' },
+    { header: 'Antal enhet', description: `enheten för kvantitet, kan vara 'tim' (timmar), 'dgr' (dagar), ’kdgr’ (kalenderdagar), eller kan utelämnas om transaktionen inte innehåller frånvaro.` },
+    { header: 'A-pris', description: 'Enhetspris (decimaltal)' },
+    { header: 'Belopp', description: 'Belopp (decimaltal)' },
+    { header: 'Fr.o.m. datum', description: 'datum Från datum för transaktionen, i formatet ÅÅÅÅMMDD.' },
+    { header: 'T.o.m. datum', description: 'datum Till datum för transaktionen, i formatet ÅÅÅÅMMDD.' },
+    { header: 'Meddelande', description: 'Meddelande, bestående av max 50 tecken.' },
+    { header: 'Omfatting %', description: '% Omfattning i % (decimaltal) Exempel: 72,5 i filen motsvarar 72,5%' },
+    { header: 'Lönekod', description: 'Lönekod för transaktionen. (Alfanumeriskt, max 10 tecken). Lönekod är valfri och används sällan.' },
+    { header: 'Semesterkvot', description: 'Sätter semesterkvoten för datumintervallet för löneraden, om tillgänglig. Bör vara mellan 0,6 och 25.' },
+    { header: 'Kalenderdagsfaktor', description: 'Kalenderdagsfaktor för transaktionen.' },
+    { header: 'Barn', description: 'Identifierar barn/födelse i samband med föräldraledighet.' },
+    { header: 'Tomt', description: 'Om värde ej ska vara en del av export' },
   ];
 
   return (
@@ -61,14 +61,13 @@ const Header: React.FC = () => {
             icon={faInfoCircle}
             size="2x"
             className="text-customButtonTextColor hover:text-customButtonHoverColor cursor-pointer"
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
+            onClick={toggleTooltip}
           />
           {showTooltip && (
-            <div className="absolute top-full right-0 mt-2 w-80 p-2 bg-white border border-gray-300 rounded shadow-lg z-50">
+            <div className="absolute top-full right-0 mt-2 w-96 max-h-96 p-4 bg-white border border-gray-300 rounded shadow-lg z-50 overflow-y-auto">
               <ul>
                 {headerDescriptions.map((item, index) => (
-                  <li key={index}>
+                  <li key={index} className="mb-2">
                     <strong>{item.header}:</strong> {item.description}
                   </li>
                 ))}
