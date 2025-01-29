@@ -123,12 +123,9 @@ body {
   left: 50%;
   right: auto;
   bottom: auto;
-  marginRight: '-50%';
   transform: translate(-50%, -50%);
   background: white;
   padding: 20px;
-  borderRadius: 10px;
-  boxShadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .modal-overlay {
@@ -137,5 +134,29 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  backgroundColor: rgba(0, 0, 0, 0.75);
+  background-color:#17a2b8;;
+}
+
+#root, .flex-col {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.flex-grow {
+  flex-grow: 1;
+}
+
+
+
+footer {
+  background-color: #004b61; 
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+  margin-top: auto;
+  width: 100%; 
+  position: relative; 
+  left: 0;
+  right: 0;
 }
