@@ -22,6 +22,7 @@
 - [ ] setup auto test
 - [ ] make the deployment faster
 - [ ] Add number format verification?
+- [ ] Make sure dates comes in the right order
 
 
 
