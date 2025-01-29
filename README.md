@@ -21,6 +21,16 @@ This project is an automation portal designed to streamline and automate various
 3. Configure your Azure services
 4. Run the application using `npm start`
 
+### Cypress Testing
+To run Cypress tests, follow these steps:
+
+1. Add a .csv file named test.csv in the fixtures folder. This file is required for the tests to run correctly.
+
+2. 
+```sh
+npm run cypress:run
+```
+
 ### Access
 You can access the dev automation portal via this URL:
 [http://dev-az-automation-portal-pohlmanprotean-dns.northeurope.azurecontainer.io:8080/](http://dev-az-automation-portal-pohlmanprotean-dns.northeurope.azurecontainer.io:8080/)
