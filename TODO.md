@@ -15,10 +15,14 @@
 - [x] add seperater(delimiter) "value" space "value"
 - [x] check date form before converting"
 - [x] Users should be able to change utbetalningsdatum via filed1 and field2
+- [x] Add info about header options
+- [x] Fix Routing
+- [x] Each line in exported file needs to end with CRLF
 - [ ] setup auto test
 - [ ] make the deployment faster
-- [ ] Add info about header options
-- [ ] Add number converter?
-- [ ] Fix Routing
+- [ ] Add number format verification?
+- [ ] A box containing utbetalningsdatum
+
+
 
 

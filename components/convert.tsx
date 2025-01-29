@@ -76,22 +76,22 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
       ];
 
       // Create rows 3 and 4 based on options and dataObject
-      let row3 = dataObjects.map(dataObject => options.map(option => dataObject[option] || '').join('\t')).join('\n');
+      let row3 = dataObjects.map(dataObject => options.map(option => dataObject[option] || '').join('\t')).join('\r\n');
       const optionRow = options.join('\t');
 
       // Remove the last row from row3 if it's empty
-      const row3Lines = row3.split('\n');
+      const row3Lines = row3.split('\r\n');
       if (row3Lines[row3Lines.length - 1].trim() === '') {
         row3Lines.pop();
       }
-      row3 = row3Lines.join('\n');
+      row3 = row3Lines.join('\r\n');
 
       // Create CSV content with tab-separated values
       const csvContent = [
         'Version: 1.3 Ursprung: Flex HRM Time', // Fixed first line
         exportData.join('\t'), // Data values separated by tabs
         row3, // Row 3 with values from dataObject or tabs
-      ].filter(line => line.trim() !== '').join('\n'); // Filter out any empty lines
+      ].filter(line => line.trim() !== '').join('\r\n')+ '\r\n'; // Filter out any empty lines
 
       // Create a blob and trigger download
       const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
@@ -111,7 +111,8 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
   const options = [
     'Anst.nr', 
     'Löneart', 
-    'Konto', 
+    'Konto',
+    'dim2',
     'dim3', 
     'dim4', 
     'dim5', 
