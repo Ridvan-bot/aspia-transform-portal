@@ -68,6 +68,7 @@ const Payment: React.FC<PaymentProps> = ({ onDateSelected, handleExport, dateSel
           value={field1Value}
           onChange={handleField1Change}
           style={{ height: '2.5rem', fontSize: '1rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+          title="Första dagen i föregående månad"
         />
         <input
           type="text"
@@ -76,6 +77,16 @@ const Payment: React.FC<PaymentProps> = ({ onDateSelected, handleExport, dateSel
           value={field2Value}
           onChange={handleField2Change}
           style={{ height: '2.5rem', fontSize: '1rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+          title="Sista dagen i föregående månad"
+        />
+        <input
+          type="text"
+          className="input-custom px-4 py-2 border rounded"
+          placeholder="Utbetalningsdatum"
+          value={selectedDate ? selectedDate.toLocaleDateString() : ''}
+          readOnly
+          style={{ height: '2.5rem', fontSize: '1rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+          title="Utbetalningsdatum"
         />
       </div>
       {showDatePicker && (
