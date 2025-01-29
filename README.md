@@ -1,5 +1,11 @@
 # az-auto-protal
-An automation portal hosted in Azure
+
+
+![Build Status](https://github.com/Ridvan-bot/az-auto-protal/actions/workflows/deploy.yml/badge.svg)
+![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/Ridvan-bot/az-auto-protal?label=version&sort=semver)
+![Last Commit](https://img.shields.io/github/last-commit/Ridvan-bot/az-auto-protal)
+![GitHub issues](https://img.shields.io/github/issues/Ridvan-bot/az-auto-protal)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/Ridvan-bot/az-auto-protal)
 
 ## Project Information
 This project is an automation portal designed to streamline and automate various tasks. It is hosted on Azure and leverages several Azure services to provide a robust and scalable solution.
