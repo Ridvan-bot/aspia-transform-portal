@@ -15,5 +15,7 @@ export default defineConfig({
     setupNodeEvents(on, config) {
     },
     supportFile: 'cypress/support/e2e.ts',
+    specPattern: 'cypress/integration/**/*.spec.{js,jsx,ts,tsx}',
+    baseUrl: 'http://localhost:8080',
   },
 });

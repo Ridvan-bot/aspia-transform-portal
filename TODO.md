@@ -18,10 +18,11 @@
 - [x] Add info about header options
 - [x] Fix Routing
 - [x] Each line in exported file needs to end with CRLF
+- [x] A box containing utbetalningsdatum
 - [ ] setup auto test
 - [ ] make the deployment faster
 - [ ] Add number format verification?
-- [ ] A box containing utbetalningsdatum
+
 
 
 
