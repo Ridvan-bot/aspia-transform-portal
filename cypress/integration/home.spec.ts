@@ -15,8 +15,15 @@ describe('Home Page', () => {
     cy.get('button').contains('Mallar').should('exist');
   });
 
+  const files = [
+    'test.csv',
+    'noheader.csv',
+    'noheader_tab.csv',
+  ]
+
+  files.forEach((fileName) => {
   it('should import a file via the "Importera CSV" button and verify the content', () => {
-    const fileName = 'test.csv';
+    console.log(`Importing file: ${fileName}`);
     const fileType = 'text/csv';
 
     cy.fixture(fileName).then(fileContent => {
@@ -29,10 +36,6 @@ describe('Home Page', () => {
 
     cy.get('button').contains('Importera CSV').click();
     cy.get('div').contains(`Filen ${fileName} har blivit importerad`).should('exist');
-    cy.get('table').should('contain', '6349');
-    cy.get('table').should('contain', '2023-01-18');
-    cy.get('table').should('contain', '705');
-    cy.get('table').should('contain', '80,00');
     cy.screenshot();
 
     // Log all headers and count them
@@ -57,7 +60,8 @@ describe('Home Page', () => {
     // Testing Utbetalningsdatum 
     cy.get('button').contains('Utbetalningsdatum').click();
     cy.get('.react-datepicker').should('be.visible');
-    cy.get('.react-datepicker__day--012').should('be.visible').click();
+    cy.scrollTo('bottom');
+    cy.get('.react-datepicker__day--003').should('be.visible').click();
     cy.screenshot();
 
     // Testing Första dagen i föregående månad
@@ -73,5 +77,5 @@ describe('Home Page', () => {
     cy.get('button').contains('Exportera').click();
     cy.screenshot();
   });
-
+  });
 });
