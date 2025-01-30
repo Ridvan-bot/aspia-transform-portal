@@ -19,6 +19,11 @@ describe('Home Page', () => {
     'test.csv',
     'noheader.csv',
     'noheader_tab.csv',
+    'noheader_pipe.csv',
+    'noheader_space.csv',
+    'noheader_tilde.csv',
+    'noheader_comma.csv',
+    'TestImport_utan_header.csv',
   ]
 
   files.forEach((fileName) => {
