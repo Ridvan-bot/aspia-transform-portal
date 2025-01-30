@@ -1,3 +1,9 @@
+## [1.6.0](https://github.com/Ridvan-bot/az-auto-protal/compare/v1.5.0...v1.6.0) (2025-01-30)
+
+### Bug Fixes
+
+* remove local files ([46c2307](https://github.com/Ridvan-bot/az-auto-protal/commit/46c2307559a2d3f037ed38e9cc470beabd42157b))
+
 ## [1.5.0](https://github.com/Ridvan-bot/az-auto-protal/compare/v1.4.0...v1.5.0) (2025-01-28)
 
 ## [1.4.0](https://github.com/Ridvan-bot/az-auto-protal/compare/v1.3.0...v1.4.0) (2025-01-28)
