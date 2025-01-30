@@ -166,3 +166,7 @@ footer {
   align-items: center; 
   z-index: 50; 
 }
+
+.bg-red-100 {
+  background-color: rgba(255, 0, 0, 0.1); /* Light red background */
+}

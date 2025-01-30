@@ -124,23 +124,26 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
   return (
     <>
       <div className="container-tabel">
-        <table className="table-auto border-collapse  w-full">
+        <table className="table-auto border-collapse w-full">
           <thead className="sticky top-0 bg-white">
             <tr>
-              {headers.map((header, colIndex) => (
-                <th key={colIndex} className="border border-gray-300 px-2 py-2 text-ellipsis overflow-hidden whitespace-nowrap">
-                  <select
-                    value={header}
-                    onChange={(e) => handleHeaderChange(colIndex, e.target.value)}
-                    className="border border-gray-300 px-2 py-1 w-full"
-                  >
-                    <option value={header}>{header}</option>
-                    {options.map((option) => (
-                      <option key={option} value={option}>{option}</option>
-                    ))}
-                  </select>
-                </th>
-              ))}
+              {headers.map((header, colIndex) => {
+                const isValidHeader = options.includes(header);
+                return (
+                  <th key={colIndex} className={`border border-gray-300 px-2 py-2 text-ellipsis overflow-hidden whitespace-nowrap ${isValidHeader ? '' : 'bg-red-100'}`}>
+                    <select
+                      value={header}
+                      onChange={(e) => handleHeaderChange(colIndex, e.target.value)}
+                      className="border border-gray-300 px-2 py-1 w-full"
+                    >
+                      <option value={header}>{header}</option>
+                      {options.map((option) => (
+                        <option key={option} value={option}>{option}</option>
+                      ))}
+                    </select>
+                  </th>
+                );
+              })}
             </tr>
           </thead>
           <tbody>
