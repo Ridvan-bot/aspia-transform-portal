@@ -17,7 +17,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     <html lang="en">
       <body>
         <Header />
-        <div className="container mx-auto mt-10">
+        <div className="container mx-auto mt-10 mb-10">
         {children}
         </div>
       </body>

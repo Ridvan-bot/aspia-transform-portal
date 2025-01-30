@@ -122,9 +122,9 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
 
   const filteredContent = editedContent ? editedContent.filter(row => Object.values(row).some(value => value !== '' && value !== null && value !== undefined)) : [];
   return (
-    <div className="container-tabell">
-      <div className="flex justify-center pt-4 w-full max-h-screen overflow-auto">
-        <table className="table-auto border-collapse border border-gray-400 w-full">
+    <>
+      <div className="container-tabel">
+        <table className="table-auto border-collapse  w-full">
           <thead className="sticky top-0 bg-white">
             <tr>
               {headers.map((header, colIndex) => (
@@ -157,18 +157,20 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
         </table>
       </div>
       {fileContent.length > 0 && (
-        <Payment
-          onDateSelected={(date, field1, field2) => {
-            setDateSelected(true);
-            setSelectedDate(date);
-            setField1Value(field1);
-            setField2Value(field2);
-          }}
-          handleExport={handleExport}
-          dateSelected={dateSelected}
-        />
+        <div className="container-payment">
+          <Payment
+            onDateSelected={(date, field1, field2) => {
+              setDateSelected(true);
+              setSelectedDate(date);
+              setField1Value(field1);
+              setField2Value(field2);
+            }}
+            handleExport={handleExport}
+            dateSelected={dateSelected}
+          />
+        </div>
       )}
-    </div>
+    </>
   );
 };
 
