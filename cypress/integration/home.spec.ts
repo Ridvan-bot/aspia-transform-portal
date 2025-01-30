@@ -57,7 +57,7 @@ describe('Home Page', () => {
 
     cy.get('button').contains('Importera CSV').click();
     cy.get('div').contains(`Filen ${fileName} har blivit importerad`).should('exist');
-    cy.screenshot();
+
 
     // Log all headers and count them
     cy.get('table thead tr th').each((header, index) => {
@@ -76,7 +76,7 @@ describe('Home Page', () => {
       });
     });
 
-    cy.screenshot();
+
 
     // Testing Utbetalningsdatum 
     cy.get('button').contains('Utbetalningsdatum').click();
@@ -85,7 +85,7 @@ describe('Home Page', () => {
     cy.scrollTo('bottom');
     }
     cy.get('.react-datepicker__day--003').should('be.visible').click();
-    cy.screenshot();
+
 
     // Testing Första dagen i föregående månad
     cy.get('input.input-custom[placeholder="Första dagen i föregående månad"]').clear().type('2024-01-05');
@@ -94,7 +94,7 @@ describe('Home Page', () => {
     // Testing Sista dagen i föregående månad
     cy.get('input.input-custom[placeholder="Sista dagen i föregående månad"]').clear().type('2024-01-29');
     cy.get('input.input-custom[placeholder="Sista dagen i föregående månad"]').should('have.value', '2024-01-29');
-    cy.screenshot();
+
 
     // Click Exportera button
     cy.get('button').contains('Exportera').click();
