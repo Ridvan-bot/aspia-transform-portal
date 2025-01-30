@@ -24,6 +24,12 @@ describe('Home Page', () => {
     'noheader_tilde.csv',
     'noheader_comma.csv',
     'header_comma.csv',
+    'header_pipe.csv',
+    'header_space.csv',
+    'header_tab.csv',
+    'header_tilde.csv',
+    'header.csv',
+    'TestImport_unika_headers.csv',
     'TestImport_utan_header.csv',
   ]
 
