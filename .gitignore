@@ -40,3 +40,7 @@ next-env.d.ts
 .contentlayer
 
 package-lock.json
+
+cypress/fixtures/
+cypress/screenshots
+cypress/downloads/
