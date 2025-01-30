@@ -10,7 +10,8 @@ module.exports = {
             customWhite: '#ffffff',
             customText: '#004b61',
             customButton: '#004b61',
-            customButtonTextColor: '#96ceca',
+            customButtonTextColor: '#ffffff',
+            customInformationColor: '#96ceca',
           },
     // Define custom font sizes with line height and letter spacing
     // use text-{size} to apply the custom font size

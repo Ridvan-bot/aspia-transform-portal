@@ -60,7 +60,7 @@ const Header: React.FC = () => {
           <FontAwesomeIcon
             icon={faInfoCircle}
             size="2x"
-            className="text-customButtonTextColor hover:text-customButtonHoverColor cursor-pointer"
+            className="text-customInformationColor hover:text-customButtonHoverColor cursor-pointer"
             onClick={toggleTooltip}
           />
           {showTooltip && (
