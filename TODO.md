@@ -19,10 +19,10 @@
 - [x] Fix Routing
 - [x] Each line in exported file needs to end with CRLF
 - [x] A box containing utbetalningsdatum
-- [ ] setup auto test
+- [w] setup auto test
+- [x] Make sure dates comes in the right order
 - [ ] make the deployment faster
 - [ ] Add number format verification?
-- [ ] Make sure dates comes in the right order
 
 
 
