@@ -23,6 +23,7 @@ describe('Home Page', () => {
     'noheader_space.csv',
     'noheader_tilde.csv',
     'noheader_comma.csv',
+    'header_comma.csv',
     'TestImport_utan_header.csv',
   ]
 
@@ -30,8 +31,17 @@ describe('Home Page', () => {
   it('should import a file via the "Importera CSV" button and verify the content', () => {
     console.log(`Importing file: ${fileName}`);
     const fileType = 'text/csv';
+    
+    let scroll
 
     cy.fixture(fileName).then(fileContent => {
+      const rowCount = fileContent.split('\n').length;
+      if (rowCount > 2) {
+        scroll = true
+      }
+      else {
+        scroll = false
+      }
       cy.get('input[type="file"]').attachFile({
         fileContent,
         fileName,
@@ -65,7 +75,9 @@ describe('Home Page', () => {
     // Testing Utbetalningsdatum 
     cy.get('button').contains('Utbetalningsdatum').click();
     cy.get('.react-datepicker').should('be.visible');
+    if (scroll == true) {
     cy.scrollTo('bottom');
+    }
     cy.get('.react-datepicker__day--003').should('be.visible').click();
     cy.screenshot();
 
