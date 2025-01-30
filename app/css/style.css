@@ -151,12 +151,16 @@ body {
 
 footer {
   background-color: #004b61; 
-  color: #fff;
+  color: white;
   text-align: center;
   padding: 1rem;
-  margin-top: auto;
   width: 100%; 
-  position: relative; 
+  position: fixed; 
+  bottom: 0;
   left: 0;
   right: 0;
+  height: 35px; 
+  display: flex; 
+  align-items: center; 
+  z-index: 50; 
 }
