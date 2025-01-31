@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-
-interface PaymentProps {
-  onDateSelected: (date: Date | null, field1Value: string, field2Value: string) => void;
-  handleExport: (selectedDate: Date | null, field1Value: string, field2Value: string) => void;
-  dateSelected: boolean;
-}
+import { PaymentProps } from '@/types/interfaces';
 
 const Payment: React.FC<PaymentProps> = ({ onDateSelected, handleExport, dateSelected }) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);

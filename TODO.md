@@ -24,7 +24,8 @@
 - [ ] make the deployment faster
 - [ ] Add number format verification?
 - [ ] Implement mallar
-- [ ] Implement spara mallar
+- [w] Implement spara mallar
+- [ ] Make the solution more modular
 
 
 

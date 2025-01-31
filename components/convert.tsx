@@ -1,10 +1,9 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import Payment from './payment';
+import { ConvertProps } from '@/types/interfaces';
+import { options } from '@/data/staticData';
 
-interface ConvertProps {
-  fileContent: any[];
-}
 
 const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
   const [editedContent, setEditedContent] = useState(fileContent || []);
@@ -111,14 +110,6 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
       console.log('No data available in the table.');
     }
   };
-
-  const options = [
-    'Anställningsnummer', 'Löneartsnr', 'Konteringsnivå 1', 'Konteringsnivå 2', 
-    'Konteringsnivå 3', 'Konteringsnivå 4', 'Konteringsnivå 5', 'Konteringsnivå 6', 
-    'Konteringsnivå 7', 'Konteringsnivå 8', 'Konteringsnivå 9', 'Konteringsnivå 10', 
-    'Antal', 'Antal enhet', 'A-pris', 'Belopp', 'Fr.o.m. datum', 'T.o.m. datum', 
-    'Meddelande', 'Omfattning %', 'Lönekod', 'Semesterkvot', 'Kalenderdagsfaktor', 'Barn', 'Tomt'
-  ];
 
   const filteredContent = editedContent ? editedContent.filter(row => Object.values(row).some(value => value !== '' && value !== null && value !== undefined)) : [];
   return (

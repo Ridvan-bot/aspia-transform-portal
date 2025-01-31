@@ -1,4 +1,5 @@
 import Papa from 'papaparse';
+import { expectedHeadersWithHeader } from '@/data/staticData';
 
 const preprocessCsvData = (csvData: string): string => {
   // Replace all " with an empty string
@@ -19,16 +20,6 @@ const detectDelimiter = (firstLine: string): string => {
   ).delimiter;
   return mostFrequentDelimiter;
 };
-
-const expectedHeadersWithHeader = [
-  'Anställningsnummer', 'Löneartsnr', 'Konteringsnivå 1', 'Konteringsnivå 2', 
-  'Konteringsnivå 3', 'Konteringsnivå 4', 'Konteringsnivå 5', 'Konteringsnivå 6', 
-  'Konteringsnivå 7', 'Konteringsnivå 8', 'Konteringsnivå 9', 'Konteringsnivå 10', 
-  'Antal', 'Antal enhet', 'A-pris', 'Belopp', 'Fr.o.m. datum', 'T.o.m. datum', 
-  'Meddelande', 'Omfattning %', 'Lönekod', 'Semesterkvot', 'Kalenderdagsfaktor', 
-  'Barn', 'EmployeeCode', 'DepartmentCode', 'ProjectCode', 'ActivityCode', 'SalaryTypeCode',
-  'Quantity', 'PeriodStart', 'PeriodEnd'
-];
 
 const readCsvFile = (file: File): Promise<any[]> => {
   return new Promise((resolve, reject) => {
