@@ -12,6 +12,7 @@ const Home: React.FC = () => {
   const [templateName, setTemplateName] = useState<string>(''); // State for template name
   const [message, setMessage] = useState<string>('');
   const [messageColor, setMessageColor] = useState<string>(''); // State for message color
+  const [tableHeaders, setTableHeaders] = useState<string[]>([]); // State for table headers
 
   const handleImportClick = () => {
     if (fileInputRef.current) {
@@ -25,9 +26,14 @@ const Home: React.FC = () => {
       console.log('Fetched template:', data);
       const keys = extractKeys(data);
       console.log('Keys:', keys);
+      updateTableHeaders(keys);
     } catch (error) {
       console.error('Failed to fetch template:', error);
     }
+  };
+
+  const updateTableHeaders = (keys: string[]) => {
+    setTableHeaders(keys);
   };
 
   return (

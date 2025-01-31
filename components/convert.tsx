@@ -3,9 +3,10 @@ import React, { useState, useEffect } from 'react';
 import Payment from './payment';
 import { ConvertProps } from '@/types/interfaces';
 import { options } from '@/data/staticData';
+import { formatDate, isValidDateFormat } from './utils/utils';
 
 
-const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
+const Convert: React.FC<ConvertProps> = ({ fileContent, tableHeaders }) => {
   const [editedContent, setEditedContent] = useState(fileContent || []);
   const [headers, setHeaders] = useState<string[]>([]);
   const [dateSelected, setDateSelected] = useState(false);
@@ -27,18 +28,6 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
     console.log(newHeaders);
        // Save new headers to localStorage
        localStorage.setItem('headers', JSON.stringify(newHeaders));
-  };
-
-  const formatDate = (date: Date | null): string => {
-    if (!date) return '';
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}${month}${day}`;
-  };
-
-  const isValidDateFormat = (dateString: string): boolean => {
-    return /^\d{8}$/.test(dateString);
   };
 
   const handleExport = () => {
