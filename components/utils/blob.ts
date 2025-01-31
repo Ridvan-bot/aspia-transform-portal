@@ -9,9 +9,7 @@ export const getDataFromLocalStorage = (): any[] => {
 };
 
 export const saveDataAsJsonFile = async (data: any, filename: string) => {
-  console.log('data', data);
-  console.log('filename', filename);
-  const response = await fetch('/api/templet', {
+  const response = await fetch('/api/template', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -26,9 +24,8 @@ export const saveDataAsJsonFile = async (data: any, filename: string) => {
   return response.json();
 };
 
-
 export const fetchDataFromServer = async (filename: string) => {
-  const response = await fetch(`/api/templet?filename=${filename}`, {
+  const response = await fetch(`/api/template?filename=${filename}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

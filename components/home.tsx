@@ -8,16 +8,25 @@ const Home: React.FC = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
   const [fileContent, setFileContent] = useState<any[]>([]);
+  const [templateName, setTemplateName] = useState<string>(''); // State for template name
   const [message, setMessage] = useState<string>('');
   const [messageColor, setMessageColor] = useState<string>(''); // State for message color
+  const [templates, setTemplates] = useState<string[]>([]); // State for list of templates
 
   const handleSaveTemplate = async (
     fileContent: any[],
+    templateName: string,
     setMessage: (message: string) => void,
     setMessageColor: (color: string) => void
   ) => {
     if (fileContent.length === 0) {
       setMessage('Vänligen importera CSV-fil innan du skapar en mall');
+      setMessageColor('text-red-500'); // Set the message color to red
+      setTimeout(() => {
+        setMessage(''); // Clear the message after 5 seconds
+      }, 5000);
+    } else if (!templateName) {
+      setMessage('Vänligen ange ett namn för mallen');
       setMessageColor('text-red-500'); // Set the message color to red
       setTimeout(() => {
         setMessage(''); // Clear the message after 5 seconds
@@ -32,7 +41,7 @@ const Home: React.FC = () => {
       });
 
       try {
-        await saveDataAsJsonFile(dataObjects, 'template');
+        await saveDataAsJsonFile(dataObjects, templateName);
         setMessage('Mall sparad');
         setMessageColor('text-green-500'); // Set the message color to green
       } catch (error) {
@@ -46,13 +55,16 @@ const Home: React.FC = () => {
     }
   };
 
-  const handleFetchTemplate = async () => {
+  const fetchTemplate = async (filename: string) => {
     try {
-      const data = await fetchDataFromServer('template');
-      console.log('Fetched data:', data);
-      // Do something with the fetched data
+      const response = await fetch(`/api/template?filename=${filename}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch template');
+      }
+      const data = await response.json();
+      console.log('Template:', data);
     } catch (error) {
-      console.error('Failed to fetch data:', error);
+      console.error('Failed to fetch template:', error);
     }
   };
 
@@ -77,17 +89,27 @@ const Home: React.FC = () => {
           style={{ display: 'none' }}
           onChange={(event) => handleFileChange(event, setUploadedFileName, setFileContent, setMessage)}
         />
+        <input
+          type="text"
+          value={templateName}
+          onChange={(e) => setTemplateName(e.target.value)}
+          placeholder="Ange mallens namn"
+          className="input-custom px-4 py-2 rounded"
+        />
         <button
           className="button-custom px-4 py-2 bg-customButton text-customButtonTextColor rounded"
-          onClick={() => handleSaveTemplate(fileContent, setMessage, setMessageColor)}
+          onClick={() => handleSaveTemplate(fileContent, templateName, setMessage, setMessageColor)}
         >
           Spara Mall
         </button>
-        <button className="button-custom px-4 py-2 bg-customButton text-customButtonTextColor rounded"
-        onClick={handleFetchTemplate}
-        >
-          Mallar
-        </button>
+        <div className="relative">
+          <button
+            className="button-custom px-4 py-2 bg-customButton text-customButtonTextColor rounded"
+            onClick={() => fetchTemplate(templateName)}
+          >
+            Mallar
+          </button>
+        </div>
       </div>
       {uploadedFileName && (
         <div className="">

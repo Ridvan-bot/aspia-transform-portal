@@ -5,10 +5,8 @@ import path from 'path';
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     const { data, filename } = req.body;
-    console.log('Data:', data);
-    console.log('Filename:', filename);
 
-    const dir = path.join(process.cwd(), 'data/templets');
+    const dir = path.join(process.cwd(), 'data/templates');
     const filePath = path.join(dir, `${filename}.json`);
 
     // Create directory if it doesn't exist
@@ -22,8 +20,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     res.status(200).json({ message: 'File saved successfully' });
   } else if (req.method === 'GET') {
     const { filename } = req.query;
-    console.log('Filename:', filename);
-    const filePath = path.join(process.cwd(), 'data/templets', `${filename}.json`);
+    const filePath = path.join(process.cwd(), 'data/templates', `${filename}.json`);
 
     if (fs.existsSync(filePath)) {
       const fileData = fs.readFileSync(filePath, 'utf-8');
