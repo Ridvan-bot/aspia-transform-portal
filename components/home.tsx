@@ -2,7 +2,7 @@
 import React, { useRef, useState } from 'react';
 import Convert from './convert';
 import { handleFileChange } from './utils/fileHandler';
-import { handleSaveTemplate } from './utils/templetHandler';
+import { getHeadersFromLocalStorage, saveDataAsJsonFile, fetchDataFromServer } from './utils/blob';
 
 const Home: React.FC = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -11,6 +11,50 @@ const Home: React.FC = () => {
   const [message, setMessage] = useState<string>('');
   const [messageColor, setMessageColor] = useState<string>(''); // State for message color
 
+  const handleSaveTemplate = async (
+    fileContent: any[],
+    setMessage: (message: string) => void,
+    setMessageColor: (color: string) => void
+  ) => {
+    if (fileContent.length === 0) {
+      setMessage('Vänligen importera CSV-fil innan du skapar en mall');
+      setMessageColor('text-red-500'); // Set the message color to red
+      setTimeout(() => {
+        setMessage(''); // Clear the message after 5 seconds
+      }, 5000);
+    } else {
+      const headers = getHeadersFromLocalStorage();
+      const dataObjects = fileContent.map(row => {
+        return headers.reduce((acc, header, index) => {
+          acc[header] = row[Object.keys(row)[index]];
+          return acc;
+        }, {} as Record<string, any>);
+      });
+
+      try {
+        await saveDataAsJsonFile(dataObjects, 'template');
+        setMessage('Mall sparad');
+        setMessageColor('text-green-500'); // Set the message color to green
+      } catch (error) {
+        setMessage('Misslyckades med att spara mallen');
+        setMessageColor('text-red-500'); // Set the message color to red
+      }
+
+      setTimeout(() => {
+        setMessage(''); // Clear the message after 5 seconds
+      }, 5000);
+    }
+  };
+
+  const handleFetchTemplate = async () => {
+    try {
+      const data = await fetchDataFromServer('template');
+      console.log('Fetched data:', data);
+      // Do something with the fetched data
+    } catch (error) {
+      console.error('Failed to fetch data:', error);
+    }
+  };
 
   const handleImportClick = () => {
     if (fileInputRef.current) {
@@ -39,7 +83,9 @@ const Home: React.FC = () => {
         >
           Spara Mall
         </button>
-        <button className="button-custom px-4 py-2 bg-customButton text-customButtonTextColor rounded">
+        <button className="button-custom px-4 py-2 bg-customButton text-customButtonTextColor rounded"
+        onClick={handleFetchTemplate}
+        >
           Mallar
         </button>
       </div>

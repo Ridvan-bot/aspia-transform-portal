@@ -44,3 +44,5 @@ package-lock.json
 cypress/fixtures/
 cypress/screenshots
 cypress/downloads/
+
+data/templates/

@@ -24,6 +24,9 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
     const newHeaders = [...headers];
     newHeaders[colIndex] = value;
     setHeaders(newHeaders);
+    console.log(newHeaders);
+       // Save new headers to localStorage
+       localStorage.setItem('headers', JSON.stringify(newHeaders));
   };
 
   const formatDate = (date: Date | null): string => {
@@ -43,6 +46,8 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
       const dataObjects = editedContent.map(row => {
         return headers.reduce((acc, header, index) => {
           acc[header] = row[Object.keys(row)[index]];
+          console.log(acc);
+          console.log(typeof acc);
           return acc;
         }, {} as Record<string, any>);
       });
