@@ -2,8 +2,8 @@
 import React, { useRef, useState } from 'react';
 import Convert from './convert';
 import { handleFileChange, handleSaveTemplate } from './utils/fileHandler';
-import { fetchTemplate } from '@/services/api';
-
+import { getTemplate } from '@/services/api';
+import { extractKeys } from './utils/utils';
 
 const Home: React.FC = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -16,6 +16,17 @@ const Home: React.FC = () => {
   const handleImportClick = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click();
+    }
+  };
+
+  const fetchTemplate = async (filename: string) => {
+    try {
+      const data = await getTemplate(filename);
+      console.log('Fetched template:', data);
+      const keys = extractKeys(data);
+      console.log('Keys:', keys);
+    } catch (error) {
+      console.error('Failed to fetch template:', error);
     }
   };
 
