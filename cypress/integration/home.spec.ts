@@ -1,6 +1,11 @@
-// Funktion för att mappa index till text
 const indexToText = (index: number): string => {
-  const textMap = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth'];
+  const textMap = [
+    'first', 'second', 'third', 'fourth', 'fifth', 'sixth', 
+    'seventh', 'eighth', 'ninth', 'tenth', 'eleventh', 'twelfth', 
+    'thirteenth', 'fourteenth', 'fifteenth', 'sixteenth', 'seventeenth', 
+    'eighteenth', 'nineteenth', 'twentieth'
+  ];
+  
   return textMap[index] || `${index + 1}th`;
 };
 
