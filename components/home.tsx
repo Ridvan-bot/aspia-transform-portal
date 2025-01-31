@@ -1,8 +1,9 @@
 "use client";
 import React, { useRef, useState } from 'react';
 import Convert from './convert';
-import { handleFileChange } from './utils/fileHandler';
-import { getHeadersFromLocalStorage, saveDataAsJsonFile, fetchDataFromServer } from './utils/blob';
+import { handleFileChange, handleSaveTemplate } from './utils/fileHandler';
+import { fetchTemplate } from '@/services/api';
+
 
 const Home: React.FC = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -11,62 +12,6 @@ const Home: React.FC = () => {
   const [templateName, setTemplateName] = useState<string>(''); // State for template name
   const [message, setMessage] = useState<string>('');
   const [messageColor, setMessageColor] = useState<string>(''); // State for message color
-  const [templates, setTemplates] = useState<string[]>([]); // State for list of templates
-
-  const handleSaveTemplate = async (
-    fileContent: any[],
-    templateName: string,
-    setMessage: (message: string) => void,
-    setMessageColor: (color: string) => void
-  ) => {
-    if (fileContent.length === 0) {
-      setMessage('Vänligen importera CSV-fil innan du skapar en mall');
-      setMessageColor('text-red-500'); // Set the message color to red
-      setTimeout(() => {
-        setMessage(''); // Clear the message after 5 seconds
-      }, 5000);
-    } else if (!templateName) {
-      setMessage('Vänligen ange ett namn för mallen');
-      setMessageColor('text-red-500'); // Set the message color to red
-      setTimeout(() => {
-        setMessage(''); // Clear the message after 5 seconds
-      }, 5000);
-    } else {
-      const headers = getHeadersFromLocalStorage();
-      const dataObjects = fileContent.map(row => {
-        return headers.reduce((acc, header, index) => {
-          acc[header] = row[Object.keys(row)[index]];
-          return acc;
-        }, {} as Record<string, any>);
-      });
-
-      try {
-        await saveDataAsJsonFile(dataObjects, templateName);
-        setMessage('Mall sparad');
-        setMessageColor('text-green-500'); // Set the message color to green
-      } catch (error) {
-        setMessage('Misslyckades med att spara mallen');
-        setMessageColor('text-red-500'); // Set the message color to red
-      }
-
-      setTimeout(() => {
-        setMessage(''); // Clear the message after 5 seconds
-      }, 5000);
-    }
-  };
-
-  const fetchTemplate = async (filename: string) => {
-    try {
-      const response = await fetch(`/api/template?filename=${filename}`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch template');
-      }
-      const data = await response.json();
-      console.log('Template:', data);
-    } catch (error) {
-      console.error('Failed to fetch template:', error);
-    }
-  };
 
   const handleImportClick = () => {
     if (fileInputRef.current) {

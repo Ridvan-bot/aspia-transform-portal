@@ -23,8 +23,9 @@
 - [x] Make sure dates comes in the right order
 - [ ] make the deployment faster
 - [ ] Add number format verification?
-- [ ] Implement mallar
+- [w] Implement mallar
 - [w] Implement spara mallar
+- [ ] Tidy up code!
 - [ ] Make the solution more modular
 
 
