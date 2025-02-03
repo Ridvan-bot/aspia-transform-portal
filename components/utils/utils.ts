@@ -25,3 +25,9 @@ export const extractKeys = (data: any[]) => {
       return newItem;
     });
   };
+
+ // convert date string to date object
+export const convertToDate = (dateStr: string): Date => {
+let [day, month, year] = dateStr.split(/[./]/); // Split by either '/' or '.'
+return new Date(`${year}-${month}-${day}`);
+};

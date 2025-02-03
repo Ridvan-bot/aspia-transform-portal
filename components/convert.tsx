@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Payment from './payment';
 import { ConvertProps } from '@/types/interfaces';
 import { options } from '@/data/staticData';
-import { formatDate, isValidDateFormat } from './utils/utils';
+import { formatDate, isValidDateFormat, convertToDate } from './utils/utils';
 
 
 const Convert: React.FC<ConvertProps> = ({ fileContent, tableHeaders }) => {
@@ -40,12 +40,6 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, tableHeaders }) => {
         }, {} as Record<string, any>);
       });
 
-            // convert date string to date object
-            const convertToDate = (dateStr: string): Date => {
-              let [day, month, year] = dateStr.split(/[./]/); // Split by either '/' or '.'
-              return new Date(`${year}-${month}-${day}`);
-            };
-  
       // Add date fields to each data object
       dataObjects.forEach(dataObject => {
         dataObject['Utbetalningsdatum'] = selectedDate ? formatDate(selectedDate) : null;
@@ -54,19 +48,12 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, tableHeaders }) => {
   
         // Convert "Tom Datum" and "From Datum" to Date objects if not already in correct format
         if (dataObject['T.o.m. datum'] && !isValidDateFormat(dataObject['T.o.m. datum'])) {
-          console.log('Original T.o.m. datum:', dataObject['T.o.m. datum']);
           dataObject['T.o.m. datum'] = formatDate(convertToDate(dataObject['T.o.m. datum']));
-          console.log('Converted T.o.m. datum:', dataObject['T.o.m. datum']);
         }
         if (dataObject['Fr.o.m. datum'] && !isValidDateFormat(dataObject['Fr.o.m. datum'])) {
-          console.log('Original Fr.o.m. datum:', dataObject['Fr.o.m. datum']);
           dataObject['Fr.o.m. datum'] = formatDate(convertToDate(dataObject['Fr.o.m. datum']));
-          console.log('Converted Fr.o.m. datum:', dataObject['Fr.o.m. datum']);
         }
       });
-
-
-
 
       const field2Date = convertToDate(field2Value);
   
