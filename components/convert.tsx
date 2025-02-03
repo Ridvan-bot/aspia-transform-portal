@@ -106,7 +106,7 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, }) => {
   const filteredContent = editedContent ? editedContent.filter(row => Object.values(row).some(value => value !== '' && value !== null && value !== undefined)) : [];
   return (
     <>
-      <div className="container-tabel">
+      <div className="container-tabel mt-4">
         <table className="table-auto border-collapse w-full">
           <thead className="sticky top-0 bg-white">
             <tr>
