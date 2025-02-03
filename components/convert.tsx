@@ -6,7 +6,7 @@ import { options } from '@/data/staticData';
 import { formatDate, isValidDateFormat, convertToDate } from './utils/utils';
 
 
-const Convert: React.FC<ConvertProps> = ({ fileContent, tableHeaders }) => {
+const Convert: React.FC<ConvertProps> = ({ fileContent, }) => {
   const [editedContent, setEditedContent] = useState(fileContent || []);
   const [headers, setHeaders] = useState<string[]>([]);
   const [dateSelected, setDateSelected] = useState(false);

@@ -29,7 +29,12 @@ const Home: React.FC = () => {
       const updatedContent = mapKeys(fileContent, keys);
       setFileContent(updatedContent);
     } catch (error) {
-      console.error('Failed to fetch template:', error);
+      setMessage('Mallen finns inte eller kunde inte hämtas');
+      setMessageColor('text-red-500');
+      setTimeout(() => {
+        setMessage('');
+        setMessageColor('');
+      }, 5000);
     }
   };
 

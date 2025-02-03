@@ -35,7 +35,7 @@ export const getTemplates = async (filename: string) => {
     });
   
     if (!response.ok) {
-      throw new Error('Failed to fetch template');
+      return null;
     }
   
     const data = await response.json();
