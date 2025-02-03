@@ -25,7 +25,6 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, tableHeaders }) => {
     const newHeaders = [...headers];
     newHeaders[colIndex] = value;
     setHeaders(newHeaders);
-    console.log(newHeaders);
        // Save new headers to localStorage
        localStorage.setItem('headers', JSON.stringify(newHeaders));
   };
@@ -40,6 +39,12 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, tableHeaders }) => {
           return acc;
         }, {} as Record<string, any>);
       });
+
+            // convert date string to date object
+            const convertToDate = (dateStr: string): Date => {
+              let [day, month, year] = dateStr.split(/[./]/); // Split by either '/' or '.'
+              return new Date(`${year}-${month}-${day}`);
+            };
   
       // Add date fields to each data object
       dataObjects.forEach(dataObject => {
@@ -49,19 +54,19 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, tableHeaders }) => {
   
         // Convert "Tom Datum" and "From Datum" to Date objects if not already in correct format
         if (dataObject['T.o.m. datum'] && !isValidDateFormat(dataObject['T.o.m. datum'])) {
-          dataObject['T.o.m. datum'] = formatDate(new Date(dataObject['T.o.m. datum']));
+          console.log('Original T.o.m. datum:', dataObject['T.o.m. datum']);
+          dataObject['T.o.m. datum'] = formatDate(convertToDate(dataObject['T.o.m. datum']));
+          console.log('Converted T.o.m. datum:', dataObject['T.o.m. datum']);
         }
         if (dataObject['Fr.o.m. datum'] && !isValidDateFormat(dataObject['Fr.o.m. datum'])) {
-          dataObject['Fr.o.m. datum'] = formatDate(new Date(dataObject['Fr.o.m. datum']));
+          console.log('Original Fr.o.m. datum:', dataObject['Fr.o.m. datum']);
+          dataObject['Fr.o.m. datum'] = formatDate(convertToDate(dataObject['Fr.o.m. datum']));
+          console.log('Converted Fr.o.m. datum:', dataObject['Fr.o.m. datum']);
         }
       });
 
 
-      // convert date string to date object
-      const convertToDate = (dateStr: string): Date => {
-        const [day, month, year] = dateStr.split('/');
-        return new Date(`${year}-${month}-${day}`);
-      };
+
 
       const field2Date = convertToDate(field2Value);
   
@@ -69,9 +74,6 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, tableHeaders }) => {
       const formattedSelectedDate = formatDate(selectedDate);
       const formattedField1Value = formatDate(new Date(field1Value));
       const formattedField2Value = formatDate(new Date(field2Date));
-
-      console.log('filed1 value after formatted: ' + formattedField1Value);
-      console.log('filed2 value after formatted: ' + formattedField2Value);
   
       // Create a new array with only the values
       const exportData = [
