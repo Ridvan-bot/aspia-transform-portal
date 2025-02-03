@@ -1,10 +1,12 @@
-export const getTemplates = async (filename: string) => {
+export const getTemplates = async () => {
     try {
-      const response = await fetch(`/api/template`);
+      const response = await fetch(`/api/templates`);
       if (!response.ok) {
         throw new Error('Failed to fetch template');
       }
       const data = await response.json();
+      console.log(data);
+      return data;
     } catch (error) {
       console.error('Failed to fetch template:', error);
     }

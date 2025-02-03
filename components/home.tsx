@@ -1,8 +1,8 @@
 "use client";
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import Convert from './convert';
 import { handleFileChange, handleSaveTemplate } from './utils/fileHandler';
-import { getTemplate } from '@/services/api';
+import { getTemplate, getTemplates } from '@/services/api';
 import { extractKeys, mapKeys } from './utils/utils';
 
 
@@ -14,12 +14,20 @@ const Home: React.FC = () => {
   const [message, setMessage] = useState<string>('');
   const [messageColor, setMessageColor] = useState<string>(''); // State for message color
   const [tableHeaders, setTableHeaders] = useState<string[]>([]); // State for table headers
+  const [searchQuery, setSearchQuery] = useState<string>('');
 
   const handleImportClick = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click();
     }
   };
+
+  useEffect(() => {
+    if (searchQuery) {
+      fetchTemplate(searchQuery);
+      console.log(searchQuery);
+    }
+  }, [searchQuery]);
   
   const fetchTemplate = async (filename: string) => {
     try {
@@ -37,6 +45,8 @@ const Home: React.FC = () => {
       }, 5000);
     }
   };
+
+  
 
   return (
     <div className="container-fluid flex flex-col items-center pt-4 ">
@@ -74,6 +84,13 @@ const Home: React.FC = () => {
             Använd Mall
           </button>
         </div>
+        <input
+          type="text"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          placeholder="Sök efter mallar"
+          className="input-custom px-4 py-2 rounded"
+        />
       </div>
       {message && <p className={messageColor}>{message}</p>}
       {fileContent.length > 0 && <Convert fileContent={fileContent}  />}
