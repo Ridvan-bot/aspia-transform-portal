@@ -5,7 +5,6 @@ export const getTemplates = async (filename: string) => {
         throw new Error('Failed to fetch template');
       }
       const data = await response.json();
-      console.log('Template:', data);
     } catch (error) {
       console.error('Failed to fetch template:', error);
     }
@@ -23,7 +22,6 @@ export const getTemplates = async (filename: string) => {
     if (!response.ok) {
       throw new Error('Failed to save file');
     }
-    console.log('Template saved successfully');
   
     return response.json();
   };
@@ -37,10 +35,9 @@ export const getTemplates = async (filename: string) => {
     });
   
     if (!response.ok) {
-      throw new Error('Failed to fetch file');
+      throw new Error('Failed to fetch template');
     }
   
     const data = await response.json();
-    console.log('Template:', data);
     return data;
   };

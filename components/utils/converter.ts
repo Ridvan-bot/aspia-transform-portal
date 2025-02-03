@@ -33,9 +33,7 @@ const readCsvFile = (file: File): Promise<any[]> => {
 
       // Check if the first line contains headers
       const firstLine = csvData.split('\n')[0];
-      console.log(`First line of CSV: ${firstLine}`);
       const hasHeader = expectedHeadersWithHeader.some(header => firstLine.includes(header));
-      console.log(`Has header: ${hasHeader}`);
 
       // Detect the delimiter
       const delimiter = detectDelimiter(firstLine);

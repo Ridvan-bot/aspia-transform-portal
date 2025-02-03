@@ -17,7 +17,7 @@ describe('Home Page', () => {
   it('should have all buttons on the home page', () => {
     cy.get('button').contains('Importera CSV').should('exist');
     cy.get('button').contains('Spara Mall').should('exist');
-    cy.get('button').contains('Mallar').should('exist');
+    cy.get('button').contains('Använd Mall').should('exist');
   });
 
   const files = [
@@ -40,7 +40,6 @@ describe('Home Page', () => {
 
   files.forEach((fileName) => {
   it('should import a file via the "Importera CSV" button and verify the content', () => {
-    console.log(`Importing file: ${fileName}`);
     const fileType = 'text/csv';
     
     let scroll
@@ -61,9 +60,6 @@ describe('Home Page', () => {
     });
 
     cy.get('button').contains('Importera CSV').click();
-    cy.get('div').contains(`Filen ${fileName} har blivit importerad`).should('exist');
-
-
     // Log all headers and count them
     cy.get('table thead tr th').each((header, index) => {
     }).then((headers) => {

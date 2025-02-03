@@ -34,8 +34,6 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, tableHeaders }) => {
       const dataObjects = editedContent.map(row => {
         return headers.reduce((acc, header, index) => {
           acc[header] = row[Object.keys(row)[index]];
-          console.log(acc);
-          console.log(typeof acc);
           return acc;
         }, {} as Record<string, any>);
       });

@@ -24,24 +24,17 @@ const Home: React.FC = () => {
   const fetchTemplate = async (filename: string) => {
     try {
       const data = await getTemplate(filename);
-      console.log('Fetched template:', data);
       const keys = extractKeys(data);
-      console.log('Keys:', keys);
-      updateTableHeaders(keys);
+      setTableHeaders(keys);
       const updatedContent = mapKeys(fileContent, keys);
       setFileContent(updatedContent);
-      console.log('Updated fileContent:', updatedContent);
     } catch (error) {
       console.error('Failed to fetch template:', error);
     }
   };
 
-  const updateTableHeaders = (keys: string[]) => {
-    setTableHeaders(keys);
-  };
-
   return (
-    <div className="container-fluid flex flex-col items-center pt-4">
+    <div className="container-fluid flex flex-col items-center pt-4 ">
       <div className="flex space-x-4">
         <button
           className="button-custom px-4 py-2 bg-customButton text-customButtonTextColor rounded"
@@ -70,20 +63,15 @@ const Home: React.FC = () => {
         </button>
         <div className="relative">
           <button
-            className="button-custom px-4 py-2 bg-customButton text-customButtonTextColor rounded"
+            className="button-custom px-4 py-2 bg-customButton text-customButtonTextColor rounded" 
             onClick={() => fetchTemplate(templateName)}
           >
-            Mallar
+            Använd Mall
           </button>
         </div>
       </div>
-      {uploadedFileName && (
-        <div className="">
-          Filen {uploadedFileName} har blivit importerad
-        </div>
-      )}
       {message && <p className={messageColor}>{message}</p>}
-      {fileContent.length > 0 && <Convert fileContent={fileContent} />}
+      {fileContent.length > 0 && <Convert fileContent={fileContent}  />}
     </div>
   );
 };

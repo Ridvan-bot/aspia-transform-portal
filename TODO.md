@@ -21,11 +21,11 @@
 - [x] A box containing utbetalningsdatum
 - [w] setup auto test
 - [x] Make sure dates comes in the right order
+- [x] Implement mallar
+- [x] Implement spara mallar
 - [ ] make the deployment faster
 - [ ] Add number format verification?
-- [w] Implement mallar
-- [w] Implement spara mallar
-- [ ] Tidy up code!
+- [w] Tidy up code
 - [ ] Make the solution more modular
 
 

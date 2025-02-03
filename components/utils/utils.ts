@@ -4,7 +4,6 @@ export const extractKeys = (data: any[]) => {
   };
 
   export const formatDate = (date: Date | null): string => {
-    console.log('Date:', date);
     if (!date) return '';
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');

@@ -53,7 +53,6 @@ export const getDataFromLocalStorage = (): any[] => {
       const dataObjects = fileContent.map(row => {
         return headers.reduce((acc, header, index) => {
           acc[header] = row[Object.keys(row)[index]];
-          console.log(acc);
           return acc;
         }, {} as Record<string, any>);
       });
