@@ -57,18 +57,13 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, tableHeaders }) => {
       });
 
 
+      // convert date string to date object
       const convertToDate = (dateStr: string): Date => {
         const [day, month, year] = dateStr.split('/');
         return new Date(`${year}-${month}-${day}`);
       };
 
       const field2Date = convertToDate(field2Value);
-
-
-      console.log('filed1 value before formatted ' + field1Value);
-      console.log(typeof field1Value);
-      console.log('filed2 value before formatted ' + field2Value);
-      console.log(typeof field2Value);
   
       // Format dates
       const formattedSelectedDate = formatDate(selectedDate);
