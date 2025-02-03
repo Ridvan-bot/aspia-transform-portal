@@ -3,7 +3,8 @@ import React, { useRef, useState } from 'react';
 import Convert from './convert';
 import { handleFileChange, handleSaveTemplate } from './utils/fileHandler';
 import { getTemplate } from '@/services/api';
-import { extractKeys } from './utils/utils';
+import { extractKeys, mapKeys } from './utils/utils';
+
 
 const Home: React.FC = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -19,7 +20,7 @@ const Home: React.FC = () => {
       fileInputRef.current.click();
     }
   };
-
+  
   const fetchTemplate = async (filename: string) => {
     try {
       const data = await getTemplate(filename);
@@ -27,6 +28,9 @@ const Home: React.FC = () => {
       const keys = extractKeys(data);
       console.log('Keys:', keys);
       updateTableHeaders(keys);
+      const updatedContent = mapKeys(fileContent, keys);
+      setFileContent(updatedContent);
+      console.log('Updated fileContent:', updatedContent);
     } catch (error) {
       console.error('Failed to fetch template:', error);
     }

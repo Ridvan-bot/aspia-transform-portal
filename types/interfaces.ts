@@ -6,6 +6,6 @@ export interface PaymentProps {
 
   export interface ConvertProps {
     fileContent: any[];
-    tableHeaders: string[];
+    tableHeaders?: string[];
   }
 

@@ -4,6 +4,7 @@ export const extractKeys = (data: any[]) => {
   };
 
   export const formatDate = (date: Date | null): string => {
+    console.log('Date:', date);
     if (!date) return '';
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -13,4 +14,14 @@ export const extractKeys = (data: any[]) => {
 
   export const isValidDateFormat = (dateString: string): boolean => {
     return /^\d{8}$/.test(dateString);
+  };
+
+  export const mapKeys = (data: any[], keys: string[]) => {
+    return data.map(item => {
+      const newItem: any = {};
+      Object.keys(item).forEach((key, index) => {
+        newItem[keys[index]] = item[key];
+      });
+      return newItem;
+    });
   };
