@@ -38,12 +38,23 @@ const Home: React.FC = () => {
         setShowTemplateList(false);
       }
     };
-  
+
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+
+  useEffect(() => {
+    if (searchQuery) {
+      const filtered = allValues.filter(value =>
+        value.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredValues(filtered);
+    } else {
+      setFilteredValues(allValues);
+    }
+  }, [searchQuery, allValues]);
   
   const fetchTemplate = async (filename: string) => {
     try {
