@@ -150,8 +150,10 @@ const Home: React.FC = () => {
               key={index}
               className="border-b py-2 px-4 hover:bg-gray-100 cursor-pointer"
               onClick={() => {
-                setTemplateName(value); // Uppdatera templateName
-                fetchTemplate(value); // Anropa fetchTemplate med det valda mallnamnet
+                setTemplateName(value);
+                fetchTemplate(value);
+                setShowTemplateList(false);
+                setSearchQuery('');
               }}
             >
               {value}
