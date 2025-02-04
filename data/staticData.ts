@@ -44,3 +44,7 @@ export const headerDescriptions = [
     'Antal', 'Antal enhet', 'A-pris', 'Belopp', 'Fr.o.m. datum', 'T.o.m. datum', 
     'Meddelande', 'Omfattning %', 'Lönekod', 'Semesterkvot', 'Kalenderdagsfaktor', 'Barn', 'Tomt'
   ];
+
+  export const validUnits = ['tim', 'dgr', 'kdgr', ''];
+  const ssnRegex = /^\d{6}-\d{4}$/;
+
