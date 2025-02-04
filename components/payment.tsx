@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { PaymentProps } from '@/types/interfaces';
+import style from './payment.module.css';
 
 const Payment: React.FC<PaymentProps> = ({ onDateSelected, handleExport, dateSelected }) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
@@ -50,7 +51,7 @@ const Payment: React.FC<PaymentProps> = ({ onDateSelected, handleExport, dateSel
     <div className="payment-container">
       <div className="flex justify-start mt-4 space-x-4 items-center mb-10">
         <button
-          className="button-custom px-4 py-2 bg-customButton text-customButtonTextColor rounded max-h-11 text-sm leading-tight flex items-center justify-center"
+          className="button-custom"
           onClick={() => setShowDatePicker(true)}
           style={{ height: '2.5rem' }}
         >
@@ -58,7 +59,7 @@ const Payment: React.FC<PaymentProps> = ({ onDateSelected, handleExport, dateSel
         </button>
         <input
           type="text"
-          className="input-custom px-4 py-2 rounded w-full max-h-11 text-sm leading-tight flex items-center justify-center"
+          className="input-custom"
           placeholder="Första dagen i föregående månad"
           value={field1Value}
           onChange={handleField1Change}
@@ -67,7 +68,7 @@ const Payment: React.FC<PaymentProps> = ({ onDateSelected, handleExport, dateSel
         />
         <input
           type="text"
-          className="input-custom px-4 py-2 rounded w-full max-h-11 text-sm leading-tight flex items-center justify-center"
+          className="input-custom"
           placeholder="Sista dagen i föregående månad"
           value={field2Value}
           onChange={handleField2Change}
@@ -76,7 +77,7 @@ const Payment: React.FC<PaymentProps> = ({ onDateSelected, handleExport, dateSel
         />
         <input
           type="text"
-          className="input-custom px-4 py-2 rounded w-full max-h-11 text-sm leading-tight flex items-center justify-center"
+          className="input-custom"
           placeholder="Utbetalningsdatum"
           value={selectedDate ? selectedDate.toLocaleDateString() : ''}
           readOnly
@@ -96,7 +97,7 @@ const Payment: React.FC<PaymentProps> = ({ onDateSelected, handleExport, dateSel
       {dateSelected && (
         <div className="mt-4 ml-4 flex items-center justify-center">
           <button
-            className="button-custom px-4 py-2 bg-customButton text-customButtonTextColor rounded max-h-11 text-sm leading-tight flex items-center justify-center"
+            className="button-custom"
             onClick={handleExportClick}
             style={{ height: '2.5rem', fontSize: '1rem' }}
           >

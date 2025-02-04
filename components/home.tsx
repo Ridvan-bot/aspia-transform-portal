@@ -4,6 +4,7 @@ import Convert from './convert';
 import { handleFileChange, handleSaveTemplate } from './utils/fileHandler';
 import { getTemplate, getTemplates } from '@/services/api';
 import { extractKeys, mapKeys } from './utils/utils';
+import styles from './home.module.css';
 
 
 const Home: React.FC = () => {
@@ -102,7 +103,7 @@ const Home: React.FC = () => {
     <div className="container-fluid flex flex-col items-center pt-4 ">
       <div className="flex space-x-4">
         <button
-          className="button-custom px-4 py-2 bg-customButton text-customButtonTextColor rounded max-h-11 text-sm leading-tight flex items-center flex items-center justify-center"
+          className="button-custom"
           onClick={handleImportClick}
         >
           Importera CSV
@@ -118,17 +119,17 @@ const Home: React.FC = () => {
           value={templateName}
           onChange={(e) => setTemplateName(e.target.value)}
           placeholder="Ange mallens namn"
-          className="input-custom px-4 py-2 rounded max-h-11 text-sm leading-tight flex items-center justify-center"
+          className="input-custom"
         />
         <button
-          className="button-custom px-4 py-2 bg-customButton text-customButtonTextColor rounded max-h-11 text-sm leading-tight flex items-center justify-center"
+          className="button-custom"
           onClick={() => handleSaveTemplate(fileContent, templateName, setMessage, setMessageColor)}
         >
           Spara Mall
         </button>
         <div className="relative">
           <button
-            className="button-custom px-4 py-2 bg-customButton text-customButtonTextColor rounded max-h-11 text-sm leading-tight flex items-center justify-center" 
+            className="button-custom" 
             onClick={() => fetchTemplate(templateName)}
           >
             Använd Mall
@@ -141,7 +142,7 @@ const Home: React.FC = () => {
         onChange={(e) => setSearchQuery(e.target.value)}
         onFocus={fetchTemplates}
         placeholder="Alla mallar"
-        className="input-custom px-4 py-2 rounded w-full max-h-11 text-sm leading-tight flex items-center justify-center"
+        className="input-custom"
       />
       {showTemplateList && filteredValues.length > 0 && (
         <ul ref={templateListRef} className="mt-2 border border-gray-300 rounded shadow-lg text-sm overflow-y-auto w-full leading-tight max-h-40">

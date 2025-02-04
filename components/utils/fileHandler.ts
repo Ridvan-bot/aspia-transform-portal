@@ -30,44 +30,63 @@ export const getDataFromLocalStorage = (): any[] => {
   return data ? JSON.parse(data) : [];
 };
 
-  export const handleSaveTemplate = async (
-    fileContent: any[],
-    templateName: string,
-    setMessage: (message: string) => void,
-    setMessageColor: (color: string) => void
-  ) => {
-    if (fileContent.length === 0) {
-      setMessage('Vänligen importera CSV-fil innan du skapar en mall');
-      setMessageColor('text-red-500'); // Set the message color to red
-      setTimeout(() => {
-        setMessage(''); // Clear the message after 5 seconds
-      }, 5000);
-    } else if (!templateName) {
-      setMessage('Vänligen ange ett namn för mallen');
-      setMessageColor('text-red-500'); // Set the message color to red
-      setTimeout(() => {
-        setMessage(''); // Clear the message after 5 seconds
-      }, 5000);
-    } else {
-      const headers = getHeadersFromLocalStorage();
-      const dataObjects = fileContent.map(row => {
-        return headers.reduce((acc, header, index) => {
-          acc[header] = row[Object.keys(row)[index]];
-          return acc;
-        }, {} as Record<string, any>);
-      });
+export const handleSaveTemplate = async (
+  fileContent: any[],
+  templateName: string,
+  setMessage: (message: string) => void,
+  setMessageColor: (color: string) => void
+) => {
+  if (fileContent.length === 0) {
+    setMessage('Vänligen importera CSV-fil innan du skapar en mall');
+    setMessageColor('text-red-500'); // Set the message color to red
+    setTimeout(() => {
+      setMessage(''); // Clear the message after 5 seconds
+    }, 5000);
+    return;
+  }
 
-      try {
-        await postTemplet(dataObjects, templateName);
-        setMessage('Mall sparad');
-        setMessageColor('text-green-500'); // Set the message color to green
-      } catch (error) {
-        setMessage('Misslyckades med att spara mallen');
-        setMessageColor('text-red-500'); // Set the message color to red
-      }
+  if (!templateName) {
+    setMessage('Vänligen ange ett namn för mallen');
+    setMessageColor('text-red-500'); // Set the message color to red
+    setTimeout(() => {
+      setMessage(''); // Clear the message after 5 seconds
+    }, 5000);
+    return;
+  }
 
-      setTimeout(() => {
-        setMessage(''); // Clear the message after 5 seconds
-      }, 5000);
+  const headers = getHeadersFromLocalStorage();
+  const headerCount: Record<string, number> = {};
+
+  const uniqueHeaders = headers.map((header, index) => {
+    if (!header) {
+      header = `header_${index}`;
     }
-  };
+    if (headerCount[header] !== undefined) {
+      headerCount[header]++;
+      return `${header}_${headerCount[header]}`;
+    } else {
+      headerCount[header] = 0;
+      return header;
+    }
+  });
+
+  const dataObjects = fileContent.map(row => {
+    return uniqueHeaders.reduce((acc, header, index) => {
+      acc[header] = row[Object.keys(row)[index]];
+      console.log('acc', acc);
+      return acc;
+    }, {} as Record<string, any>);
+  });
+
+  try {
+    await postTemplet(dataObjects, templateName);
+    setMessage('Mall sparad');
+    setMessageColor('text-green-500'); // Set the message color to green
+  } catch (error) {
+    setMessage('Fel vid sparande av mall');
+    setMessageColor('text-red-500'); // Set the message color to red
+    setTimeout(() => {
+      setMessage('');
+    }, 5000);
+  }
+};
