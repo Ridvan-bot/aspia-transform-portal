@@ -87,6 +87,7 @@ const readCsvFile = (file: File): Promise<any[]> => {
 };
 export const convert = async (file: File) => {
   try {
+    console.log('Converting file:', file);
     const data = await readCsvFile(file);
     if (typeof data === 'object') {
       return data;

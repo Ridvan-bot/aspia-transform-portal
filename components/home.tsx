@@ -5,6 +5,7 @@ import { handleFileChange, handleSaveTemplate } from './utils/fileHandler';
 import { getTemplate, getTemplates } from '@/services/api';
 import { extractKeys, mapKeys } from './utils/utils';
 import styles from './home.module.css';
+import { template } from 'cypress/types/lodash';
 
 
 const Home: React.FC = () => {
@@ -15,7 +16,6 @@ const Home: React.FC = () => {
   const [message, setMessage] = useState<string>('');
   const [messageColor, setMessageColor] = useState<string>(''); // State for message color
   const [tableHeaders, setTableHeaders] = useState<string[]>([]); // State for table headers
-  const [displayKeys, setDisplayKeys] = useState<string[]>([]); 
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [allValues, setAllValues] = useState<any[]>([]);
   const [filteredValues, setFilteredValues] = useState<any[]>([]);
@@ -62,13 +62,7 @@ const Home: React.FC = () => {
     try {
       const data = await getTemplate(filename);
       const keys = extractKeys(data);
-
-      const displayKeys = keys.map(key => key.includes('_') ? key.split('_')[0] : key);
-
       setTableHeaders(keys)
-      setDisplayKeys(displayKeys)
-      console.log('displaykey: ' + displayKeys)
-      console.log(keys)
       const updatedContent = mapKeys(fileContent, keys);
       setFileContent(updatedContent);
     } catch (error) {
