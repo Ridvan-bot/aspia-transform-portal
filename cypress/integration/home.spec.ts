@@ -96,7 +96,12 @@ describe('Home Page', () => {
     cy.get('input.input-custom[placeholder="Sista dagen i föregående månad"]').clear().type('2024-01-29');
     cy.get('input.input-custom[placeholder="Sista dagen i föregående månad"]').should('have.value', '2024-01-29');
 
-
+    // Testing Alla Mallar
+    cy.get('input.input-custom[placeholder="Ange mallens namn"]').clear().type('TestTemplet');
+    cy.get('button').contains('Spara Mall').click();
+    cy.get('input.input-custom[placeholder="Alla mallar"]').clear().type('TestTemplet');
+    cy.get('ul').contains('li', 'TestTemplet').click();
+    
     // Click Exportera button
     cy.get('button').contains('Exportera').click();
     cy.screenshot();
