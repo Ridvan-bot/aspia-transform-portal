@@ -82,7 +82,6 @@ const Home: React.FC = () => {
         throw new Error('Failed to fetch templates');
       }
       const data = await response.json();
-      console.log('Fetched templates:', data);
       const templates = data.templates;
       setAllValues(templates);
       setFilteredValues(templates);

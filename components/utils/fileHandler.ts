@@ -73,7 +73,6 @@ export const handleSaveTemplate = async (
   const dataObjects = fileContent.map(row => {
     return uniqueHeaders.reduce((acc, header, index) => {
       acc[header] = row[Object.keys(row)[index]];
-      console.log('acc', acc);
       return acc;
     }, {} as Record<string, any>);
   });

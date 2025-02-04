@@ -3,8 +3,8 @@ import React, { useState, useEffect } from 'react';
 import Payment from './payment';
 import { ConvertProps } from '@/types/interfaces';
 import { options } from '@/data/staticData';
-import { formatDate, isValidDateFormat, convertToDate } from './utils/utils';
-
+import { formatDate, isValidDateFormat, convertToDate, isValidOmfattningFormat, formatPercentage } from './utils/utils';
+import { processDataObjects } from '@/components/utils/dataProcessing';
 
 const Convert: React.FC<ConvertProps> = ({ fileContent, }) => {
   const [editedContent, setEditedContent] = useState(fileContent || []);
@@ -13,6 +13,7 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, }) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [field1Value, setField1Value] = useState<string>('');
   const [field2Value, setField2Value] = useState<string>('');
+  const [processedData, setProcessedData] = useState<any[]>([]);
 
   useEffect(() => {
     if (fileContent && fileContent.length > 0) {
@@ -29,7 +30,7 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, }) => {
        localStorage.setItem('headers', JSON.stringify(newHeaders));
   };
 
-  const handleExport = () => {
+  const handleExport = async () => {
     if (editedContent.length > 0) {
       const dataObjects = editedContent.map(row => {
         return headers.reduce((acc, header, index) => {
@@ -39,19 +40,8 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, }) => {
       });
 
       // Add date fields to each data object
-      dataObjects.forEach(dataObject => {
-        dataObject['Utbetalningsdatum'] = selectedDate ? formatDate(selectedDate) : null;
-        dataObject['Första dagen i föregående månad'] = field1Value;
-        dataObject['Sista dagen i föregående månad'] = field2Value;
-  
-        // Convert "Tom Datum" and "From Datum" to Date objects if not already in correct format
-        if (dataObject['T.o.m. datum'] && !isValidDateFormat(dataObject['T.o.m. datum'])) {
-          dataObject['T.o.m. datum'] = formatDate(convertToDate(dataObject['T.o.m. datum']));
-        }
-        if (dataObject['Fr.o.m. datum'] && !isValidDateFormat(dataObject['Fr.o.m. datum'])) {
-          dataObject['Fr.o.m. datum'] = formatDate(convertToDate(dataObject['Fr.o.m. datum']));
-        }
-      });
+      await processDataObjects(dataObjects, selectedDate, field1Value, field2Value);
+      setProcessedData(dataObjects);
 
       const field2Date = convertToDate(field2Value);
   
