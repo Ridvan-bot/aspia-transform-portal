@@ -94,7 +94,7 @@ const Payment: React.FC<PaymentProps> = ({ onDateSelected, handleExport, dateSel
         </div>
       )}
       {dateSelected && (
-        <div className="mt-4 ml-4">
+        <div className="mt-4 ml-4 flex items-center justify-center">
           <button
             className="button-custom px-4 py-2 bg-customButton text-customButtonTextColor rounded max-h-11 text-sm leading-tight flex items-center justify-center"
             onClick={handleExportClick}
