@@ -129,7 +129,7 @@ const Home: React.FC = () => {
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
         onFocus={fetchTemplates}
-        placeholder="Sök efter mallar"
+        placeholder="Alla mallar"
         className="input-custom px-4 py-2 rounded w-full max-h-11 text-sm leading-tight"
       />
       {showTemplateList && filteredValues.length > 0 && (
@@ -138,7 +138,10 @@ const Home: React.FC = () => {
             <li
               key={index}
               className="border-b py-2 px-4 hover:bg-gray-100 cursor-pointer"
-              onClick={() => setTemplateName(value)} // Uppdatera templateName när en mall klickas
+              onClick={() => {
+                setTemplateName(value); // Uppdatera templateName
+                fetchTemplate(value); // Anropa fetchTemplate med det valda mallnamnet
+              }}
             >
               {value}
             </li>
