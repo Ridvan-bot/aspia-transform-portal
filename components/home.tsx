@@ -18,6 +18,8 @@ const Home: React.FC = () => {
   const [allValues, setAllValues] = useState<any[]>([]);
   const [filteredValues, setFilteredValues] = useState<any[]>([]);
   const [showTemplateList, setShowTemplateList] = useState<boolean>(false);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const templateListRef = useRef<HTMLUListElement>(null);
 
   const handleImportClick = () => {
     if (fileInputRef.current) {
@@ -26,15 +28,22 @@ const Home: React.FC = () => {
   };
 
   useEffect(() => {
-    if (searchQuery) {
-      const filtered = allValues.filter(value =>
-        JSON.stringify(value).toLowerCase().includes(searchQuery.toLowerCase())
-      );
-      setFilteredValues(filtered);
-    } else {
-      setFilteredValues(allValues);
-    }
-  }, [searchQuery, allValues]);
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        searchInputRef.current &&
+        !searchInputRef.current.contains(event.target as Node) &&
+        templateListRef.current &&
+        !templateListRef.current.contains(event.target as Node)
+      ) {
+        setShowTemplateList(false);
+      }
+    };
+  
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
   
   const fetchTemplate = async (filename: string) => {
     try {
@@ -98,7 +107,7 @@ const Home: React.FC = () => {
           value={templateName}
           onChange={(e) => setTemplateName(e.target.value)}
           placeholder="Ange mallens namn"
-          className="input-custom px-4 py-2 rounded max-h-11"
+          className="input-custom px-4 py-2 rounded max-h-11 text-sm leading-tight"
         />
         <button
           className="button-custom px-4 py-2 bg-customButton text-customButtonTextColor rounded max-h-11 text-sm leading-tight"
@@ -115,6 +124,7 @@ const Home: React.FC = () => {
           </button>
         </div>
         <input
+        ref={searchInputRef}
         type="text"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
@@ -123,10 +133,14 @@ const Home: React.FC = () => {
         className="input-custom px-4 py-2 rounded w-full max-h-11 text-sm leading-tight"
       />
       {showTemplateList && filteredValues.length > 0 && (
-        <ul className="mt-2 border border-gray-300 rounded shadow-lg max-h-60 overflow-y-auto w-full">
+        <ul ref={templateListRef} className="mt-2 border border-gray-300 rounded shadow-lg max-h-60 overflow-y-auto w-full">
           {filteredValues.map((value, index) => (
-            <li key={index} className="border-b py-2 px-4 hover:bg-gray-100 cursor-pointer">
-              {JSON.stringify(value)}
+            <li
+              key={index}
+              className="border-b py-2 px-4 hover:bg-gray-100 cursor-pointer"
+              onClick={() => setTemplateName(value)} // Uppdatera templateName när en mall klickas
+            >
+              {value}
             </li>
           ))}
         </ul>
