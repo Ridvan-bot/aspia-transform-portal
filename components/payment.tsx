@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { PaymentProps } from '@/types/interfaces';
@@ -44,9 +44,6 @@ const Payment: React.FC<PaymentProps> = ({ onDateSelected, handleExport, dateSel
     handleExport(selectedDate, field1Value, field2Value);
   };
 
-  useEffect(() => {
-  }, [field1Value, field2Value]);
-
   return (
     <div className="payment-container">
       <div className="flex justify-start mt-4 space-x-4 items-center mb-10">
@@ -86,7 +83,7 @@ const Payment: React.FC<PaymentProps> = ({ onDateSelected, handleExport, dateSel
         />
       </div>
       {showDatePicker && (
-        <div className="mt-4">
+        <div className="mt-4 mb-20">
           <DatePicker
             selected={selectedDate}
             onChange={handleDateChange}

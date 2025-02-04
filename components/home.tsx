@@ -5,7 +5,7 @@ import { handleFileChange, handleSaveTemplate } from './utils/fileHandler';
 import { getTemplate, getTemplates } from '@/services/api';
 import { extractKeys, mapKeys } from './utils/utils';
 import styles from './home.module.css';
-import { template } from 'cypress/types/lodash';
+
 
 
 const Home: React.FC = () => {
