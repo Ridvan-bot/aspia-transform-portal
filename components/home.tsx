@@ -15,6 +15,7 @@ const Home: React.FC = () => {
   const [message, setMessage] = useState<string>('');
   const [messageColor, setMessageColor] = useState<string>(''); // State for message color
   const [tableHeaders, setTableHeaders] = useState<string[]>([]); // State for table headers
+  const [displayKeys, setDisplayKeys] = useState<string[]>([]); 
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [allValues, setAllValues] = useState<any[]>([]);
   const [filteredValues, setFilteredValues] = useState<any[]>([]);
@@ -61,7 +62,13 @@ const Home: React.FC = () => {
     try {
       const data = await getTemplate(filename);
       const keys = extractKeys(data);
-      setTableHeaders(keys);
+
+      const displayKeys = keys.map(key => key.includes('_') ? key.split('_')[0] : key);
+
+      setTableHeaders(keys)
+      setDisplayKeys(displayKeys)
+      console.log('displaykey: ' + displayKeys)
+      console.log(keys)
       const updatedContent = mapKeys(fileContent, keys);
       setFileContent(updatedContent);
     } catch (error) {
@@ -82,7 +89,7 @@ const Home: React.FC = () => {
       }
       const data = await response.json();
       console.log('Fetched templates:', data);
-      const templates = data.templates; // Extrahera templates-arrayen
+      const templates = data.templates;
       setAllValues(templates);
       setFilteredValues(templates);
       setShowTemplateList(true);
