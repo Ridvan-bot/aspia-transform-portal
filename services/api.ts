@@ -4,9 +4,7 @@ export const getTemplates = async () => {
       if (!response.ok) {
         throw new Error('Failed to fetch template');
       }
-      const data = await response.json();
-      console.log(data);
-      return data;
+      return response;
     } catch (error) {
       console.error('Failed to fetch template:', error);
     }

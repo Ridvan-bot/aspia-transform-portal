@@ -15,6 +15,9 @@ const Home: React.FC = () => {
   const [messageColor, setMessageColor] = useState<string>(''); // State for message color
   const [tableHeaders, setTableHeaders] = useState<string[]>([]); // State for table headers
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const [allValues, setAllValues] = useState<any[]>([]);
+  const [filteredValues, setFilteredValues] = useState<any[]>([]);
+  const [showTemplateList, setShowTemplateList] = useState<boolean>(false);
 
   const handleImportClick = () => {
     if (fileInputRef.current) {
@@ -24,10 +27,14 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     if (searchQuery) {
-      fetchTemplate(searchQuery);
-      console.log(searchQuery);
+      const filtered = allValues.filter(value =>
+        JSON.stringify(value).toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredValues(filtered);
+    } else {
+      setFilteredValues(allValues);
     }
-  }, [searchQuery]);
+  }, [searchQuery, allValues]);
   
   const fetchTemplate = async (filename: string) => {
     try {
@@ -46,13 +53,36 @@ const Home: React.FC = () => {
     }
   };
 
+  const fetchTemplates = async () => {
+    try {
+      const response = await getTemplates();
+      if (!response) {
+        throw new Error('Failed to fetch templates');
+      }
+      const data = await response.json();
+      console.log('Fetched templates:', data);
+      const templates = data.templates; // Extrahera templates-arrayen
+      setAllValues(templates);
+      setFilteredValues(templates);
+      setShowTemplateList(true);
+    } catch (error) {
+      console.error('Error fetching templates:', error);
+      setMessage('Kunde inte hämta mallar');
+      setMessageColor('text-red-500');
+      setTimeout(() => {
+        setMessage('');
+        setMessageColor('');
+      }, 5000);
+    }
+  };
+
   
 
   return (
     <div className="container-fluid flex flex-col items-center pt-4 ">
       <div className="flex space-x-4">
         <button
-          className="button-custom px-4 py-2 bg-customButton text-customButtonTextColor rounded"
+          className="button-custom px-4 py-2 bg-customButton text-customButtonTextColor rounded max-h-11 text-sm leading-tight"
           onClick={handleImportClick}
         >
           Importera CSV
@@ -68,29 +98,39 @@ const Home: React.FC = () => {
           value={templateName}
           onChange={(e) => setTemplateName(e.target.value)}
           placeholder="Ange mallens namn"
-          className="input-custom px-4 py-2 rounded"
+          className="input-custom px-4 py-2 rounded max-h-11"
         />
         <button
-          className="button-custom px-4 py-2 bg-customButton text-customButtonTextColor rounded"
+          className="button-custom px-4 py-2 bg-customButton text-customButtonTextColor rounded max-h-11 text-sm leading-tight"
           onClick={() => handleSaveTemplate(fileContent, templateName, setMessage, setMessageColor)}
         >
           Spara Mall
         </button>
         <div className="relative">
           <button
-            className="button-custom px-4 py-2 bg-customButton text-customButtonTextColor rounded" 
+            className="button-custom px-4 py-2 bg-customButton text-customButtonTextColor rounded max-h-11 text-sm leading-tight" 
             onClick={() => fetchTemplate(templateName)}
           >
             Använd Mall
           </button>
         </div>
         <input
-          type="text"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Sök efter mallar"
-          className="input-custom px-4 py-2 rounded"
-        />
+        type="text"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        onFocus={fetchTemplates}
+        placeholder="Sök efter mallar"
+        className="input-custom px-4 py-2 rounded w-full max-h-11 text-sm leading-tight"
+      />
+      {showTemplateList && filteredValues.length > 0 && (
+        <ul className="mt-2 border border-gray-300 rounded shadow-lg max-h-60 overflow-y-auto w-full">
+          {filteredValues.map((value, index) => (
+            <li key={index} className="border-b py-2 px-4 hover:bg-gray-100 cursor-pointer">
+              {JSON.stringify(value)}
+            </li>
+          ))}
+        </ul>
+      )}
       </div>
       {message && <p className={messageColor}>{message}</p>}
       {fileContent.length > 0 && <Convert fileContent={fileContent}  />}
