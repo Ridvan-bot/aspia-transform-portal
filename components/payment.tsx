@@ -50,37 +50,37 @@ const Payment: React.FC<PaymentProps> = ({ onDateSelected, handleExport, dateSel
     <div className="payment-container">
       <div className="flex justify-start mt-4 space-x-4 items-center mb-10">
         <button
-          className="button-custom px-4 py-2 bg-customButton text-customButtonTextColor rounded"
+          className="button-custom px-4 py-2 bg-customButton text-customButtonTextColor rounded max-h-11 text-sm leading-tight flex items-center justify-center"
           onClick={() => setShowDatePicker(true)}
-          style={{ height: '2.5rem', fontSize: '1rem' }}
+          style={{ height: '2.5rem' }}
         >
           Utbetalningsdatum
         </button>
         <input
           type="text"
-          className="input-custom px-4 py-2 border rounded"
+          className="input-custom px-4 py-2 rounded w-full max-h-11 text-sm leading-tight flex items-center justify-center"
           placeholder="Första dagen i föregående månad"
           value={field1Value}
           onChange={handleField1Change}
-          style={{ height: '2.5rem', fontSize: '1rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+          style={{ height: '2.5rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
           title="Första dagen i föregående månad"
         />
         <input
           type="text"
-          className="input-custom px-4 py-2 border rounded"
+          className="input-custom px-4 py-2 rounded w-full max-h-11 text-sm leading-tight flex items-center justify-center"
           placeholder="Sista dagen i föregående månad"
           value={field2Value}
           onChange={handleField2Change}
-          style={{ height: '2.5rem', fontSize: '1rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+          style={{ height: '2.5rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
           title="Sista dagen i föregående månad"
         />
         <input
           type="text"
-          className="input-custom px-4 py-2 border rounded"
+          className="input-custom px-4 py-2 rounded w-full max-h-11 text-sm leading-tight flex items-center justify-center"
           placeholder="Utbetalningsdatum"
           value={selectedDate ? selectedDate.toLocaleDateString() : ''}
           readOnly
-          style={{ height: '2.5rem', fontSize: '1rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+          style={{ height: '2.5rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
           title="Utbetalningsdatum"
         />
       </div>
@@ -96,7 +96,7 @@ const Payment: React.FC<PaymentProps> = ({ onDateSelected, handleExport, dateSel
       {dateSelected && (
         <div className="mt-4 ml-4">
           <button
-            className="button-custom px-4 py-2 bg-customButton text-customButtonTextColor rounded"
+            className="button-custom px-4 py-2 bg-customButton text-customButtonTextColor rounded max-h-11 text-sm leading-tight flex items-center justify-center"
             onClick={handleExportClick}
             style={{ height: '2.5rem', fontSize: '1rem' }}
           >

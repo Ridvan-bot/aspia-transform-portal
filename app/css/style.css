@@ -174,3 +174,12 @@ footer {
 .spacing {
   margin-top: 20px;
 }
+
+
+.input-custom {
+  @apply px-4 py-2 rounded w-full max-h-11 text-sm leading-tight flex items-center justify-center;
+}
+
+.button-custom {
+  @apply px-4 py-2 bg-customButton text-customButtonTextColor rounded max-h-11 text-sm leading-tight flex items-center justify-center;
+}
