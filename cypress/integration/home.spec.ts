@@ -1,6 +1,11 @@
-// Funktion för att mappa index till text
 const indexToText = (index: number): string => {
-  const textMap = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth'];
+  const textMap = [
+    'first', 'second', 'third', 'fourth', 'fifth', 'sixth', 
+    'seventh', 'eighth', 'ninth', 'tenth', 'eleventh', 'twelfth', 
+    'thirteenth', 'fourteenth', 'fifteenth', 'sixteenth', 'seventeenth', 
+    'eighteenth', 'nineteenth', 'twentieth'
+  ];
+  
   return textMap[index] || `${index + 1}th`;
 };
 
@@ -12,7 +17,7 @@ describe('Home Page', () => {
   it('should have all buttons on the home page', () => {
     cy.get('button').contains('Importera CSV').should('exist');
     cy.get('button').contains('Spara Mall').should('exist');
-    cy.get('button').contains('Mallar').should('exist');
+    cy.get('button').contains('Använd Mall').should('exist');
   });
 
   const files = [
@@ -35,7 +40,6 @@ describe('Home Page', () => {
 
   files.forEach((fileName) => {
   it('should import a file via the "Importera CSV" button and verify the content', () => {
-    console.log(`Importing file: ${fileName}`);
     const fileType = 'text/csv';
     
     let scroll
@@ -56,9 +60,6 @@ describe('Home Page', () => {
     });
 
     cy.get('button').contains('Importera CSV').click();
-    cy.get('div').contains(`Filen ${fileName} har blivit importerad`).should('exist');
-
-
     // Log all headers and count them
     cy.get('table thead tr th').each((header, index) => {
     }).then((headers) => {
@@ -95,7 +96,12 @@ describe('Home Page', () => {
     cy.get('input.input-custom[placeholder="Sista dagen i föregående månad"]').clear().type('2024-01-29');
     cy.get('input.input-custom[placeholder="Sista dagen i föregående månad"]').should('have.value', '2024-01-29');
 
-
+    // Testing Alla Mallar
+    cy.get('input.input-custom[placeholder="Ange mallens namn"]').clear().type('TestTemplet');
+    cy.get('button').contains('Spara Mall').click();
+    cy.get('input.input-custom[placeholder="Alla mallar"]').clear().type('TestTemplet');
+    cy.get('ul').contains('li', 'TestTemplet').click();
+    
     // Click Exportera button
     cy.get('button').contains('Exportera').click();
     cy.screenshot();

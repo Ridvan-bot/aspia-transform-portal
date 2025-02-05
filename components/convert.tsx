@@ -1,18 +1,19 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import Payment from './payment';
+import { ConvertProps } from '@/types/interfaces';
+import { options } from '@/data/staticData';
+import { formatDate, isValidDateFormat, convertToDate, isValidOmfattningFormat, formatPercentage } from './utils/utils';
+import { processDataObjects } from '@/components/utils/dataProcessing';
 
-interface ConvertProps {
-  fileContent: any[];
-}
-
-const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
+const Convert: React.FC<ConvertProps> = ({ fileContent, }) => {
   const [editedContent, setEditedContent] = useState(fileContent || []);
   const [headers, setHeaders] = useState<string[]>([]);
   const [dateSelected, setDateSelected] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [field1Value, setField1Value] = useState<string>('');
   const [field2Value, setField2Value] = useState<string>('');
+  const [processedData, setProcessedData] = useState<any[]>([]);
 
   useEffect(() => {
     if (fileContent && fileContent.length > 0) {
@@ -25,21 +26,11 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
     const newHeaders = [...headers];
     newHeaders[colIndex] = value;
     setHeaders(newHeaders);
+       // Save new headers to localStorage
+       localStorage.setItem('headers', JSON.stringify(newHeaders));
   };
 
-  const formatDate = (date: Date | null): string => {
-    if (!date) return '';
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}${month}${day}`;
-  };
-
-  const isValidDateFormat = (dateString: string): boolean => {
-    return /^\d{8}$/.test(dateString);
-  };
-
-  const handleExport = () => {
+  const handleExport = async () => {
     if (editedContent.length > 0) {
       const dataObjects = editedContent.map(row => {
         return headers.reduce((acc, header, index) => {
@@ -47,27 +38,17 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
           return acc;
         }, {} as Record<string, any>);
       });
-  
+
       // Add date fields to each data object
-      dataObjects.forEach(dataObject => {
-        dataObject['Utbetalningsdatum'] = selectedDate ? formatDate(selectedDate) : null;
-        dataObject['Första dagen i föregående månad'] = field1Value;
-        dataObject['Sista dagen i föregående månad'] = field2Value;
-  
-        // Convert "Tom Datum" and "From Datum" to Date objects if not already in correct format
-        if (dataObject['T.o.m. datum'] && !isValidDateFormat(dataObject['T.o.m. datum'])) {
-          dataObject['T.o.m. datum'] = formatDate(new Date(dataObject['T.o.m. datum']));
-        }
-        if (dataObject['Fr.o.m. datum'] && !isValidDateFormat(dataObject['Fr.o.m. datum'])) {
-          dataObject['Fr.o.m. datum'] = formatDate(new Date(dataObject['Fr.o.m. datum']));
-        }
-      });
-  
+      await processDataObjects(dataObjects, selectedDate, field1Value, field2Value);
+      setProcessedData(dataObjects);
+
+      const field2Date = convertToDate(field2Value);
   
       // Format dates
       const formattedSelectedDate = formatDate(selectedDate);
       const formattedField1Value = formatDate(new Date(field1Value));
-      const formattedField2Value = formatDate(new Date(field2Value));
+      const formattedField2Value = formatDate(new Date(field2Date));
   
       // Create a new array with only the values
       const exportData = [
@@ -112,30 +93,23 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
     }
   };
 
-  const options = [
-    'Anställningsnummer', 'Löneartsnr', 'Konteringsnivå 1', 'Konteringsnivå 2', 
-    'Konteringsnivå 3', 'Konteringsnivå 4', 'Konteringsnivå 5', 'Konteringsnivå 6', 
-    'Konteringsnivå 7', 'Konteringsnivå 8', 'Konteringsnivå 9', 'Konteringsnivå 10', 
-    'Antal', 'Antal enhet', 'A-pris', 'Belopp', 'Fr.o.m. datum', 'T.o.m. datum', 
-    'Meddelande', 'Omfattning %', 'Lönekod', 'Semesterkvot', 'Kalenderdagsfaktor', 'Barn', 'Tomt'
-  ];
-
   const filteredContent = editedContent ? editedContent.filter(row => Object.values(row).some(value => value !== '' && value !== null && value !== undefined)) : [];
   return (
     <>
-      <div className="container-tabel">
+      <div className="container-tabel mt-4 overflow-x-scroll">
         <table className="table-auto border-collapse w-full">
           <thead className="sticky top-0 bg-white">
             <tr>
               {headers.map((header, colIndex) => {
-                const isValidHeader = options.includes(header);
+                const selectedOption = header.toLowerCase().startsWith('tomt_') ? 'Tomt' : header;
+                const isValidHeader = selectedOption === 'Tomt' || options.includes(header);
                 return (
-                  <th key={colIndex} className={`border border-gray-300 px-2 py-2 text-ellipsis overflow-hidden whitespace-nowrap ${isValidHeader ? '' : 'bg-red-100'}`}>
-                    <select
-                      value={header}
-                      onChange={(e) => handleHeaderChange(colIndex, e.target.value)}
-                      className="border border-gray-300 px-2 py-1 w-full"
-                    >
+                <th key={colIndex} className={`border border-gray-300 px-2 py-2 text-ellipsis overflow-hidden whitespace-nowrap ${isValidHeader ? '' : 'bg-red-100'}`}>
+                <select
+                  value={selectedOption}
+                  onChange={(e) => handleHeaderChange(colIndex, e.target.value)}
+                  className="border border-gray-300 px-2 py-1 w-full"
+                >
                       <option value={header}>{header}</option>
                       {options.map((option) => (
                         <option key={option} value={option}>{option}</option>

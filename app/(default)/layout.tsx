@@ -7,7 +7,7 @@ export default function DefaultLayout({
 }) {
   return (
     <div className="container-main">
-      <div className="content">
+      <div className="flex-grow container mx-auto mt-10 mb-20">
         {children}
       </div>
       <Footer />

@@ -1,4 +1,5 @@
 import Papa from 'papaparse';
+import { expectedHeadersWithHeader } from '@/data/staticData';
 
 const preprocessCsvData = (csvData: string): string => {
   // Replace all " with an empty string
@@ -20,16 +21,6 @@ const detectDelimiter = (firstLine: string): string => {
   return mostFrequentDelimiter;
 };
 
-const expectedHeadersWithHeader = [
-  'Anställningsnummer', 'Löneartsnr', 'Konteringsnivå 1', 'Konteringsnivå 2', 
-  'Konteringsnivå 3', 'Konteringsnivå 4', 'Konteringsnivå 5', 'Konteringsnivå 6', 
-  'Konteringsnivå 7', 'Konteringsnivå 8', 'Konteringsnivå 9', 'Konteringsnivå 10', 
-  'Antal', 'Antal enhet', 'A-pris', 'Belopp', 'Fr.o.m. datum', 'T.o.m. datum', 
-  'Meddelande', 'Omfattning %', 'Lönekod', 'Semesterkvot', 'Kalenderdagsfaktor', 
-  'Barn', 'EmployeeCode', 'DepartmentCode', 'ProjectCode', 'ActivityCode', 'SalaryTypeCode',
-  'Quantity', 'PeriodStart', 'PeriodEnd'
-];
-
 const readCsvFile = (file: File): Promise<any[]> => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -42,9 +33,7 @@ const readCsvFile = (file: File): Promise<any[]> => {
 
       // Check if the first line contains headers
       const firstLine = csvData.split('\n')[0];
-      console.log(`First line of CSV: ${firstLine}`);
       const hasHeader = expectedHeadersWithHeader.some(header => firstLine.includes(header));
-      console.log(`Has header: ${hasHeader}`);
 
       // Detect the delimiter
       const delimiter = detectDelimiter(firstLine);
@@ -98,6 +87,7 @@ const readCsvFile = (file: File): Promise<any[]> => {
 };
 export const convert = async (file: File) => {
   try {
+    console.log('Converting file:', file);
     const data = await readCsvFile(file);
     if (typeof data === 'object') {
       return data;

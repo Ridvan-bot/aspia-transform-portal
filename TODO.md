@@ -19,10 +19,18 @@
 - [x] Fix Routing
 - [x] Each line in exported file needs to end with CRLF
 - [x] A box containing utbetalningsdatum
-- [w] setup auto test
+- [x] setup auto test
 - [x] Make sure dates comes in the right order
+- [x] Implement mallar
+- [x] Implement spara mallar
+- [x] Format value of Omfattning % 
 - [ ] make the deployment faster
 - [ ] Add number format verification?
+- [w] Tidy up code
+- [ ] Make the solution more modular
+
+
+
 
 
 

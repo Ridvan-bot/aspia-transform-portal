@@ -19,11 +19,12 @@ body {
 }
 
 .container-main {
-  max-width: 100%; /* Ensure the container does not exceed the viewport width */
-  max-height: 100vh; /* Ensure the container does not exceed the viewport height */
   overflow: hidden; /* Hide overflow content */
   position: center; /* Ensure positioning context for child elements */
   box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  margin-bottom: 5rem;
+  flex-grow: 1;
+  overflow-x: scroll; /* Enable horizontal scrolling */
 }
 
 .child-container {
@@ -62,6 +63,7 @@ body {
   max-height: 30%; /* Ensure the overall container does not exceed the viewport height */
   max-width: 100%; /* Ensure the overall container does not exceed the viewport width */
   overflow: auto; /* Enable scrolling if content exceeds the viewport height */
+
   /*border: 2px solid blue; */  
 }
 
@@ -76,7 +78,6 @@ body {
   text-align: center;
   /* border: 2px solid green; */  
   box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
-  overflow-x: hidden; /* Prevent horizontal overflow */
 }
 
 .container-tabel {
@@ -128,7 +129,6 @@ body {
   max-width: 100%; /* Ensure the container does not exceed the viewport width */
   max-height: 100vh; /* Ensure the container does not exceed the viewport height */
   overflow: auto; /* Enable scrolling if content exceeds the container size */
-
 }
 
 .modal {
@@ -169,4 +169,17 @@ footer {
 
 .bg-red-100 {
   background-color: rgba(255, 0, 0, 0.1); /* Light red background */
+}
+
+.spacing {
+  margin-top: 20px;
+}
+
+
+.input-custom {
+  @apply px-4 py-2 rounded w-full max-h-11 text-sm leading-tight flex items-center justify-center;
+}
+
+.button-custom {
+  @apply px-4 py-2 bg-customButton text-customButtonTextColor rounded max-h-11 text-sm leading-tight flex items-center justify-center;
 }

@@ -1,12 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-
-interface PaymentProps {
-  onDateSelected: (date: Date | null, field1Value: string, field2Value: string) => void;
-  handleExport: (selectedDate: Date | null, field1Value: string, field2Value: string) => void;
-  dateSelected: boolean;
-}
+import { PaymentProps } from '@/types/interfaces';
+import style from './payment.module.css';
 
 const Payment: React.FC<PaymentProps> = ({ onDateSelected, handleExport, dateSelected }) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
@@ -36,61 +32,58 @@ const Payment: React.FC<PaymentProps> = ({ onDateSelected, handleExport, dateSel
 
   const handleField1Change = (event: React.ChangeEvent<HTMLInputElement>) => {
     setField1Value(event.target.value);
-    onDateSelected(selectedDate, event.target.value, field2Value); // update parent component
+    onDateSelected(selectedDate, event.target.value, field1Value); // update parent component
   };
 
   const handleField2Change = (event: React.ChangeEvent<HTMLInputElement>) => {
     setField2Value(event.target.value);
-    onDateSelected(selectedDate, field1Value, event.target.value); // update parent component
+    onDateSelected(selectedDate, event.target.value, field2Value); // update parent component
   };
 
   const handleExportClick = () => {
     handleExport(selectedDate, field1Value, field2Value);
   };
 
-  useEffect(() => {
-  }, [field1Value, field2Value]);
-
   return (
     <div className="payment-container">
       <div className="flex justify-start mt-4 space-x-4 items-center mb-10">
         <button
-          className="button-custom px-4 py-2 bg-customButton text-customButtonTextColor rounded"
+          className="button-custom"
           onClick={() => setShowDatePicker(true)}
-          style={{ height: '2.5rem', fontSize: '1rem' }}
+          style={{ height: '2.5rem' }}
         >
           Utbetalningsdatum
         </button>
         <input
           type="text"
-          className="input-custom px-4 py-2 border rounded"
+          className="input-custom"
           placeholder="Första dagen i föregående månad"
           value={field1Value}
           onChange={handleField1Change}
-          style={{ height: '2.5rem', fontSize: '1rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+          style={{ height: '2.5rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
           title="Första dagen i föregående månad"
         />
         <input
           type="text"
-          className="input-custom px-4 py-2 border rounded"
+          className="input-custom"
           placeholder="Sista dagen i föregående månad"
           value={field2Value}
           onChange={handleField2Change}
-          style={{ height: '2.5rem', fontSize: '1rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+          style={{ height: '2.5rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
           title="Sista dagen i föregående månad"
         />
         <input
           type="text"
-          className="input-custom px-4 py-2 border rounded"
+          className="input-custom"
           placeholder="Utbetalningsdatum"
           value={selectedDate ? selectedDate.toLocaleDateString() : ''}
           readOnly
-          style={{ height: '2.5rem', fontSize: '1rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+          style={{ height: '2.5rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
           title="Utbetalningsdatum"
         />
       </div>
       {showDatePicker && (
-        <div className="mt-4">
+        <div className="mt-4 mb-20">
           <DatePicker
             selected={selectedDate}
             onChange={handleDateChange}
@@ -99,9 +92,9 @@ const Payment: React.FC<PaymentProps> = ({ onDateSelected, handleExport, dateSel
         </div>
       )}
       {dateSelected && (
-        <div className="mt-4 ml-4">
+        <div className="mt-4 ml-4 flex items-center justify-center">
           <button
-            className="button-custom px-4 py-2 bg-customButton text-customButtonTextColor rounded"
+            className="button-custom"
             onClick={handleExportClick}
             style={{ height: '2.5rem', fontSize: '1rem' }}
           >
