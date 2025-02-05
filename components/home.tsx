@@ -103,6 +103,7 @@ const Home: React.FC = () => {
     <div className="container-fluid flex flex-col items-center pt-4 ">
       <div className="flex space-x-4">
         <button
+          title='Klicka för att importera CSV'
           className="button-custom"
           onClick={handleImportClick}
         >
@@ -115,6 +116,7 @@ const Home: React.FC = () => {
           onChange={(event) => handleFileChange(event, setUploadedFileName, setFileContent, setMessage)}
         />
         <input
+          title='Om du vill skapa en ny mall, ange ett namn och klicka på knappen "Spara Mall".'
           type="text"
           value={templateName}
           onChange={(e) => setTemplateName(e.target.value)}
@@ -122,6 +124,7 @@ const Home: React.FC = () => {
           className="input-custom"
         />
         <button
+          title='Klicka för att spara mall'
           className="button-custom"
           onClick={() => handleSaveTemplate(fileContent, templateName, setMessage, setMessageColor)}
         >
@@ -129,6 +132,7 @@ const Home: React.FC = () => {
         </button>
         <div className="relative">
           <button
+            title='Skriv in mallens namn i "Anger mallens namn" och klicka på "Använd Mall" för att använda en befintlig mall.'
             className="button-custom" 
             onClick={() => fetchTemplate(templateName)}
           >
@@ -136,6 +140,7 @@ const Home: React.FC = () => {
           </button>
         </div>
         <input
+        title='Skriv in mallens namn för att söka efter en befintlig mall. När du valt mall kommer den att användas direkt i tabellen.'
         ref={searchInputRef}
         type="text"
         value={searchQuery}
