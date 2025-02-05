@@ -34,6 +34,7 @@
 - [ ] If mapping option, show checkmarks on each column for mapping.
 - [ ] Add rightside (or bottomside,  Robin belives it's a better way) where user can select output system such as Hogia, flex etc..
 - [ ] Make the solution more modular
+- [ ] setup a feater branch called Mapping
 - [w] Tidy up code
 
 
