@@ -24,10 +24,12 @@
 - [x] Implement mallar
 - [x] Implement spara mallar
 - [x] Format value of Omfattning % 
+- [x] Provide an error message to the user when rows has the wrong format.
+- [x] Add number format verification?
 - [ ] make the deployment faster
-- [ ] Add number format verification?
 - [w] Tidy up code
 - [ ] Make the solution more modular
+
 
 
 
