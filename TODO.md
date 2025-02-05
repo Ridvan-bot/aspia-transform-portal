@@ -27,6 +27,7 @@
 - [x] Provide an error message to the user when rows has the wrong format.
 - [x] Add number format verification?
 - [ ] make the deployment faster
+- [ ] deploy must not take more than 15 minutes
 - [ ] Make the solution more modular
 - [w] Tidy up code
 
