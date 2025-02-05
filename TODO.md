@@ -26,8 +26,13 @@
 - [x] Format value of Omfattning % 
 - [x] Provide an error message to the user when rows has the wrong format.
 - [x] Add number format verification?
+- [x] deploy must not take more than 15 minutes
 - [ ] make the deployment faster
-- [ ] deploy must not take more than 15 minutes
+- [ ] Add Mappning option 
+- [ ] Add Mappning button
+- [ ] Create locig for mapping values from column a to column b. Values should be importen by user as a .xls or .xlsx file. 
+- [ ] If mapping option, show checkmarks on each column for mapping.
+- [ ] Add rightside (or bottomside,  Robin belives it's a better way) where user can select output system such as Hogia, flex etc..
 - [ ] Make the solution more modular
 - [w] Tidy up code
 
