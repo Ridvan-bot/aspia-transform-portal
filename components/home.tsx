@@ -1,17 +1,18 @@
 "use client";
 import React, { useRef, useState, useEffect } from 'react';
 import Convert from './convert';
-import { handleFileChange, handleSaveTemplate } from './utils/fileHandler';
+import { handleFileChange } from './utils/converter';
+import { handleSaveTemplate } from './utils/fileHandler';
 import { getTemplate, getTemplates } from '@/services/api';
 import { extractKeys, mapKeys } from './utils/utils';
 import styles from './home.module.css';
 
-
-
 const Home: React.FC = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const fileMappingInputRef = useRef<HTMLInputElement>(null);
   const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
   const [fileContent, setFileContent] = useState<any[]>([]);
+  const [mappingContent, setMappingContent] = useState<any>(null);
   const [templateName, setTemplateName] = useState<string>(''); // State for template name
   const [message, setMessage] = useState<string>('');
   const [messageColor, setMessageColor] = useState<string>(''); // State for message color
@@ -21,11 +22,12 @@ const Home: React.FC = () => {
   const [filteredValues, setFilteredValues] = useState<any[]>([]);
   const [showTemplateList, setShowTemplateList] = useState<boolean>(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const [isMapping, setIsMapping] = useState<boolean>(false);
   const templateListRef = useRef<HTMLUListElement>(null);
 
-  const handleImportClick = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
+  const handleImportClick = (inputRef: React.RefObject<HTMLInputElement>) => {
+    if (inputRef.current) {
+      inputRef.current.click();
     }
   };
 
@@ -97,23 +99,34 @@ const Home: React.FC = () => {
     }
   };
 
-  
-
   return (
     <div className="container-fluid flex flex-col items-center pt-4 ">
       <div className="flex space-x-4">
-        <button
-          title='Klicka för att importera CSV'
+      <button
+          title='Klicka för att importera Mappning'
           className="button-custom"
-          onClick={handleImportClick}
+          onClick={() => handleImportClick(fileMappingInputRef)}
         >
-          Importera CSV
+          Importera Mappning
+        </button>
+        <input
+          type="file"
+          ref={fileMappingInputRef}
+          style={{ display: 'none' }}
+          onChange={(event) => handleFileChange(event, setUploadedFileName, setFileContent, setMappingContent, setMessage, ['xls', 'xlsx'], true)}
+        />
+        <button
+          title='Klicka för att importera en fil'
+          className="button-custom"
+          onClick={() => handleImportClick(fileInputRef)}
+        >
+          Importera Fil
         </button>
         <input
           type="file"
           ref={fileInputRef}
           style={{ display: 'none' }}
-          onChange={(event) => handleFileChange(event, setUploadedFileName, setFileContent, setMessage)}
+          onChange={(event) => handleFileChange(event, setUploadedFileName, setFileContent, setMappingContent, setMessage, ['csv'])}
         />
         <input
           title='Om du vill skapa en ny mall, ange ett namn och klicka på knappen "Spara Mall".'
@@ -140,36 +153,39 @@ const Home: React.FC = () => {
           </button>
         </div>
         <input
-        title='Skriv in mallens namn för att söka efter en befintlig mall. När du valt mall kommer den att användas direkt i tabellen.'
-        ref={searchInputRef}
-        type="text"
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-        onFocus={fetchTemplates}
-        placeholder="Alla mallar"
-        className="input-custom"
-      />
-      {showTemplateList && filteredValues.length > 0 && (
-        <ul ref={templateListRef} className="mt-2 border border-gray-300 rounded shadow-lg text-sm overflow-y-auto w-full leading-tight max-h-40">
-          {filteredValues.map((value, index) => (
-            <li
-              key={index}
-              className="border-b py-2 px-4 hover:bg-gray-100 cursor-pointer"
-              onClick={() => {
-                setTemplateName(value);
-                fetchTemplate(value);
-                setShowTemplateList(false);
-                setSearchQuery('');
-              }}
-            >
-              {value}
-            </li>
-          ))}
-        </ul>
-      )}
+          title='Skriv in mallens namn för att söka efter en befintlig mall. När du valt mall kommer den att användas direkt i tabellen.'
+          ref={searchInputRef}
+          type="text"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          onFocus={fetchTemplates}
+          placeholder="Alla mallar"
+          className="input-custom"
+        />
+        {showTemplateList && filteredValues.length > 0 && (
+          <ul ref={templateListRef} className="mt-2 border border-gray-300 rounded shadow-lg text-sm overflow-y-auto w-full leading-tight max-h-40">
+            {filteredValues.map((value, index) => (
+              <li
+                key={index}
+                className="border-b py-2 px-4 hover:bg-gray-100 cursor-pointer"
+                onClick={() => {
+                  setTemplateName(value);
+                  fetchTemplate(value);
+                  setShowTemplateList(false);
+                  setSearchQuery('');
+                }}
+              >
+                {value}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
       {message && <p className={messageColor}>{message}</p>}
-      {fileContent.length > 0 && <Convert fileContent={fileContent}  />}
+      {fileContent.length > 0 && <Convert fileContent={fileContent} />}
+      {!isMapping && mappingContent && (
+        console.log(mappingContent)
+      )}
     </div>
   );
 };

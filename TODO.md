@@ -27,6 +27,7 @@
 - [x] Provide an error message to the user when rows has the wrong format.
 - [x] Add number format verification?
 - [x] deploy must not take more than 15 minutes
+- [x] setup a feater branch called Mapping
 - [ ] make the deployment faster
 - [ ] Add Mappning option 
 - [ ] Add Mappning button
@@ -34,7 +35,6 @@
 - [ ] If mapping option, show checkmarks on each column for mapping.
 - [ ] Add rightside (or bottomside,  Robin belives it's a better way) where user can select output system such as Hogia, flex etc..
 - [ ] Make the solution more modular
-- [ ] setup a feater branch called Mapping
 - [w] Tidy up code
 
 

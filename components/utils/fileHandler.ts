@@ -1,24 +1,5 @@
-import { convert } from './converter';
+
 import { postTemplet } from '@/services/api';
-
-
-export const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>, setUploadedFileName: (name: string) => void, setFileContent: (content: any[]) => void, setMessage: (message: string) => void) => {
-  const file = event.target.files?.[0];
-  if (file) {
-    setUploadedFileName(file.name);
-
-    try {
-      const data = await convert(file);
-      if (data) {
-        setFileContent(data);
-      }
-    } catch (error) {
-      console.error('Error converting file:', error);
-      setMessage('Error converting file');
-    }
-  }
-};
-
 
 export const getHeadersFromLocalStorage = (): string[] => {
   const headers = localStorage.getItem('headers');

@@ -1,5 +1,7 @@
 import Papa from 'papaparse';
 import { expectedHeadersWithHeader } from '@/data/staticData';
+import * as XLSX from 'xlsx';
+
 
 const preprocessCsvData = (csvData: string): string => {
   // Replace all " with an empty string
@@ -85,17 +87,99 @@ const readCsvFile = (file: File): Promise<any[]> => {
     reader.readAsText(file);
   });
 };
-export const convert = async (file: File) => {
-  try {
-    console.log('Converting file:', file);
-    const data = await readCsvFile(file);
-    if (typeof data === 'object') {
-      return data;
-    } else {
-      throw new Error('Data is not an object');
+
+const readExcelFiles = (file: File): Promise<{ firstColumn: any[], secondColumn: any[] }> => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const data = new Uint8Array(event.target?.result as ArrayBuffer);
+      const workbook = XLSX.read(data, { type: 'array' });
+      const sheetName = workbook.SheetNames[0];
+      const worksheet = workbook.Sheets[sheetName];
+      const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 }) as any[][];
+
+      const rows = jsonData
+
+      const firstColumn = rows.map(row => row[0]);
+      const secondColumn = rows.map(row => row[1]);
+
+      resolve({ firstColumn, secondColumn });
+    };
+
+    reader.onerror = (error) => {
+      console.error('Error reading the file:', error);
+      reject(error);
+    };
+
+    reader.readAsArrayBuffer(file);
+  });
+};
+
+const convert = async (file: File) => {
+  const fileName = file.name;
+  const fileExtension = fileName.split('.').pop()?.toLowerCase();
+
+  if (fileExtension === 'csv') {
+    try {
+      const data = await readCsvFile(file);
+      if (typeof data === 'object') {
+        return data;
+      } else {
+        throw new Error('Data is not an object');
+      }
+    } catch (error) {
+      console.error('Error reading the file:', error);
+      throw error;
     }
-  } catch (error) {
-    console.error('Error reading the file:', error);
-    throw error;
+  }
+    else if (fileExtension === 'xls' || fileExtension === 'xlsx') {
+      const { firstColumn, secondColumn } = await readExcelFiles(file);
+      return { firstColumn, secondColumn };
+    }
+    else {
+      throw new Error('Invalid file type');
+    }
+};
+
+export const handleFileChange = async (
+  event: React.ChangeEvent<HTMLInputElement>,
+  setUploadedFileName: (name: string) => void,
+  setFileContent: (content: any[]) => void,
+  setMappingContent: (content: any) => void,
+  setMessage: (message: string) => void,
+  allowedExtensions: string[],
+  isMapping: boolean = false
+) => {
+  const file = event.target.files?.[0];
+  if (file) {
+    const fileName = file.name;
+    const fileExtension = fileName.split('.').pop()?.toLowerCase();
+
+    if (allowedExtensions.includes(fileExtension || '')) {
+      setUploadedFileName(fileName);
+      try {
+        const data = await convert(file);
+        if (data) {
+          if (isMapping) {
+            setMappingContent(data);
+          } else {
+            if (Array.isArray(data)) {
+              setFileContent(data);
+            } else {
+              setFileContent([]);
+              setMessage('Unexpected data format');
+            }
+          }
+        }
+      } catch (error) {
+        console.error('Error converting file:', error);
+        setMessage('Error converting file');
+      }
+    } else {
+      setMessage(`Filen måste vara av typen: ${allowedExtensions.join(', ')}`);
+    }
+  } else {
+    console.error('No file selected');
+    setMessage('Ingen fil vald');
   }
 };
