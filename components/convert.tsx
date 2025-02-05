@@ -40,27 +40,33 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent }) => {
     setColumnOptions(newColumnOptions);
   };
 
+  const mapValues = () => {
+    const updatedContent = editedContent.map(row => {
+      columnOptions.forEach((option, colIndex) => {
+        if (option === 'From' && mappingContent && mappingContent.firstColumn) {
+          const value = row[headers[colIndex]];
+          const matchIndex = mappingContent.firstColumn.indexOf(value);
+          if (matchIndex !== -1) {
+            const newValue = mappingContent.secondColumn[matchIndex];
+            row[headers[colIndex]] = newValue;
+            console.log(`Value ${value} matched with mappingContent.firstColumn and replaced with ${newValue}`);
+          }
+        }
+      });
+      return row;
+    });
+    setEditedContent(updatedContent);
+  };
+
   const handleExport = async () => {
+    mapValues(); // Ensure values are mapped before exporting
+
     if (editedContent.length > 0) {
       const dataObjects = editedContent.map(row => {
         return headers.reduce((acc, header, index) => {
           acc[header] = row[Object.keys(row)[index]];
           return acc;
         }, {} as Record<string, any>);
-      });
-      // Check for "From" column and compare values with mappingContent.firstColumn
-      columnOptions.forEach((option, colIndex) => {
-        console.log(option)
-
-        if (option === 'From' && mappingContent && mappingContent.firstColumn) {
-          
-          const matchedValues = editedContent
-            .map(row => row[headers[colIndex]])
-            .filter(value => mappingContent.firstColumn.includes(value));
-          matchedValues.forEach(value => {
-            console.log(`Value ${value} matched with mappingContent.firstColumn`);
-          });
-        }
       });
 
       // Add date fields to each data object

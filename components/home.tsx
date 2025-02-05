@@ -102,7 +102,7 @@ const Home: React.FC = () => {
   return (
     <div className="container-fluid flex flex-col items-center pt-4 ">
       <div className="flex space-x-4">
-      <button
+        <button
           title='Klicka för att importera Mappning'
           className="button-custom"
           onClick={() => handleImportClick(fileMappingInputRef)}
@@ -183,9 +183,6 @@ const Home: React.FC = () => {
       </div>
       {message && <p className={messageColor}>{message}</p>}
       {fileContent.length > 0 && <Convert fileContent={fileContent} mappingContent={mappingContent} />}
-      {!isMapping && !mappingContent && (
-        <p className="text-red-500">Mappningen har inte sparats. Vänligen spara mappningen innan du fortsätter.</p>
-      )}
     </div>
   );
 };

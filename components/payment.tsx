@@ -41,7 +41,6 @@ const Payment: React.FC<PaymentProps> = ({ onDateSelected, handleExport, dateSel
   };
 
   const handleExportClick = () => {
-    console.log('hit: 1')
     handleExport(selectedDate, field1Value, field2Value);
   };
 
