@@ -6,7 +6,7 @@ import { options } from '@/data/staticData';
 import { formatDate, convertToDate } from './utils/utils';
 import { processDataObjects } from '@/components/utils/dataProcessing';
 
-const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
+const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent }) => {
   const [editedContent, setEditedContent] = useState(fileContent || []);
   const [headers, setHeaders] = useState<string[]>([]);
   const [dateSelected, setDateSelected] = useState(false);
@@ -15,11 +15,14 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
   const [field2Value, setField2Value] = useState<string>('');
   const [processedData, setProcessedData] = useState<any[]>([]);
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
+  const [isMapping, setIsMapping] = useState<boolean>(false);
+  const [columnOptions, setColumnOptions] = useState<string[]>([]);
 
   useEffect(() => {
     if (fileContent && fileContent.length > 0) {
       setEditedContent(fileContent);
       setHeaders(Object.keys(fileContent[0]));
+      setColumnOptions(new Array(Object.keys(fileContent[0]).length).fill(''));
     }
   }, [fileContent]);
 
@@ -31,6 +34,12 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
     localStorage.setItem('headers', JSON.stringify(newHeaders));
   };
 
+  const handleColumnOptionChange = (colIndex: number, value: string) => {
+    const newColumnOptions = [...columnOptions];
+    newColumnOptions[colIndex] = value;
+    setColumnOptions(newColumnOptions);
+  };
+
   const handleExport = async () => {
     if (editedContent.length > 0) {
       const dataObjects = editedContent.map(row => {
@@ -38,6 +47,20 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
           acc[header] = row[Object.keys(row)[index]];
           return acc;
         }, {} as Record<string, any>);
+      });
+      // Check for "From" column and compare values with mappingContent.firstColumn
+      columnOptions.forEach((option, colIndex) => {
+        console.log(option)
+
+        if (option === 'From' && mappingContent && mappingContent.firstColumn) {
+          
+          const matchedValues = editedContent
+            .map(row => row[headers[colIndex]])
+            .filter(value => mappingContent.firstColumn.includes(value));
+          matchedValues.forEach(value => {
+            console.log(`Value ${value} matched with mappingContent.firstColumn`);
+          });
+        }
       });
 
       // Add date fields to each data object
@@ -104,6 +127,23 @@ const Convert: React.FC<ConvertProps> = ({ fileContent }) => {
       <div className="container-tabel mt-4 overflow-x-scroll">
         <table className="table-auto border-collapse w-full">
           <thead className="sticky top-0 bg-white">
+            {!isMapping && (
+              <tr>
+                {headers.map((header, colIndex) => (
+                  <th key={colIndex} className="border border-gray-300 px-2 py-2">
+                    <select
+                      className="border border-gray-300 px-2 py-1 w-full"
+                      defaultValue=""
+                      onChange={(e) => handleColumnOptionChange(colIndex, e.target.value)}
+                    >
+                      <option value=""> </option>
+                      <option value="Till">Till</option>
+                      <option value="From">Från</option>
+                    </select>
+                  </th>
+                ))}
+              </tr>
+            )}
             <tr>
               {headers.map((header, colIndex) => {
                 const selectedOption = header.toLowerCase().startsWith('tomt_') ? 'Tomt' : header;

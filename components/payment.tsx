@@ -32,15 +32,16 @@ const Payment: React.FC<PaymentProps> = ({ onDateSelected, handleExport, dateSel
 
   const handleField1Change = (event: React.ChangeEvent<HTMLInputElement>) => {
     setField1Value(event.target.value);
-    onDateSelected(selectedDate, event.target.value, field1Value); // update parent component
+    onDateSelected(selectedDate, event.target.value, field2Value); // update parent component
   };
 
   const handleField2Change = (event: React.ChangeEvent<HTMLInputElement>) => {
     setField2Value(event.target.value);
-    onDateSelected(selectedDate, event.target.value, field2Value); // update parent component
+    onDateSelected(selectedDate, field1Value, event.target.value); // update parent component
   };
 
   const handleExportClick = () => {
+    console.log('hit: 1')
     handleExport(selectedDate, field1Value, field2Value);
   };
 

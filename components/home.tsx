@@ -182,9 +182,9 @@ const Home: React.FC = () => {
         )}
       </div>
       {message && <p className={messageColor}>{message}</p>}
-      {fileContent.length > 0 && <Convert fileContent={fileContent} />}
-      {!isMapping && mappingContent && (
-        console.log(mappingContent)
+      {fileContent.length > 0 && <Convert fileContent={fileContent} mappingContent={mappingContent} />}
+      {!isMapping && !mappingContent && (
+        <p className="text-red-500">Mappningen har inte sparats. Vänligen spara mappningen innan du fortsätter.</p>
       )}
     </div>
   );

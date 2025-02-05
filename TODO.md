@@ -28,9 +28,9 @@
 - [x] Add number format verification?
 - [x] deploy must not take more than 15 minutes
 - [x] setup a feater branch called Mapping
+- [x] Add Mappning button
 - [ ] make the deployment faster
-- [ ] Add Mappning option 
-- [ ] Add Mappning button
+- [ ] Add Mappning option
 - [ ] Create locig for mapping values from column a to column b. Values should be importen by user as a .xls or .xlsx file. 
 - [ ] If mapping option, show checkmarks on each column for mapping.
 - [ ] Add rightside (or bottomside,  Robin belives it's a better way) where user can select output system such as Hogia, flex etc..
