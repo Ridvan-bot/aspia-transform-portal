@@ -181,6 +181,10 @@ footer {
   margin-top: 20px;
 }
 
+.invisible {
+  visibility: hidden;
+}
+
 
 .input-custom {
   @apply px-4 py-2 rounded w-full max-h-11 text-sm leading-tight flex items-center justify-center shadow-xl;

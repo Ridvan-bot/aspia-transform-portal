@@ -5,6 +5,7 @@ import { handleFileChange } from './utils/converter';
 import { handleSaveTemplate } from './utils/fileHandler';
 import { getTemplate, getTemplates } from '@/services/api';
 import { extractKeys, mapKeys } from './utils/utils';
+import { options } from '@/data/staticData';
 import styles from './home.module.css';
 
 const Home: React.FC = () => {
@@ -22,8 +23,9 @@ const Home: React.FC = () => {
   const [filteredValues, setFilteredValues] = useState<any[]>([]);
   const [showTemplateList, setShowTemplateList] = useState<boolean>(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
-  const [isMapping, setIsMapping] = useState<boolean>(false);
   const templateListRef = useRef<HTMLUListElement>(null);
+  const [isInputVisible, setIsInputVisible] = useState(false);
+  const [selectedColumn, setSelectedColumn] = useState<string>(''); // State for selected column
 
   const handleImportClick = (inputRef: React.RefObject<HTMLInputElement>) => {
     if (inputRef.current) {
@@ -99,22 +101,51 @@ const Home: React.FC = () => {
     }
   };
 
+
+
+  const handleColumnChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedColumn(e.target.value);
+    if (mappingContent && mappingContent.firstColumn && mappingContent.secondColumn) {
+      const updatedContent = fileContent.map(row => {
+        if (row[e.target.value] && mappingContent.firstColumn.includes(row[e.target.value])) {
+          const index = mappingContent.firstColumn.indexOf(row[e.target.value]);
+          row[e.target.value] = mappingContent.secondColumn[index];
+        }
+        return row;
+      });
+      setFileContent(updatedContent);
+    }
+  };
   return (
     <div className="container-fluid flex flex-col items-center pt-4 ">
       <div className="flex space-x-4">
-        <button
-          title='Klicka för att importera Mappning'
-          className="button-custom"
-          onClick={() => handleImportClick(fileMappingInputRef)}
+      <button
+        title='Klicka för att importera Mappning'
+        className="button-custom ml-0"
+        onClick={() => {
+          handleImportClick(fileMappingInputRef);
+        }}
+      >
+        Importera Mappning
+      </button>
+      <input
+        type="file"
+        ref={fileMappingInputRef}
+        style={{ display: 'none' }}
+        onChange={(event) => handleFileChange(event, setUploadedFileName, setFileContent, setMappingContent, setMessage, setMessageColor, ['xls', 'xlsx'], true, )
+        }
+      />
+        <select
+          title='Välj Kolumn för mappning'
+          value={selectedColumn}
+          onChange={handleColumnChange}
+          className={`input-custom ${isInputVisible ? '' : 'invisible'}`}
         >
-          Importera Mappning
-        </button>
-        <input
-          type="file"
-          ref={fileMappingInputRef}
-          style={{ display: 'none' }}
-          onChange={(event) => handleFileChange(event, setUploadedFileName, setFileContent, setMappingContent, setMessage, setMessageColor, ['xls', 'xlsx'], true)}
-        />
+          <option value="">Välj Kolumn för mappning</option>
+          {tableHeaders.map((header, index) => (
+            <option key={index} value={header}>{header}</option>
+          ))}
+        </select>
         <button
           title='Klicka för att importera en fil'
           className="button-custom"
@@ -123,11 +154,14 @@ const Home: React.FC = () => {
           Importera Fil
         </button>
         <input
-          type="file"
-          ref={fileInputRef}
-          style={{ display: 'none' }}
-          onChange={(event) => handleFileChange(event, setUploadedFileName, setFileContent, setMappingContent, setMessage, setMessageColor, ['csv'])}
-        />
+        type="file"
+        ref={fileInputRef}
+        style={{ display: 'none' }}
+        onChange={(event) => {
+        handleFileChange(event, setUploadedFileName, setFileContent, setMappingContent, setMessage, setMessageColor, ['csv']);
+        setIsInputVisible(true);
+        }}
+      />
         <input
           title='Om du vill skapa en ny mall, ange ett namn och klicka på knappen "Spara Mall".'
           type="text"

@@ -1,5 +1,5 @@
 import { formatDate, isValidDateFormat, convertToDate, isValidOmfattningFormat, formatPercentage } from '@/components/utils/utils';
-import { error } from 'console';
+
 
 export const processDataObjects = async (
   dataObjects: any[],
