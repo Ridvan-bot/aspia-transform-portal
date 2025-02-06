@@ -14,10 +14,10 @@ const Home: React.FC = () => {
   const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
   const [fileContent, setFileContent] = useState<any[]>([]);
   const [mappingContent, setMappingContent] = useState<any>(null);
-  const [templateName, setTemplateName] = useState<string>(''); // State for template name
+  const [templateName, setTemplateName] = useState<string>('');
   const [message, setMessage] = useState<string>('');
-  const [messageColor, setMessageColor] = useState<string>(''); // State for message color
-  const [tableHeaders, setTableHeaders] = useState<string[]>([]); // State for table headers
+  const [messageColor, setMessageColor] = useState<string>('');
+  const [tableHeaders, setTableHeaders] = useState<string[]>([]); 
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [allValues, setAllValues] = useState<any[]>([]);
   const [filteredValues, setFilteredValues] = useState<any[]>([]);
@@ -25,7 +25,7 @@ const Home: React.FC = () => {
   const searchInputRef = useRef<HTMLInputElement>(null);
   const templateListRef = useRef<HTMLUListElement>(null);
   const [isInputVisible, setIsInputVisible] = useState(false);
-  const [selectedColumn, setSelectedColumn] = useState<string>(''); // State for selected column
+  const [selectedColumn, setSelectedColumn] = useState<string>(''); 
 
   const handleImportClick = (inputRef: React.RefObject<HTMLInputElement>) => {
     if (inputRef.current) {
@@ -101,8 +101,6 @@ const Home: React.FC = () => {
     }
   };
 
-
-
   const handleColumnChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedColumn(e.target.value);
     if (mappingContent && mappingContent.firstColumn && mappingContent.secondColumn) {
@@ -116,25 +114,25 @@ const Home: React.FC = () => {
       setFileContent(updatedContent);
     }
   };
+
   return (
     <div className="container-fluid flex flex-col items-center pt-4 ">
       <div className="flex space-x-4">
-      <button
-        title='Klicka för att importera Mappning'
-        className="button-custom ml-0"
-        onClick={() => {
-          handleImportClick(fileMappingInputRef);
-        }}
-      >
-        Importera Mappning
-      </button>
-      <input
-        type="file"
-        ref={fileMappingInputRef}
-        style={{ display: 'none' }}
-        onChange={(event) => handleFileChange(event, setUploadedFileName, setFileContent, setMappingContent, setMessage, setMessageColor, ['xls', 'xlsx'], true, )
-        }
-      />
+        <button
+          title='Klicka för att importera Mappning'
+          className="button-custom ml-0"
+          onClick={() => {
+            handleImportClick(fileMappingInputRef);
+          }}
+        >
+          Importera Mappning
+        </button>
+        <input
+          type="file"
+          ref={fileMappingInputRef}
+          style={{ display: 'none' }}
+          onChange={(event) => handleFileChange(event, setUploadedFileName, setFileContent, setMappingContent, setMessage, setMessageColor, ['xls', 'xlsx'], true)}
+        />
         <select
           title='Välj Kolumn för mappning'
           value={selectedColumn}
@@ -142,7 +140,7 @@ const Home: React.FC = () => {
           className={`input-custom ${isInputVisible ? '' : 'invisible'}`}
         >
           <option value="">Välj Kolumn för mappning</option>
-          {tableHeaders.map((header, index) => (
+          {(tableHeaders.length > 0 ? tableHeaders : options).map((header, index) => (
             <option key={index} value={header}>{header}</option>
           ))}
         </select>
@@ -154,14 +152,14 @@ const Home: React.FC = () => {
           Importera Fil
         </button>
         <input
-        type="file"
-        ref={fileInputRef}
-        style={{ display: 'none' }}
-        onChange={(event) => {
-        handleFileChange(event, setUploadedFileName, setFileContent, setMappingContent, setMessage, setMessageColor, ['csv']);
-        setIsInputVisible(true);
-        }}
-      />
+          type="file"
+          ref={fileInputRef}
+          style={{ display: 'none' }}
+          onChange={(event) => {
+            handleFileChange(event, setUploadedFileName, setFileContent, setMappingContent, setMessage, setMessageColor, ['csv']);
+            setIsInputVisible(true);
+          }}
+        />
         <input
           title='Om du vill skapa en ny mall, ange ett namn och klicka på knappen "Spara Mall".'
           type="text"
