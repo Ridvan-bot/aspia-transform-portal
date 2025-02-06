@@ -48,8 +48,11 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent }) => {
           const matchIndex = mappingContent.firstColumn.indexOf(value);
           if (matchIndex !== -1) {
             const newValue = mappingContent.secondColumn[matchIndex];
-            row[headers[colIndex]] = newValue;
-            console.log(`Value ${value} matched with mappingContent.firstColumn and replaced with ${newValue}`);
+            const toColIndex = columnOptions.indexOf('To');
+            if (toColIndex !== -1) {
+              row[headers[toColIndex]] = newValue;
+              console.log(`Value ${value} matched with mappingContent.firstColumn and replaced with ${newValue} in 'To' column`);
+            }
           }
         }
       });
@@ -133,7 +136,7 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent }) => {
       <div className="container-tabel mt-4 overflow-x-scroll">
         <table className="table-auto border-collapse w-full">
           <thead className="sticky top-0 bg-white">
-            {!isMapping && (
+          {mappingContent && mappingContent.firstColumn && mappingContent.firstColumn.length > 0 && (
               <tr>
                 {headers.map((header, colIndex) => (
                   <th key={colIndex} className="border border-gray-300 px-2 py-2">
@@ -143,7 +146,7 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent }) => {
                       onChange={(e) => handleColumnOptionChange(colIndex, e.target.value)}
                     >
                       <option value=""> </option>
-                      <option value="Till">Till</option>
+                      <option value="To">Till</option>
                       <option value="From">Från</option>
                     </select>
                   </th>
