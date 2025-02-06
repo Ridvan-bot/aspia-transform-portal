@@ -113,7 +113,7 @@ const Home: React.FC = () => {
           type="file"
           ref={fileMappingInputRef}
           style={{ display: 'none' }}
-          onChange={(event) => handleFileChange(event, setUploadedFileName, setFileContent, setMappingContent, setMessage, ['xls', 'xlsx'], true)}
+          onChange={(event) => handleFileChange(event, setUploadedFileName, setFileContent, setMappingContent, setMessage, setMessageColor, ['xls', 'xlsx'], true)}
         />
         <button
           title='Klicka för att importera en fil'
@@ -126,7 +126,7 @@ const Home: React.FC = () => {
           type="file"
           ref={fileInputRef}
           style={{ display: 'none' }}
-          onChange={(event) => handleFileChange(event, setUploadedFileName, setFileContent, setMappingContent, setMessage, ['csv'])}
+          onChange={(event) => handleFileChange(event, setUploadedFileName, setFileContent, setMappingContent, setMessage, setMessageColor, ['csv'])}
         />
         <input
           title='Om du vill skapa en ny mall, ange ett namn och klicka på knappen "Spara Mall".'

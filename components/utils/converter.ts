@@ -148,6 +148,7 @@ export const handleFileChange = async (
   setFileContent: (content: any[]) => void,
   setMappingContent: (content: any) => void,
   setMessage: (message: string) => void,
+  setMessageColor: (color: string) => void,
   allowedExtensions: string[],
   isMapping: boolean = false
 ) => {
@@ -164,6 +165,11 @@ export const handleFileChange = async (
           if (isMapping) {
             setMappingContent(data);
             setMessage('Importerat Mapping');
+            setMessageColor('text-green-500');
+            setTimeout(() => {
+              setMessage('');
+              setMessageColor('');
+            }, 5000);
           } else {
             if (Array.isArray(data)) {
               setFileContent(data);
@@ -179,9 +185,19 @@ export const handleFileChange = async (
       }
     } else {
       setMessage(`Filen måste vara av typen: ${allowedExtensions.join(', ')}`);
+      setMessageColor('text-red-500');
+      setTimeout(() => {
+        setMessage('');
+        setMessageColor('');
+      }, 5000);
     }
   } else {
     console.error('No file selected');
     setMessage('Ingen fil vald');
+    setMessageColor('text-red-500');
+    setTimeout(() => {
+      setMessage('');
+      setMessageColor('');
+    }, 5000);
   }
 };
