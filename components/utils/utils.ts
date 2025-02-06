@@ -87,3 +87,25 @@ export const convertToDate = (dateStr: string): Date => {
 let [day, month, year] = dateStr.split(/[./]/); // Split by either '/' or '.'
 return new Date(`${year}-${month}-${day}`);
 };
+
+// mapp values from one column to another
+export const mapValues = (editedContent: any[], headers: string[], columnOptions: string[], mappingContent: any) => {
+
+  const updatedContent = editedContent.map(row => {
+    columnOptions.forEach((option, colIndex) => {
+      if (option === 'From' && mappingContent && mappingContent.firstColumn) {
+        const value = row[headers[colIndex]];
+        const matchIndex = mappingContent.firstColumn.indexOf(value);
+        if (matchIndex !== -1) {
+          const newValue = mappingContent.secondColumn[matchIndex];
+          const toColIndex = columnOptions.indexOf('To');
+          if (toColIndex !== -1) {
+            row[headers[toColIndex]] = newValue;
+          }
+        }
+      }
+    });
+    return row;
+  });
+  return updatedContent;
+};

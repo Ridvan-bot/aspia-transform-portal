@@ -3,8 +3,9 @@ import React, { useState, useEffect } from 'react';
 import Payment from './payment';
 import { ConvertProps } from '@/types/interfaces';
 import { options } from '@/data/staticData';
-import { formatDate, convertToDate } from './utils/utils';
+import { formatDate, convertToDate, mapValues } from './utils/utils';
 import { processDataObjects } from '@/components/utils/dataProcessing';
+
 
 const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent }) => {
   const [editedContent, setEditedContent] = useState(fileContent || []);
@@ -40,32 +41,12 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent }) => {
     setColumnOptions(newColumnOptions);
   };
 
-  const mapValues = () => {
-    const updatedContent = editedContent.map(row => {
-      columnOptions.forEach((option, colIndex) => {
-        if (option === 'From' && mappingContent && mappingContent.firstColumn) {
-          const value = row[headers[colIndex]];
-          const matchIndex = mappingContent.firstColumn.indexOf(value);
-          if (matchIndex !== -1) {
-            const newValue = mappingContent.secondColumn[matchIndex];
-            const toColIndex = columnOptions.indexOf('To');
-            if (toColIndex !== -1) {
-              row[headers[toColIndex]] = newValue;
-              console.log(`Value ${value} matched with mappingContent.firstColumn and replaced with ${newValue} in 'To' column`);
-            }
-          }
-        }
-      });
-      return row;
-    });
-    setEditedContent(updatedContent);
-  };
-
   const handleExport = async () => {
-    mapValues(); // Ensure values are mapped before exporting
+    const updatedContent = mapValues(editedContent, headers, columnOptions, mappingContent);
+    setEditedContent(updatedContent); // Ensure values are mapped before exporting
 
-    if (editedContent.length > 0) {
-      const dataObjects = editedContent.map(row => {
+    if (updatedContent.length > 0) {
+      const dataObjects = updatedContent.map(row => {
         return headers.reduce((acc, header, index) => {
           acc[header] = row[Object.keys(row)[index]];
           return acc;
@@ -136,7 +117,7 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent }) => {
       <div className="container-tabel mt-4 overflow-x-scroll">
         <table className="table-auto border-collapse w-full">
           <thead className="sticky top-0 bg-white">
-          {mappingContent && mappingContent.firstColumn && mappingContent.firstColumn.length > 0 && (
+            {mappingContent && mappingContent.firstColumn && mappingContent.firstColumn.length > 0 && (
               <tr>
                 {headers.map((header, colIndex) => (
                   <th key={colIndex} className="border border-gray-300 px-2 py-2">
