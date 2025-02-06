@@ -115,6 +115,10 @@ const Home: React.FC = () => {
     }
   };
 
+  const handleHeaderUpdate = (newHeaders: string[]) => {
+    setTableHeaders(newHeaders);
+  };
+
   return (
     <div className="container-fluid flex flex-col items-center pt-4 ">
       <div className="flex space-x-4">
@@ -214,7 +218,7 @@ const Home: React.FC = () => {
         )}
       </div>
       {message && <p className={messageColor}>{message}</p>}
-      {fileContent.length > 0 && <Convert fileContent={fileContent} mappingContent={mappingContent} />}
+      {fileContent.length > 0 && <Convert fileContent={fileContent} mappingContent={mappingContent} onHeaderUpdate={handleHeaderUpdate} />}
     </div>
   );
 };

@@ -11,6 +11,7 @@ export interface PaymentProps {
       firstColumn: string[];
       secondColumn: string[];
     }
+    onHeaderUpdate: (newHeaders: string[]) => void;
 
   }
 

@@ -6,8 +6,7 @@ import { options } from '@/data/staticData';
 import { formatDate, convertToDate, mapValues } from './utils/utils';
 import { processDataObjects } from '@/components/utils/dataProcessing';
 
-
-const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent }) => {
+const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, onHeaderUpdate }) => {
   const [editedContent, setEditedContent] = useState(fileContent || []);
   const [headers, setHeaders] = useState<string[]>([]);
   const [dateSelected, setDateSelected] = useState(false);
@@ -16,14 +15,15 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent }) => {
   const [field2Value, setField2Value] = useState<string>('');
   const [processedData, setProcessedData] = useState<any[]>([]);
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
-  const [isMapping, setIsMapping] = useState<boolean>(false);
   const [columnOptions, setColumnOptions] = useState<string[]>([]);
 
   useEffect(() => {
     if (fileContent && fileContent.length > 0) {
       setEditedContent(fileContent);
-      setHeaders(Object.keys(fileContent[0]));
-      setColumnOptions(new Array(Object.keys(fileContent[0]).length).fill(''));
+      const newHeaders = Object.keys(fileContent[0]);
+      setHeaders(newHeaders);
+      setColumnOptions(new Array(newHeaders.length).fill(''));
+      onHeaderUpdate(newHeaders); // Update headers in Home component
     }
   }, [fileContent]);
 
@@ -31,6 +31,7 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent }) => {
     const newHeaders = [...headers];
     newHeaders[colIndex] = value;
     setHeaders(newHeaders);
+    onHeaderUpdate(newHeaders); // Update headers in Home component
     // Save new headers to localStorage
     localStorage.setItem('headers', JSON.stringify(newHeaders));
   };
