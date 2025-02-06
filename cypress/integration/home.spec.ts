@@ -15,9 +15,10 @@ describe('Home Page', () => {
   });
 
   it('should have all buttons on the home page', () => {
-    cy.get('button').contains('Importera CSV').should('exist');
+    cy.get('button').contains('Importera Fil').should('exist');
     cy.get('button').contains('Spara Mall').should('exist');
     cy.get('button').contains('Använd Mall').should('exist');
+    cy.get('button').contains('Importera Mappning').should('exist');
   });
 
   const files = [
