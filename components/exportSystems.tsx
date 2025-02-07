@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ExportSystemsProps } from '@/types/interfaces';
+import { systems } from '@/data/staticData';
 import style from './exportSystems.module.css';
 
 
@@ -19,7 +20,7 @@ const ExportSystems: React.FC<ExportSystemsProps> = ({ }) => {
       console.log('selectedSystems:', selectedSystems);
     }, [selectedSystems]);
   
-    const systems = ['Flex', 'AGDA', 'Hogia', 'Nmbers'];
+    
   
     return (
       <div

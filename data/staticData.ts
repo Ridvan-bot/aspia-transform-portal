@@ -48,3 +48,4 @@ export const headerDescriptions = [
   export const validUnits = ['tim', 'dgr', 'kdgr', ''];
   const ssnRegex = /^\d{6}-\d{4}$/;
 
+  export const systems = ['Flex', 'AGDA', 'Hogia', 'Nmbers'];
