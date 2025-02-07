@@ -1,6 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import Payment from './payment';
+import ExportSystems from './exportSystems';
 import { ConvertProps } from '@/types/interfaces';
 import { options } from '@/data/staticData';
 import { formatDate, convertToDate, mapValues, mapKeys } from './utils/utils';
@@ -124,7 +125,7 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, selected
   const filteredContent = editedContent ? editedContent.filter(row => Object.values(row).some(value => value !== '' && value !== null && value !== undefined)) : [];
   return (
     <>
-      <div className="container-tabel mt-4 overflow-x-scroll">
+      <div className="container-tabel mt-10 overflow-x-scroll">
         <table className="table-auto border-collapse w-full">
           <thead className="sticky top-0 bg-white">
             <tr>
@@ -171,18 +172,23 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, selected
         </div>
       )}
       {fileContent.length > 0 && (
-        <div className="container-payment">
-          <Payment
-            onDateSelected={(date, field1, field2) => {
-              setDateSelected(true);
-              setSelectedDate(date);
-              setField1Value(field1);
-              setField2Value(field2);
-            }}
-            handleExport={handleExport}
-            dateSelected={dateSelected}
-          />
-        </div>
+        <>
+          <div className="container-payment">
+            <Payment
+              onDateSelected={(date, field1, field2) => {
+                setDateSelected(true);
+                setSelectedDate(date);
+                setField1Value(field1);
+                setField2Value(field2);
+              }}
+              handleExport={handleExport}
+              dateSelected={dateSelected}
+            />
+          </div>
+          <div className="container-exportSystems">
+            <ExportSystems />
+          </div>
+        </>
       )}
     </>
   );

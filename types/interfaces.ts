@@ -14,3 +14,6 @@ export interface PaymentProps {
     selectedColumn?: string;
   }
 
+export interface ExportSystemsProps {
+    // Define your props here
+  }

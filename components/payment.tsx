@@ -45,9 +45,11 @@ const Payment: React.FC<PaymentProps> = ({ onDateSelected, handleExport, dateSel
   };
 
   return (
+    
     <div className="payment-container">
-      <div className="flex justify-start mt-4 space-x-4 items-center mb-10">
-        <button
+{/* <div className="border-t py-12 [border-image:linear-gradient(to_right,transparent,#004b61,transparent)1] border-t-2 md:py-20"></div> */}
+  <div className="flex justify-start space-x-4 items-center mb-10">
+       <button
           className="button-custom"
           onClick={() => setShowDatePicker(true)}
           style={{ height: '2.5rem' }}
