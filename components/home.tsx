@@ -123,6 +123,7 @@ const Home: React.FC = () => {
         </button>
         <input
           type="file"
+          data-test="data-test-id-importera-mappning"
           ref={fileMappingInputRef}
           style={{ display: 'none' }}
           onChange={(event) => {

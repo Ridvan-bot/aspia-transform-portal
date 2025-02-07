@@ -71,15 +71,48 @@ describe('Home Page', () => {
       // Click each header and select the corresponding option from the dropdown
       headers.each((index, header) => {
 
-        const indexPlusOne = index + 1;
+
+        if (fileName === 'testsfafsafasfasf.csv') {
+          cy.get('table thead tr th').eq(0).click();
+          cy.get('table thead tr th').eq(0).find('select').should('be.visible');
+          cy.get('table thead tr th').eq(0).find('select').select("Anställningsnummer");
+          cy.get('table thead tr th').eq(1).click();
+          cy.get('table thead tr th').eq(1).find('select').should('be.visible');
+          cy.get('table thead tr th').eq(1).find('select').select("Fr.o.m. datum");
+          cy.get('table thead tr th').eq(2).click();
+          cy.get('table thead tr th').eq(2).find('select').should('be.visible');
+          cy.get('table thead tr th').eq(2).find('select').select("Konteringsnivå 1");
+          cy.get('table thead tr th').eq(3).click();
+          cy.get('table thead tr th').eq(3).find('select').should('be.visible');
+          cy.get('table thead tr th').eq(3).find('select').select("Löneartsnr");
+          cy.get('table thead tr th').eq(4).click();
+          cy.get('table thead tr th').eq(4).find('select').should('be.visible');
+          cy.get('table thead tr th').eq(4).find('select').select("Tomt");
+          cy.get('table thead tr th').eq(5).click();
+          cy.get('table thead tr th').eq(5).find('select').should('be.visible');
+          cy.get('table thead tr th').eq(5).find('select').select("Antal");
+          cy.get('table thead tr th').eq(6).click();
+          cy.get('table thead tr th').eq(6).find('select').should('be.visible');
+          cy.get('table thead tr th').eq(6).find('select').select("A-pris");
+          cy.get('table thead tr th').eq(7).click();
+          cy.get('table thead tr th').eq(7).find('select').should('be.visible');
+          cy.get('table thead tr th').eq(7).find('select').select("Meddelande");
+
+          cy.get('input.input-custom[placeholder="Ange mallens namn"]').clear().type('test');
+          cy.get('button').contains('Spara Mall').click();
+
+         
+
+        }
+        else {
+        const indexPlusOne = index + 3;
         cy.get('table thead tr th').eq(index).click();
         cy.get('table thead tr th').eq(index).find('select').should('be.visible');
         cy.get('table thead tr th').eq(index).find('select').select(indexPlusOne);
+        }
 
       });
     });
-
-
 
     // Testing Utbetalningsdatum 
     cy.get('button').contains('Utbetalningsdatum').click();
@@ -89,23 +122,29 @@ describe('Home Page', () => {
     }
     cy.get('.react-datepicker__day--003').should('be.visible').click();
 
-
-    // Testing Första dagen i föregående månad
-    cy.get('input.input-custom[placeholder="Första dagen i föregående månad"]').clear().type('2024-01-05');
-    cy.get('input.input-custom[placeholder="Första dagen i föregående månad"]').should('have.value', '2024-01-05');
-
-    // Testing Sista dagen i föregående månad
-    cy.get('input.input-custom[placeholder="Sista dagen i föregående månad"]').clear().type('2024-01-29');
-    cy.get('input.input-custom[placeholder="Sista dagen i föregående månad"]').should('have.value', '2024-01-29');
-
     // Testing Alla Mallar
     cy.get('input.input-custom[placeholder="Ange mallens namn"]').clear().type('TestTemplet');
     cy.get('button').contains('Spara Mall').click();
     cy.get('input.input-custom[placeholder="Alla mallar"]').clear().type('TestTemplet');
     cy.get('ul').contains('li', 'TestTemplet').click();
+
+    // Testing Importera Mappning
+    cy.get('button').contains('Importera Mappning').click();
+    cy.get('input[data-test="data-test-id-importera-mappning"]').attachFile('mappning.xls');
+    cy.get('select.input-custom[title="Välj Kolumn för mappning"]').select('Konteringsnivå 4');
+
+        // Testing Första dagen i föregående månad
+        cy.get('input.input-custom[placeholder="Första dagen i föregående månad"]').clear().type('2024-01-05');
+        cy.get('input.input-custom[placeholder="Första dagen i föregående månad"]').should('have.value', '2024-01-05');
+    
+        // Testing Sista dagen i föregående månad
+        cy.get('input.input-custom[placeholder="Sista dagen i föregående månad"]').clear().type('2024-01-29');
+        cy.get('input.input-custom[placeholder="Sista dagen i föregående månad"]').should('have.value', '2024-01-29');
+
     
     // Click Exportera button
     cy.get('button').contains('Exportera').click();
+    cy.screenshot();
   });
   });
 });
