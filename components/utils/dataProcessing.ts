@@ -12,6 +12,7 @@ export const processDataObjects = async (
   const validUnits = ['tim', 'dgr', 'kdgr', ''];
   const ssnRegex = /^\d{6}-\d{4}$/;
   const errorMessages: string[] = [];
+  const errorSet = new Set<string>(); // Set to keep track of unique error messages
 
   try {
 
@@ -26,29 +27,41 @@ export const processDataObjects = async (
           const employmentNumber = dataObject[key];
           const isValidEmploymentNumber = /^[a-zA-Z0-9]{1,10}$/.test(employmentNumber);
           if (!isValidEmploymentNumber) {
-            errorMessages.push('Anställningsnummer får endast innehålla bokstäver och siffror och vara max 10 tecken långt.');
+            const errorMessage = 'Anställningsnummer får endast innehålla bokstäver och siffror och vara max 10 tecken långt.';
+            if (!errorSet.has(errorMessage)) {
+              errorMessages.push(errorMessage);
+              errorSet.add(errorMessage);
+            }
             dataObject[key] = employmentNumber.substring(0, 10);
           }
           break;
 
-        case 'Löneartsnr':
-          const payTypeNumber = dataObject[key];
-          const isValidPayTypeNumber = /^\d{1,3}$/.test(payTypeNumber);
-          if (!isValidPayTypeNumber) {
-            errorMessages.push('Löneartsnr får endast innehålla siffror och vara max 3 tecken långt.');
-            dataObject[key] = payTypeNumber.substring(0, 3);
-          }
-          break;
+          case 'Löneartsnr':
+            const payTypeNumber = dataObject[key];
+            const isValidPayTypeNumber = /^\d{1,3}$/.test(payTypeNumber);
+            if (!isValidPayTypeNumber) {
+              const errorMessage = 'Löneartsnr får endast innehålla siffror och vara max 3 tecken långt.';
+              if (!errorSet.has(errorMessage)) {
+                errorMessages.push(errorMessage);
+                errorSet.add(errorMessage);
+              }
+              dataObject[key] = payTypeNumber.substring(0, 3);
+            }
+            break;
 
-        case 'Konteringsnivå 1':
-        case 'Konteringsnivå 2':
-          const accountCodingLevel = dataObject[key];
-          const isValidAccountCodingLevel = /^[a-zA-Z0-9]*$/.test(accountCodingLevel);
-          if (!isValidAccountCodingLevel) {
-            errorMessages.push('Konteringsnivåer får endast innehålla bokstäver och siffror.');
-            dataObject[key] = accountCodingLevel.replace(/[^a-zA-Z0-9]/g, '');
-          }
-          break;
+            case 'Konteringsnivå 1':
+              case 'Konteringsnivå 2':
+                const accountCodingLevel = dataObject[key];
+                const isValidAccountCodingLevel = /^[a-zA-Z0-9]*$/.test(accountCodingLevel);
+                if (!isValidAccountCodingLevel) {
+                  const errorMessage = 'Konteringsnivåer får endast innehålla bokstäver och siffror.';
+                  if (!errorSet.has(errorMessage)) {
+                    errorMessages.push(errorMessage);
+                    errorSet.add(errorMessage);
+                  }
+                  dataObject[key] = accountCodingLevel.replace(/[^a-zA-Z0-9]/g, '');
+                }
+                break;
 
         case 'T.o.m. datum':
           if (!isValidDateFormat(dataObject[key])) {
