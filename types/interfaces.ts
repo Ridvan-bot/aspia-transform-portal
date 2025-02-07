@@ -15,5 +15,5 @@ export interface PaymentProps {
   }
 
 export interface ExportSystemsProps {
-    // Define your props here
+  handleExport: () => Promise<void>;
   }

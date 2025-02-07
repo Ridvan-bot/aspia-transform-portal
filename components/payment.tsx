@@ -4,7 +4,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { PaymentProps } from '@/types/interfaces';
 import style from './payment.module.css';
 
-const Payment: React.FC<PaymentProps> = ({ onDateSelected, handleExport, dateSelected }) => {
+const Payment: React.FC<PaymentProps> = ({ onDateSelected, dateSelected }) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [field1Value, setField1Value] = useState<string>('');
   const [field2Value, setField2Value] = useState<string>('');
@@ -40,16 +40,10 @@ const Payment: React.FC<PaymentProps> = ({ onDateSelected, handleExport, dateSel
     onDateSelected(selectedDate, field1Value, event.target.value); // update parent component
   };
 
-  const handleExportClick = () => {
-    handleExport(selectedDate, field1Value, field2Value);
-  };
-
   return (
-    
     <div className="payment-container">
-{/* <div className="border-t py-12 [border-image:linear-gradient(to_right,transparent,#004b61,transparent)1] border-t-2 md:py-20"></div> */}
-  <div className="flex justify-start space-x-4 items-center mb-10">
-       <button
+      <div className="flex justify-start space-x-4 items-center mb-10">
+        <button
           className="button-custom"
           onClick={() => setShowDatePicker(true)}
           style={{ height: '2.5rem' }}
@@ -91,17 +85,6 @@ const Payment: React.FC<PaymentProps> = ({ onDateSelected, handleExport, dateSel
             onChange={handleDateChange}
             inline
           />
-        </div>
-      )}
-      {dateSelected && (
-        <div className="mt-4 ml-4 flex items-center justify-center">
-          <button
-            className="button-custom"
-            onClick={handleExportClick}
-            style={{ height: '2.5rem', fontSize: '1rem' }}
-          >
-            Exportera
-          </button>
         </div>
       )}
     </div>
