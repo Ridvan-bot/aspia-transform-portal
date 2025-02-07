@@ -90,7 +90,6 @@ let [day, month, year] = dateStr.split(/[./]/); // Split by either '/' or '.'
 return new Date(`${year}-${month}-${day}`);
 };
 
-// mapp values from one column to another
 export const mapValues = (editedContent: any[], headers: string[], selectedColumn: string | undefined, mappingContent: any) => {
   console.log('headers i mapvalues', headers);
   console.log('selectedColumn i mapvalues', selectedColumn);
@@ -103,14 +102,26 @@ export const mapValues = (editedContent: any[], headers: string[], selectedColum
       console.log('Index of selectedColumn in headers:', columnIndex);
 
       const updatedContent = editedContent.map(row => {
-        const value = row[selectedColumn];
+        const newRow: any = {};
+
+        // Iterate over headers and update the row based on the correct keys
+        headers.forEach((header, index) => {
+          const oldKey = Object.keys(row)[index];
+          newRow[header] = row[oldKey];
+          if (oldKey !== header) {
+            delete row[oldKey];
+
+          }
+        });
+
+        const value = newRow[selectedColumn];
         const matchIndex = mappingContent.firstColumn.indexOf(value);
         if (matchIndex !== -1) {
           const newValue = mappingContent.secondColumn[matchIndex];
-          row[selectedColumn] = newValue;
-          console.log(`Replaced value in row: ${value} with ${newValue}`);
+          newRow[selectedColumn] = newValue;
         }
-        return row;
+        console.log('Row after mapping:', newRow);
+        return newRow;
       });
 
       return updatedContent;

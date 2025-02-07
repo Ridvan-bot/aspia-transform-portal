@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Payment from './payment';
 import { ConvertProps } from '@/types/interfaces';
 import { options } from '@/data/staticData';
-import { formatDate, convertToDate, mapValues } from './utils/utils';
+import { formatDate, convertToDate, mapValues, mapKeys } from './utils/utils';
 import { processDataObjects } from '@/components/utils/dataProcessing';
 
 const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, selectedColumn }) => {
@@ -27,8 +27,33 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, selected
   const handleHeaderChange = (colIndex: number, value: string) => {
     const newHeaders = [...headers];
     newHeaders[colIndex] = value;
-    setHeaders(newHeaders);
-    localStorage.setItem('headers', JSON.stringify(newHeaders));
+  
+    // Ensure headers are unique
+    const headerCounts: { [key: string]: number } = {};
+    const uniqueHeaders = newHeaders.map(header => {
+      if (!headerCounts[header]) {
+        headerCounts[header] = 1;
+      } else {
+        headerCounts[header]++;
+        header = `${header}_${headerCounts[header]}`;
+      }
+      return header;
+    });
+  
+    setHeaders(uniqueHeaders);
+    console.log('uniqueHeaders:', uniqueHeaders);
+    localStorage.setItem('headers', JSON.stringify(uniqueHeaders));
+  
+    // Check if headers match editedContent keys
+    const editedContentKeys = Object.keys(editedContent[0] || {});
+    const headersMatch = uniqueHeaders.every((header, index) => header === editedContentKeys[index]);
+  
+    if (!headersMatch) {
+      // Update editedContent with uniqueHeaders using mapKeys
+      const updatedContent = mapKeys(editedContent, uniqueHeaders);
+      setEditedContent(updatedContent);
+      console.log('updatedContent:', updatedContent);
+    }
   };
 
   const handleExport = async () => {
