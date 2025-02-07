@@ -173,7 +173,7 @@ const Home: React.FC = () => {
         >
           Spara Mall
         </button>
-        <div className="relative">
+        {/* <div className="relative">
           <button
             title='Skriv in mallens namn i "Anger mallens namn" och klicka på "Använd Mall" för att använda en befintlig mall.'
             className="button-custom" 
@@ -181,7 +181,7 @@ const Home: React.FC = () => {
           >
             Använd Mall
           </button>
-        </div>
+        </div> */}
         <input
           title='Skriv in mallens namn för att söka efter en befintlig mall. När du valt mall kommer den att användas direkt i tabellen.'
           ref={searchInputRef}
