@@ -150,6 +150,7 @@ const Home: React.FC = () => {
         </button>
         <input
           type="file"
+          data-test="data-test-id-importera-fil"
           ref={fileInputRef}
           style={{ display: 'none' }}
           onChange={(event) => {

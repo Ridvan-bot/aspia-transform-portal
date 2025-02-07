@@ -40,29 +40,30 @@ describe('Home Page', () => {
   ]
 
   files.forEach((fileName) => {
-  it('should import a file via the "Importera CSV" button and verify the content', () => {
+  it('should import a file via the "Importera fil" button and verify the content', () => {
     const fileType = 'text/csv';
     
     let scroll
 
     cy.fixture(fileName).then(fileContent => {
-      const rowCount = fileContent.split('\n').length;
+      const rowCount = fileContent.split('\r\n').length;
       if (rowCount > 2) {
         scroll = true
       }
       else {
         scroll = false
       }
-      cy.get('input[type="file"]').attachFile({
+
+      cy.get('input[data-test="data-test-id-importera-fil"]').attachFile({
         fileContent,
         fileName,
         mimeType: fileType
       });
     });
 
-    cy.get('button').contains('Importera Fil').click();
+
+    cy.get('button').contains('Fil').click();
     // Log all headers and count them
-    cy.screenshot();
     cy.get('table thead tr th').each((header, index) => {
     }).then((headers) => {
       const headerCount = headers.length;
@@ -105,7 +106,6 @@ describe('Home Page', () => {
     
     // Click Exportera button
     cy.get('button').contains('Exportera').click();
-    cy.screenshot();
   });
   });
 });
