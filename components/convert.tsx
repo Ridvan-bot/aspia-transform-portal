@@ -6,7 +6,7 @@ import { options } from '@/data/staticData';
 import { formatDate, convertToDate, mapValues } from './utils/utils';
 import { processDataObjects } from '@/components/utils/dataProcessing';
 
-const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, onHeaderUpdate }) => {
+const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, selectedColumn }) => {
   const [editedContent, setEditedContent] = useState(fileContent || []);
   const [headers, setHeaders] = useState<string[]>([]);
   const [dateSelected, setDateSelected] = useState(false);
@@ -15,15 +15,12 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, onHeader
   const [field2Value, setField2Value] = useState<string>('');
   const [processedData, setProcessedData] = useState<any[]>([]);
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
-  const [columnOptions, setColumnOptions] = useState<string[]>([]);
 
   useEffect(() => {
     if (fileContent && fileContent.length > 0) {
       setEditedContent(fileContent);
       const newHeaders = Object.keys(fileContent[0]);
       setHeaders(newHeaders);
-      setColumnOptions(new Array(newHeaders.length).fill(''));
-      onHeaderUpdate(newHeaders); // Update headers in Home component
     }
   }, [fileContent]);
 
@@ -31,20 +28,13 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, onHeader
     const newHeaders = [...headers];
     newHeaders[colIndex] = value;
     setHeaders(newHeaders);
-    onHeaderUpdate(newHeaders); // Update headers in Home component
-    // Save new headers to localStorage
     localStorage.setItem('headers', JSON.stringify(newHeaders));
   };
 
-  const handleColumnOptionChange = (colIndex: number, value: string) => {
-    const newColumnOptions = [...columnOptions];
-    newColumnOptions[colIndex] = value;
-    setColumnOptions(newColumnOptions);
-  };
-
   const handleExport = async () => {
-    const updatedContent = mapValues(editedContent, headers, columnOptions, mappingContent);
-    setEditedContent(updatedContent); // Ensure values are mapped before exporting
+    const updatedContent = mapValues(editedContent, headers, selectedColumn, mappingContent);
+
+    setEditedContent(updatedContent);
 
     if (updatedContent.length > 0) {
       const dataObjects = updatedContent.map(row => {
@@ -54,7 +44,6 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, onHeader
         }, {} as Record<string, any>);
       });
 
-      // Add date fields to each data object
       const errors = await processDataObjects(dataObjects, selectedDate, field1Value, field2Value);
       setProcessedData(dataObjects);
       setErrorMessages(errors);
@@ -62,39 +51,33 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, onHeader
       if (errors.length === 0) {
         const field2Date = convertToDate(field2Value);
 
-        // Format dates
         const formattedSelectedDate = formatDate(selectedDate);
         const formattedField1Value = formatDate(new Date(field1Value));
         const formattedField2Value = formatDate(new Date(field2Date));
 
-        // Create a new array with only the values
         const exportData = [
           formattedSelectedDate,
           formattedField1Value,
           formattedField2Value,
         ];
 
-        // Create rows 3 and 4 based on options and dataObject
         let row3 = dataObjects.map(dataObject => options.map(option => {
           const value = dataObject[option];
           return value !== undefined && value !== null ? value : '';
         }).join('\t')).join('\r\n');
 
-        // Remove the last row from row3 if it's empty
         const row3Lines = row3.split('\r\n');
         if (row3Lines[row3Lines.length - 1].trim() === '') {
           row3Lines.pop();
         }
         row3 = row3Lines.join('\r\n');
 
-        // Create CSV content with tab-separated values
         const csvContent = [
-          'Version: 1.3 Ursprung: Flex HRM Time', // Fixed first line
-          exportData.join('\t'), // Data values separated by tabs
-          row3, // Row 3 with values from dataObject or tabs
-        ].filter(line => line.trim() !== '').join('\r\n') + '\r\n'; // Filter out any empty lines
+          'Version: 1.3 Ursprung: Flex HRM Time',
+          exportData.join('\t'),
+          row3,
+        ].filter(line => line.trim() !== '').join('\r\n') + '\r\n';
 
-        // Create a blob and trigger download
         const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
         const link = document.createElement('a');
         const url = URL.createObjectURL(blob);

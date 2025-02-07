@@ -91,23 +91,31 @@ return new Date(`${year}-${month}-${day}`);
 };
 
 // mapp values from one column to another
-export const mapValues = (editedContent: any[], headers: string[], columnOptions: string[], mappingContent: any) => {
+export const mapValues = (editedContent: any[], headers: string[], selectedColumn: string | undefined, mappingContent: any) => {
+  console.log('headers i mapvalues', headers);
+  console.log('selectedColumn i mapvalues', selectedColumn);
+  console.log('mappingContent i mapvalues', mappingContent);
+  console.log('editedContent i mapvalues', editedContent);
 
-  const updatedContent = editedContent.map(row => {
-    columnOptions.forEach((option, colIndex) => {
-      if (option === 'From' && mappingContent && mappingContent.firstColumn) {
-        const value = row[headers[colIndex]];
+  if (selectedColumn && mappingContent) {
+    const columnIndex = headers.indexOf(selectedColumn);
+    if (columnIndex !== -1) {
+      console.log('Index of selectedColumn in headers:', columnIndex);
+
+      const updatedContent = editedContent.map(row => {
+        const value = row[selectedColumn];
         const matchIndex = mappingContent.firstColumn.indexOf(value);
         if (matchIndex !== -1) {
           const newValue = mappingContent.secondColumn[matchIndex];
-          const toColIndex = columnOptions.indexOf('To');
-          if (toColIndex !== -1) {
-            row[headers[toColIndex]] = newValue;
-          }
+          row[selectedColumn] = newValue;
+          console.log(`Replaced value in row: ${value} with ${newValue}`);
         }
-      }
-    });
-    return row;
-  });
-  return updatedContent;
+        return row;
+      });
+
+      return updatedContent;
+    }
+  }
+
+  return editedContent;
 };

@@ -1,7 +1,7 @@
 import Papa from 'papaparse';
 import { expectedHeadersWithHeader } from '@/data/staticData';
 import * as XLSX from 'xlsx';
-import { set } from 'cypress/types/lodash';
+
 
 
 const preprocessCsvData = (csvData: string): string => {

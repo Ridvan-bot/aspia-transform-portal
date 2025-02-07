@@ -102,17 +102,8 @@ const Home: React.FC = () => {
   };
 
   const handleColumnChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    console.log('blir column', e.target.value);
     setSelectedColumn(e.target.value);
-    if (mappingContent && mappingContent.firstColumn && mappingContent.secondColumn) {
-      const updatedContent = fileContent.map(row => {
-        if (row[e.target.value] && mappingContent.firstColumn.includes(row[e.target.value])) {
-          const index = mappingContent.firstColumn.indexOf(row[e.target.value]);
-          row[e.target.value] = mappingContent.secondColumn[index];
-        }
-        return row;
-      });
-      setFileContent(updatedContent);
-    }
   };
 
   const handleHeaderUpdate = (newHeaders: string[]) => {
@@ -218,7 +209,7 @@ const Home: React.FC = () => {
         )}
       </div>
       {message && <p className={messageColor}>{message}</p>}
-      {fileContent.length > 0 && <Convert fileContent={fileContent} mappingContent={mappingContent} onHeaderUpdate={handleHeaderUpdate} />}
+      {fileContent.length > 0 && <Convert fileContent={fileContent} mappingContent={mappingContent} selectedColumn={selectedColumn} />}
     </div>
   );
 };

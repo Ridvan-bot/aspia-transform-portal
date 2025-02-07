@@ -10,8 +10,7 @@ export interface PaymentProps {
     mappingContent?: {
       firstColumn: string[];
       secondColumn: string[];
-    }
-    onHeaderUpdate: (newHeaders: string[]) => void;
-
+    };
+    selectedColumn?: string;
   }
 
