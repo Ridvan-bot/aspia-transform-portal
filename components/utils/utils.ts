@@ -91,16 +91,11 @@ return new Date(`${year}-${month}-${day}`);
 };
 
 export const mapValues = (editedContent: any[], headers: string[], selectedColumn: string | undefined, mappingContent: any) => {
-  console.log('headers i mapvalues', headers);
-  console.log('selectedColumn i mapvalues', selectedColumn);
-  console.log('mappingContent i mapvalues', mappingContent);
-  console.log('editedContent i mapvalues', editedContent);
+
 
   if (selectedColumn && mappingContent) {
     const columnIndex = headers.indexOf(selectedColumn);
     if (columnIndex !== -1) {
-      console.log('Index of selectedColumn in headers:', columnIndex);
-
       const updatedContent = editedContent.map(row => {
         const newRow: any = {};
 
@@ -120,7 +115,6 @@ export const mapValues = (editedContent: any[], headers: string[], selectedColum
           const newValue = mappingContent.secondColumn[matchIndex];
           newRow[selectedColumn] = newValue;
         }
-        console.log('Row after mapping:', newRow);
         return newRow;
       });
 

@@ -65,10 +65,8 @@ const Home: React.FC = () => {
   const fetchTemplate = async (filename: string) => {
     try {
       const data = await getTemplate(filename);
-      console.log(data);
       const keys = extractKeys(data);
       setTableHeaders(keys)
-      console.log('keys:', keys);
       const updatedContent = mapKeys(fileContent, keys);
       setFileContent(updatedContent);
     } catch (error) {
@@ -104,7 +102,6 @@ const Home: React.FC = () => {
   };
 
   const handleColumnChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    console.log('blir column', e.target.value);
     setSelectedColumn(e.target.value);
   };
 
@@ -128,7 +125,10 @@ const Home: React.FC = () => {
           type="file"
           ref={fileMappingInputRef}
           style={{ display: 'none' }}
-          onChange={(event) => handleFileChange(event, setUploadedFileName, setFileContent, setMappingContent, setMessage, setMessageColor, ['xls', 'xlsx'], true)}
+          onChange={(event) => {
+            handleFileChange(event, setUploadedFileName, setFileContent, setMappingContent, setMessage, setMessageColor, ['xls', 'xlsx'], true);
+            setIsInputVisible(true);
+          }}
         />
         <select
           title='Välj Kolumn för mappning'
@@ -154,7 +154,6 @@ const Home: React.FC = () => {
           style={{ display: 'none' }}
           onChange={(event) => {
             handleFileChange(event, setUploadedFileName, setFileContent, setMappingContent, setMessage, setMessageColor, ['csv']);
-            setIsInputVisible(true);
           }}
         />
         <input

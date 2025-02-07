@@ -41,7 +41,6 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, selected
     });
   
     setHeaders(uniqueHeaders);
-    console.log('uniqueHeaders:', uniqueHeaders);
     localStorage.setItem('headers', JSON.stringify(uniqueHeaders));
   
     // Check if headers match editedContent keys
@@ -52,7 +51,6 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, selected
       // Update editedContent with uniqueHeaders using mapKeys
       const updatedContent = mapKeys(editedContent, uniqueHeaders);
       setEditedContent(updatedContent);
-      console.log('updatedContent:', updatedContent);
     }
   };
 

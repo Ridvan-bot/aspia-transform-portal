@@ -60,12 +60,12 @@ describe('Home Page', () => {
       });
     });
 
-    cy.get('button').contains('Importera CSV').click();
+    cy.get('button').contains('Importera Fil').click();
     // Log all headers and count them
+    cy.screenshot();
     cy.get('table thead tr th').each((header, index) => {
     }).then((headers) => {
       const headerCount = headers.length;
-      console.log(`Total headers: ${headerCount}`);
 
       // Click each header and select the corresponding option from the dropdown
       headers.each((index, header) => {
