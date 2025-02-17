@@ -37,7 +37,9 @@ const readCsvFile = (file: File): Promise<any[]> => {
       if (encoding === 'UTF-8') {
         csvData = buffer.toString('utf-8');
       } else {
-        csvData = iconv.decode(buffer, 'windows-1252'); // ANSI till UTF-8
+        console.log('Encoding:', encoding);
+        console.log('Converting to UTF-8');
+        csvData = iconv.decode(buffer, 'windows-1252'); // ANSI to UTF-8
       }
 
 
