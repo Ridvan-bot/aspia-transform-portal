@@ -1,3 +1,23 @@
+## [1.8.0](https://github.com/Ridvan-bot/az-auto-protal/compare/v1.7.0...v1.8.0) (2025-02-17)
+
+### Bug Fixes
+
+* add useEffect to log selected systems and refactor systems array usage in ExportSystems component ([dcc4e1f](https://github.com/Ridvan-bot/az-auto-protal/commit/dcc4e1ff9631e9aae55be9794a5ec316d264543f))
+* changed port and point host to 0.0.0.0 ([21349e7](https://github.com/Ridvan-bot/az-auto-protal/commit/21349e7a4a49a21ea319523e84b1131a253c00fc))
+* clean up code formatting and improve readability in home component ([08c4184](https://github.com/Ridvan-bot/az-auto-protal/commit/08c41847f217cbef89fe9ed05aa2bcac5c81d418))
+* comment out unused div in Home component for clarity ([e163ddf](https://github.com/Ridvan-bot/az-auto-protal/commit/e163ddf4e4c175cc7a79aca9e871c93132693632))
+* enhance data validation by removing error flags and improving error handling in data processing ([429c267](https://github.com/Ridvan-bot/az-auto-protal/commit/429c2676bf64cf16c9d958e86be6c018e5d15dba))
+* enhance file import handling with message color feedback for user actions ([50b1708](https://github.com/Ridvan-bot/az-auto-protal/commit/50b170886a6a302b60c7f68b4794c01db6fecb99))
+* enhance UI with improved styling and accessibility through additional background colors and title attributes ([ce5a296](https://github.com/Ridvan-bot/az-auto-protal/commit/ce5a29634e4073fccf546aaf5de6025b3ff8ff46))
+* ensure unique headers in Convert component and update editedContent accordingly ([3bd0f00](https://github.com/Ridvan-bot/az-auto-protal/commit/3bd0f0031a7f58ba21de0452395f5c901484c241))
+* ensure unique headers in Convert component and update mapping logic ([aae1f67](https://github.com/Ridvan-bot/az-auto-protal/commit/aae1f677dd616ebf91e46a41440285677e29b3ab))
+* improve data validation with error flags and enhance home page button labels ([ceac469](https://github.com/Ridvan-bot/az-auto-protal/commit/ceac4693d7081899f3c3b535ed87c221ad5fcf79))
+* improve error handling in data processing by ensuring unique error messages ([a3fc42f](https://github.com/Ridvan-bot/az-auto-protal/commit/a3fc42f0b45e048de96047d52e8d5e0414c4eb7f))
+* mapping works if you use templet, else not ([71168d7](https://github.com/Ridvan-bot/az-auto-protal/commit/71168d7c9ab3b37822cdb1d48bd9e2bdbf9e05cd))
+* move systems array to staticData and clean up ExportSystems component ([46b8ec5](https://github.com/Ridvan-bot/az-auto-protal/commit/46b8ec5d4b6694813638726ab46bbff3c4a675c9))
+* remove console logs and improve file input handling in Home component ([334b8a7](https://github.com/Ridvan-bot/az-auto-protal/commit/334b8a7278f5d41981ee341bd3f1c55c00c7cdb8))
+* update file input handling and improve test case for Home component ([eb21ba5](https://github.com/Ridvan-bot/az-auto-protal/commit/eb21ba5f125e0344e14a1da0985b687bfbcfc75d))
+
 ## [1.7.0](https://github.com/Ridvan-bot/az-auto-protal/compare/v1.6.0...v1.7.0) (2025-02-05)
 
 ### Bug Fixes
