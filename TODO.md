@@ -30,11 +30,13 @@
 - [x] setup a feater branch called Mapping
 - [x] Add Mappning button
 - [x] Add Mappning option - in mapping feature branch
+- [x] Fix multiple not uniqe headers issue in mapping branch. Issue should never occur but can happen if a user is trying to break it.
 - [ ] make the deployment faster
 - [ ] Add rightside (or bottomside,  Robin belives it's a better way) where user can select output system such as Hogia, flex etc..
 - [ ] Make the solution more modular
+- [w] Solve the issue when a file has Ansi format
+- [ ] Mark header gray request. If a file has a header, then the user should be able to unmark the headers after import. This could happen if a use wants to use the header as a row in export file.
 - [w] Tidy up code
-- [w] Fix multiple not uniqe headers issue in mapping branch. Issue should never occur but can happen if a user is trying to break it.
 - [w] Remove dubbel footer.
 
 
