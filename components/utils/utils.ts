@@ -22,9 +22,11 @@ export const extractKeys = (data: any[]) => {
     }
     // Check if the input ends with a percentage sign
     if (!omfattningString.endsWith('%')) {
+      console.log('hit?')
       return false;
     }
     // Remove the percentage sign
+
     const cleanedString = omfattningString.slice(0, -1);
     // Replace comma with dot
     const normalizedString = cleanedString.replace(',', '.');
@@ -86,4 +88,39 @@ export const extractKeys = (data: any[]) => {
 export const convertToDate = (dateStr: string): Date => {
 let [day, month, year] = dateStr.split(/[./]/); // Split by either '/' or '.'
 return new Date(`${year}-${month}-${day}`);
+};
+
+export const mapValues = (editedContent: any[], headers: string[], selectedColumn: string | undefined, mappingContent: any) => {
+
+
+  if (selectedColumn && mappingContent) {
+    const columnIndex = headers.indexOf(selectedColumn);
+    if (columnIndex !== -1) {
+      const updatedContent = editedContent.map(row => {
+        const newRow: any = {};
+
+        // Iterate over headers and update the row based on the correct keys
+        headers.forEach((header, index) => {
+          const oldKey = Object.keys(row)[index];
+          newRow[header] = row[oldKey];
+          if (oldKey !== header) {
+            delete row[oldKey];
+
+          }
+        });
+
+        const value = newRow[selectedColumn];
+        const matchIndex = mappingContent.firstColumn.indexOf(value);
+        if (matchIndex !== -1) {
+          const newValue = mappingContent.secondColumn[matchIndex];
+          newRow[selectedColumn] = newValue;
+        }
+        return newRow;
+      });
+
+      return updatedContent;
+    }
+  }
+
+  return editedContent;
 };

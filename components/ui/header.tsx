@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { headerDescriptions } from '@/data/staticData';
+import style from './exportSystems.module.css';
 
 const Header: React.FC = () => {
   const [showTooltip, setShowTooltip] = useState(false);
