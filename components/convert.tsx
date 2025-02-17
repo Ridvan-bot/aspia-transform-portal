@@ -184,9 +184,7 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, selected
               handleExport={handleExport}
               dateSelected={dateSelected}
             />
-          </div>
-          <div className="container-exportSystems">
-            <ExportSystems />
+            <ExportSystems handleExport={handleExport} />
           </div>
         </>
       )}
