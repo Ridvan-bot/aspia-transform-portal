@@ -3,9 +3,9 @@
   "version": "1.7.0",
   "description": "An automation protal hosted in Azure",
   "scripts": {
-    "dev": "next dev -p 8080",
+    "dev": "next dev -p 8080 -H 0.0.0.0",
     "build": "next build",
-    "start": "next start -p 8080",
+    "start": "next start -p 8080 -H 0.0.0.0",
     "lint": "next lint",
     "release": "semantic-release",
     "test": "jest",
@@ -48,7 +48,8 @@
     "react-datepicker": "^7.6.0",
     "react-dom": "^18.3.1",
     "react-modal": "^3.16.3",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",

@@ -7,5 +7,13 @@ export interface PaymentProps {
   export interface ConvertProps {
     fileContent: any[];
     tableHeaders?: string[];
+    mappingContent?: {
+      firstColumn: string[];
+      secondColumn: string[];
+    };
+    selectedColumn?: string;
   }
 
+export interface ExportSystemsProps {
+  handleExport: () => Promise<void>;
+  }

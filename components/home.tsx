@@ -1,31 +1,35 @@
 "use client";
 import React, { useRef, useState, useEffect } from 'react';
 import Convert from './convert';
-import { handleFileChange, handleSaveTemplate } from './utils/fileHandler';
+import { handleFileChange } from './utils/converter';
+import { handleSaveTemplate } from './utils/fileHandler';
 import { getTemplate, getTemplates } from '@/services/api';
 import { extractKeys, mapKeys } from './utils/utils';
+import { options } from '@/data/staticData';
 import styles from './home.module.css';
-
-
 
 const Home: React.FC = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const fileMappingInputRef = useRef<HTMLInputElement>(null);
   const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
   const [fileContent, setFileContent] = useState<any[]>([]);
-  const [templateName, setTemplateName] = useState<string>(''); // State for template name
+  const [mappingContent, setMappingContent] = useState<any>(null);
+  const [templateName, setTemplateName] = useState<string>('');
   const [message, setMessage] = useState<string>('');
-  const [messageColor, setMessageColor] = useState<string>(''); // State for message color
-  const [tableHeaders, setTableHeaders] = useState<string[]>([]); // State for table headers
+  const [messageColor, setMessageColor] = useState<string>('');
+  const [tableHeaders, setTableHeaders] = useState<string[]>([]); 
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [allValues, setAllValues] = useState<any[]>([]);
   const [filteredValues, setFilteredValues] = useState<any[]>([]);
   const [showTemplateList, setShowTemplateList] = useState<boolean>(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const templateListRef = useRef<HTMLUListElement>(null);
+  const [isInputVisible, setIsInputVisible] = useState(false);
+  const [selectedColumn, setSelectedColumn] = useState<string>(''); 
 
-  const handleImportClick = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
+  const handleImportClick = (inputRef: React.RefObject<HTMLInputElement>) => {
+    if (inputRef.current) {
+      inputRef.current.click();
     }
   };
 
@@ -97,24 +101,65 @@ const Home: React.FC = () => {
     }
   };
 
-  
+  const handleColumnChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedColumn(e.target.value);
+  };
+
+  const handleHeaderUpdate = (newHeaders: string[]) => {
+    setTableHeaders(newHeaders);
+  };
 
   return (
     <div className="container-fluid flex flex-col items-center pt-4 ">
       <div className="flex space-x-4">
         <button
-          className="button-custom"
-          onClick={handleImportClick}
+          title='Klicka för att importera Mappning'
+          className="button-custom ml-0"
+          onClick={() => {
+            handleImportClick(fileMappingInputRef);
+          }}
         >
-          Importera CSV
+          Importera Mappning
         </button>
         <input
           type="file"
+          data-test="data-test-id-importera-mappning"
+          ref={fileMappingInputRef}
+          style={{ display: 'none' }}
+          onChange={(event) => {
+            handleFileChange(event, setUploadedFileName, setFileContent, setMappingContent, setMessage, setMessageColor, ['xls', 'xlsx'], true);
+            setIsInputVisible(true);
+          }}
+        />
+        <select
+          title='Välj Kolumn för mappning'
+          value={selectedColumn}
+          onChange={handleColumnChange}
+          className={`input-custom ${isInputVisible ? '' : 'invisible'}`}
+        >
+          <option value="">Välj Kolumn för mappning</option>
+          {(tableHeaders.length > 0 ? tableHeaders : options).map((header, index) => (
+            <option key={index} value={header}>{header}</option>
+          ))}
+        </select>
+        <button
+          title='Klicka för att importera en fil'
+          className="button-custom"
+          onClick={() => handleImportClick(fileInputRef)}
+        >
+          Importera Fil
+        </button>
+        <input
+          type="file"
+          data-test="data-test-id-importera-fil"
           ref={fileInputRef}
           style={{ display: 'none' }}
-          onChange={(event) => handleFileChange(event, setUploadedFileName, setFileContent, setMessage)}
+          onChange={(event) => {
+            handleFileChange(event, setUploadedFileName, setFileContent, setMappingContent, setMessage, setMessageColor, ['csv']);
+          }}
         />
         <input
+          title='Om du vill skapa en ny mall, ange ett namn och klicka på knappen "Spara Mall".'
           type="text"
           value={templateName}
           onChange={(e) => setTemplateName(e.target.value)}
@@ -122,49 +167,52 @@ const Home: React.FC = () => {
           className="input-custom"
         />
         <button
+          title='Klicka för att spara mall'
           className="button-custom"
           onClick={() => handleSaveTemplate(fileContent, templateName, setMessage, setMessageColor)}
         >
           Spara Mall
         </button>
-        <div className="relative">
+        {/* <div className="relative">
           <button
+            title='Skriv in mallens namn i "Anger mallens namn" och klicka på "Använd Mall" för att använda en befintlig mall.'
             className="button-custom" 
             onClick={() => fetchTemplate(templateName)}
           >
             Använd Mall
           </button>
-        </div>
+        </div> */}
         <input
-        ref={searchInputRef}
-        type="text"
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-        onFocus={fetchTemplates}
-        placeholder="Alla mallar"
-        className="input-custom"
-      />
-      {showTemplateList && filteredValues.length > 0 && (
-        <ul ref={templateListRef} className="mt-2 border border-gray-300 rounded shadow-lg text-sm overflow-y-auto w-full leading-tight max-h-40">
-          {filteredValues.map((value, index) => (
-            <li
-              key={index}
-              className="border-b py-2 px-4 hover:bg-gray-100 cursor-pointer"
-              onClick={() => {
-                setTemplateName(value);
-                fetchTemplate(value);
-                setShowTemplateList(false);
-                setSearchQuery('');
-              }}
-            >
-              {value}
-            </li>
-          ))}
-        </ul>
-      )}
+          title='Skriv in mallens namn för att söka efter en befintlig mall. När du valt mall kommer den att användas direkt i tabellen.'
+          ref={searchInputRef}
+          type="text"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          onFocus={fetchTemplates}
+          placeholder="Alla mallar"
+          className="input-custom"
+        />
+        {showTemplateList && filteredValues.length > 0 && (
+          <ul ref={templateListRef} className="mt-2 border border-gray-300 rounded shadow-lg text-sm overflow-y-auto w-full leading-tight max-h-40">
+            {filteredValues.map((value, index) => (
+              <li
+                key={index}
+                className="border-b py-2 px-4 hover:bg-gray-100 cursor-pointer"
+                onClick={() => {
+                  setTemplateName(value);
+                  fetchTemplate(value);
+                  setShowTemplateList(false);
+                  setSearchQuery('');
+                }}
+              >
+                {value}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
       {message && <p className={messageColor}>{message}</p>}
-      {fileContent.length > 0 && <Convert fileContent={fileContent}  />}
+      {fileContent.length > 0 && <Convert fileContent={fileContent} mappingContent={mappingContent} selectedColumn={selectedColumn} />}
     </div>
   );
 };

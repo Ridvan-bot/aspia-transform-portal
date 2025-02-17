@@ -4,7 +4,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { PaymentProps } from '@/types/interfaces';
 import style from './payment.module.css';
 
-const Payment: React.FC<PaymentProps> = ({ onDateSelected, handleExport, dateSelected }) => {
+const Payment: React.FC<PaymentProps> = ({ onDateSelected, dateSelected }) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [field1Value, setField1Value] = useState<string>('');
   const [field2Value, setField2Value] = useState<string>('');
@@ -32,21 +32,17 @@ const Payment: React.FC<PaymentProps> = ({ onDateSelected, handleExport, dateSel
 
   const handleField1Change = (event: React.ChangeEvent<HTMLInputElement>) => {
     setField1Value(event.target.value);
-    onDateSelected(selectedDate, event.target.value, field1Value); // update parent component
+    onDateSelected(selectedDate, event.target.value, field2Value); // update parent component
   };
 
   const handleField2Change = (event: React.ChangeEvent<HTMLInputElement>) => {
     setField2Value(event.target.value);
-    onDateSelected(selectedDate, event.target.value, field2Value); // update parent component
-  };
-
-  const handleExportClick = () => {
-    handleExport(selectedDate, field1Value, field2Value);
+    onDateSelected(selectedDate, field1Value, event.target.value); // update parent component
   };
 
   return (
     <div className="payment-container">
-      <div className="flex justify-start mt-4 space-x-4 items-center mb-10">
+      <div className="flex justify-start space-x-4 items-center mb-10">
         <button
           className="button-custom"
           onClick={() => setShowDatePicker(true)}
@@ -89,17 +85,6 @@ const Payment: React.FC<PaymentProps> = ({ onDateSelected, handleExport, dateSel
             onChange={handleDateChange}
             inline
           />
-        </div>
-      )}
-      {dateSelected && (
-        <div className="mt-4 ml-4 flex items-center justify-center">
-          <button
-            className="button-custom"
-            onClick={handleExportClick}
-            style={{ height: '2.5rem', fontSize: '1rem' }}
-          >
-            Exportera
-          </button>
         </div>
       )}
     </div>

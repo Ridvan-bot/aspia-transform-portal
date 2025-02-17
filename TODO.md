@@ -24,10 +24,18 @@
 - [x] Implement mallar
 - [x] Implement spara mallar
 - [x] Format value of Omfattning % 
+- [x] Provide an error message to the user when rows has the wrong format.
+- [x] Add number format verification?
+- [x] deploy must not take more than 15 minutes
+- [x] setup a feater branch called Mapping
+- [x] Add Mappning button
+- [x] Add Mappning option - in mapping feature branch
 - [ ] make the deployment faster
-- [ ] Add number format verification?
-- [w] Tidy up code
+- [ ] Add rightside (or bottomside,  Robin belives it's a better way) where user can select output system such as Hogia, flex etc..
 - [ ] Make the solution more modular
+- [w] Tidy up code
+- [w] Fix multiple not uniqe headers issue in mapping branch. Issue should never occur but can happen if a user is trying to break it.
+- [w] Remove dubbel footer.
 
 
 
