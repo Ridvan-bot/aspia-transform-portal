@@ -24,7 +24,6 @@ body {
   box-sizing: border-box; /* Include padding and border in the element's total width and height */
   margin-bottom: 5rem;
   flex-grow: 1;
-  overflow-x: scroll; /* Enable horizontal scrolling */
 }
 
 .child-container {
