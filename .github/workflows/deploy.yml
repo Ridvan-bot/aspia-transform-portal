@@ -60,9 +60,6 @@ jobs:
          uses: azure/login@v2
          with:
             creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-       - name: Verify Azure Login
-         run: az account show
         
        - name: Login Azure Container Registry
          run: az acr login --name ${{ secrets.ACR_NAME }}
