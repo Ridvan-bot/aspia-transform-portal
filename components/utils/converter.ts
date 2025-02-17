@@ -1,8 +1,8 @@
 import Papa from 'papaparse';
 import { expectedHeadersWithHeader } from '@/data/staticData';
 import * as XLSX from 'xlsx';
-
-
+import chardet from 'chardet';
+import iconv from 'iconv-lite';
 
 const preprocessCsvData = (csvData: string): string => {
   // Replace all " with an empty string
@@ -29,7 +29,17 @@ const readCsvFile = (file: File): Promise<any[]> => {
     const reader = new FileReader();
 
     reader.onload = (event) => {
-      let csvData = event.target?.result as string;
+      let arrayBuffer = event.target?.result as ArrayBuffer;
+      let buffer = Buffer.from(arrayBuffer);
+      let encoding = chardet.detect(buffer);
+
+      let csvData = '';
+      if (encoding === 'UTF-8') {
+        csvData = buffer.toString('utf-8');
+      } else {
+        csvData = iconv.decode(buffer, 'windows-1252'); // ANSI till UTF-8
+      }
+
 
       // Preprocess CSV data
       csvData = preprocessCsvData(csvData);
