@@ -31,16 +31,16 @@ const readCsvFile = (file: File): Promise<any[]> => {
     reader.onload = (event) => {
       let arrayBuffer = event.target?.result as ArrayBuffer;
       let buffer = Buffer.from(arrayBuffer);
-      let encoding = chardet.detect(buffer);
-
       let csvData = '';
+      let encoding = chardet.detect(buffer) || 'UTF-8';
+
       if (encoding === 'UTF-8') {
         csvData = buffer.toString('utf-8');
         console.log('Already UTF-8');
       } else {
         console.log('Encoding:', encoding);
         console.log('Converting to UTF-8');
-        csvData = iconv.decode(buffer, 'windows-1252'); // ANSI to UTF-8
+        csvData = iconv.decode(buffer, encoding); // Convert to UTF-8
       }
 
 

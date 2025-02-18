@@ -69,7 +69,6 @@
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.0.1",
     "@types/aos": "^3.0.7",
-    "@types/iconv-lite": "^0.0.1",
     "@types/jest": "^29.5.14",
     "@types/nodemailer": "^6.4.17",
     "@types/papaparse": "^5.3.15",
