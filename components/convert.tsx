@@ -44,7 +44,6 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, selected
     });
 
     setHeaders(uniqueHeaders);
-    console.log('uniqueHeaders:', uniqueHeaders);
     localStorage.setItem('headers', JSON.stringify(uniqueHeaders));
 
     // Check if headers match editedContent keys
@@ -55,7 +54,6 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, selected
       // Update editedContent with uniqueHeaders using mapKeys
       const updatedContent = mapKeys(editedContent, uniqueHeaders);
       setEditedContent(updatedContent);
-      console.log('updatedContent:', updatedContent);
     }
   };
 
@@ -151,7 +149,7 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, selected
           </svg>
         </div>
       )}
-      <div className="container-tabel overflow-x-scroll">
+      <div className="container-tabel overflow-x-scroll mt-2">
         <table className="table-auto border-collapse w-full">
           <thead className="sticky top-0">
             <tr>
