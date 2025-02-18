@@ -51,6 +51,11 @@ body {
   font-weight: bold;
 }
 
+.header-row {
+  border: 5px solid #004b61;
+  font-weight: bold;
+}
+
 .services__text {
   max-width: 660px;
   font-size: 1.25rem;
