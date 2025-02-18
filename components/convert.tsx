@@ -26,22 +26,6 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, selected
     }
   }, [fileContent]);
 
-  useEffect(() => {
-    if (!hasHeader) {
-      // Add an empty row at the top with "tomt_1", "tomt_2", etc.
-      const emptyRow = headers.reduce((acc, header, index) => {
-        acc[`tomt_${index + 1}`] = '';
-        return acc;
-      }, {} as Record<string, any>);
-      setEditedContent([emptyRow, ...fileContent]);
-    } else {
-      // Remove the first row if it starts with "tomt_"
-      if (editedContent.length > 0 && Object.keys(editedContent[0]).some(key => key.startsWith('tomt_'))) {
-        setEditedContent(editedContent.slice(1));
-      }
-    }
-  }, [hasHeader, headers, fileContent]);
-
   const handleHeaderChange = (colIndex: number, value: string) => {
     const newHeaders = [...headers];
     newHeaders[colIndex] = value;
@@ -141,7 +125,6 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, selected
 
   const filteredContent = editedContent ? editedContent.filter(row => Object.values(row).some(value => value !== '' && value !== null && value !== undefined)) : [];
   const hasValidHeaders = headers.some(header => !header.toLowerCase().startsWith('tomt'));
-  console.log('hasValidHeaders:', hasValidHeaders);
   return (
     <>
       {hasValidHeaders && (
@@ -170,17 +153,17 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, selected
       )}
       <div className="container-tabel overflow-x-scroll">
         <table className="table-auto border-collapse w-full">
-          <thead className="sticky top-0 bg-white">
+          <thead className="sticky top-0">
             <tr>
               {headers.map((header, colIndex) => {
                 const selectedOption = header.toLowerCase().startsWith('tomt_') ? 'Tomt' : header;
                 const isValidHeader = selectedOption === 'Tomt' || options.includes(header);
                 return (
-                  <th key={colIndex} className={`header-row px-2 py-2 text-ellipsis overflow-hidden whitespace-nowrap ${isValidHeader ? '' : 'bg-red-100'}`}>
+                  <th key={colIndex} className={`header-row text-ellipsis overflow-hidden whitespace-nowrap ${isValidHeader ? '' : 'bg-red-300'}`}>
                     <select
                       value={selectedOption}
                       onChange={(e) => handleHeaderChange(colIndex, e.target.value)}
-                      className="border border-gray-300 px-2 py-1 w-full"
+                      className=" px-2 py-1 w-full"
                     >
                       <option value={header}>{header}</option>
                       {options.map((option) => (
@@ -194,7 +177,7 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, selected
           </thead>
           <tbody>
             {filteredContent.map((row, rowIndex) => (
-              <tr key={rowIndex} className={rowIndex === 0 && hasHeader ? 'header-row' : ''}>
+              <tr key={rowIndex}>
                 {Object.values(row).map((value, colIndex) => (
                   <td key={colIndex} className="border border-gray-300 px-2 py-2 break-words">
                     {value as React.ReactNode}
