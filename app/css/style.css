@@ -75,6 +75,7 @@ body {
   margin-right: 0; /* Ensure no margin on right */
   margin-left: 0; /* Ensure no margin on left */
   text-align: center;
+
   /*border: 2px solid green;*/
   box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
 }

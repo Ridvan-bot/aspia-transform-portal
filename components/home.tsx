@@ -193,7 +193,7 @@ const Home: React.FC = () => {
           className="input-custom"
         />
         {showTemplateList && filteredValues.length > 0 && (
-          <ul ref={templateListRef} className="mt-2 border border-gray-300 rounded shadow-lg text-sm overflow-y-auto w-full leading-tight max-h-40">
+          <ul ref={templateListRef} className="border border-gray-300 rounded shadow-lg text-sm overflow-y-auto w-full leading-tight max-h-40">
             {filteredValues.map((value, index) => (
               <li
                 key={index}
