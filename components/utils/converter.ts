@@ -31,9 +31,9 @@ const readCsvFile = (file: File): Promise<any[]> => {
     reader.onload = (event) => {
       let arrayBuffer = event.target?.result as ArrayBuffer;
       let buffer = Buffer.from(arrayBuffer);
-      let csvData = '';
       let encoding = chardet.detect(buffer) || 'UTF-8';
 
+      let csvData = '';
       if (encoding === 'UTF-8') {
         csvData = buffer.toString('utf-8');
         console.log('Already UTF-8');
