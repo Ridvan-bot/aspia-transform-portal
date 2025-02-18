@@ -98,7 +98,7 @@ const readCsvFile = (file: File): Promise<any[]> => {
       reject(error);
     };
 
-    reader.readAsText(file);
+    reader.readAsArrayBuffer(file);
   });
 };
 
