@@ -16,6 +16,7 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, selected
   const [field2Value, setField2Value] = useState<string>('');
   const [processedData, setProcessedData] = useState<any[]>([]);
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
+  const [hasHeader, setHasHeader] = useState(true);
 
   useEffect(() => {
     if (fileContent && fileContent.length > 0) {
@@ -123,9 +124,33 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, selected
   };
 
   const filteredContent = editedContent ? editedContent.filter(row => Object.values(row).some(value => value !== '' && value !== null && value !== undefined)) : [];
+  const hasValidHeaders = headers.some(header => !header.toLowerCase().startsWith('tomt'));
+  console.log('hasValidHeaders:', hasValidHeaders);
   return (
     <>
-      <div className="container-tabel mt-10 overflow-x-scroll">
+      <div className="checkbox-wrapper-4 mt-10">
+        <input
+          className="inp-cbx"
+          id="hasHeader"
+          type="checkbox"
+          checked={hasHeader}
+          onChange={(e) => setHasHeader(e.target.checked)}
+        />
+        <label className="cbx" htmlFor="hasHeader">
+          <span>
+            <svg width="12px" height="10px">
+              <use xlinkHref="#check-4"></use>
+            </svg>
+          </span>
+          <span>Headers?</span>
+        </label>
+        <svg className="inline-svg">
+          <symbol id="check-4" viewBox="0 0 12 10">
+            <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+          </symbol>
+        </svg>
+      </div>
+      <div className="container-tabel overflow-x-scroll">
         <table className="table-auto border-collapse w-full">
           <thead className="sticky top-0 bg-white">
             <tr>
