@@ -125,32 +125,32 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, selected
   const hasValidHeaders = headers.some(header => !header.toLowerCase().startsWith('tomt'));
   return (
     <>
-      {hasValidHeaders && (
-        <div className="checkbox-wrapper-4 mt-10">
-          <input
-            className="inp-cbx"
-            id="hasHeader"
-            type="checkbox"
-            checked={hasHeader}
-            onChange={(e) => setHasHeader(e.target.checked)}
-          />
-          <label className="cbx" htmlFor="hasHeader">
-            <span>
-              <svg width="12px" height="10px">
-                <use xlinkHref="#check-4"></use>
-              </svg>
-            </span>
-            <span>Headers?</span>
-          </label>
-          <svg className="inline-svg">
-            <symbol id="check-4" viewBox="0 0 12 10">
-              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-            </symbol>
-          </svg>
-        </div>
-      )}
-      <div className="container-tabel overflow-x-scroll mt-2">
-        <table className="table-auto border-collapse w-full">
+      <div className="container-tabel overflow-x-scroll mt-2 relative">
+        {hasValidHeaders && (
+          <div className="checkbox-wrapper-4 mt-10">
+            <input
+              className="inp-cbx"
+              id="hasHeader"
+              type="checkbox"
+              checked={hasHeader}
+              onChange={(e) => setHasHeader(e.target.checked)}
+            />
+            <label className="cbx" htmlFor="hasHeader">
+              <span>
+                <svg width="12px" height="10px">
+                  <use xlinkHref="#check-4"></use>
+                </svg>
+              </span>
+              <span>Headers?</span>
+            </label>
+            <svg className="inline-svg">
+              <symbol id="check-4" viewBox="0 0 12 10">
+                <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+              </symbol>
+            </svg>
+          </div>
+        )}
+        <table className="table-auto border-collapse w-full mt-2">
           <thead className="sticky top-0">
             <tr>
               {headers.map((header, colIndex) => {

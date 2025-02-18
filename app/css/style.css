@@ -267,7 +267,9 @@ footer {
   left: 72px;
 }
 
-.checkbox-wrapper-4 * {
+.checkbox-wrapper-4 {
+  display: flex;
+  align-items: center;
   box-sizing: border-box;
 }
 .checkbox-wrapper-4 .cbx {
@@ -315,8 +317,8 @@ footer {
   transform: translate3d(0, 0, 0);
 }
 .checkbox-wrapper-4 .cbx span:last-child {
-  padding-left: 8px;
   line-height: 18px;
+  margin-left: 8px
 }
 .checkbox-wrapper-4 .cbx:hover span:first-child {
   border-color: #004b61;
@@ -342,8 +344,8 @@ footer {
 }
 @media screen and (max-width: 640px) {
   .checkbox-wrapper-4 .cbx {
-    width: 100%;
-    display: inline-block;
+    display: flex;
+    align-items: center;
   }
 }
 @-moz-keyframes wave-4 {
