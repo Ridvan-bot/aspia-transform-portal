@@ -16,7 +16,6 @@ const ExportSystems: React.FC<ExportSystemsProps> = ({ handleExport }) => {
   };
 
   useEffect(() => {
-    console.log('selectedSystems:', selectedSystems);
   }, [selectedSystems]);
 
   return (
