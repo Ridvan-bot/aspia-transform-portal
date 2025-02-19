@@ -40,29 +40,26 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, selected
   const handleHeaderChange = (colIndex: number, value: string) => {
     const newHeaders = [...headers];
     newHeaders[colIndex] = value;
-
+  
     // Ensure headers are unique
     const headerCounts: { [key: string]: number } = {};
     const uniqueHeaders = newHeaders.map(header => {
-      if (header.toLowerCase().startsWith('tomt')) {
-        const baseHeader = 'Tomt';
-        if (!headerCounts[baseHeader]) {
-          headerCounts[baseHeader] = 1;
-        } else {
-          headerCounts[baseHeader]++;
-        }
-        return `${baseHeader}_${headerCounts[baseHeader]}`;
+      const baseHeader = header.split('_')[0];
+      if (!headerCounts[baseHeader]) {
+        headerCounts[baseHeader] = 1;
+      } else {
+        headerCounts[baseHeader]++;
       }
-      return header;
+      return headerCounts[baseHeader] === 1 ? baseHeader : `${baseHeader}_${headerCounts[baseHeader]}`;
     });
-
+  
     setHeaders(uniqueHeaders);
     localStorage.setItem('headers', JSON.stringify(uniqueHeaders));
-
+  
     // Check if headers match editedContent keys
     const editedContentKeys = Object.keys(editedContent[0] || {});
     const headersMatch = uniqueHeaders.every((header, index) => header === editedContentKeys[index]);
-
+  
     if (!headersMatch) {
       // Update editedContent with uniqueHeaders using mapKeys
       const updatedContent = mapKeys(editedContent, uniqueHeaders);
