@@ -51,6 +51,7 @@ body {
   font-weight: bold;
 }
 
+/* remove this style */
 .header-row {
   border: 5px solid #004b61;
   font-weight: bold;
@@ -64,10 +65,9 @@ body {
 }
 
 .container-overall {
-  max-height: 30%; /* Ensure the overall container does not exceed the viewport height */
-  max-width: 100%; /* Ensure the overall container does not exceed the viewport width */
-  overflow: auto; /* Enable scrolling if content exceeds the viewport height */
-
+  max-height: 30%; 
+  max-width: 100%;
+  overflow: auto; 
   /*border: 2px solid blue; */  
 }
 
@@ -95,11 +95,11 @@ body {
 }
 
 .table-auto {
-  table-layout: auto; /* Purple border for container-tabel */
-  border-collapse: separate; /* Ensure border-radius works */
-  border-spacing: 0; /* Remove spacing between cells */
-  border-radius: 10px; /* Rounded corners for the table */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow to the table */
+  table-layout: auto;
+  border-collapse: separate;
+  border-spacing: 0; 
+  border-radius: 10px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background-color: rgb(255, 255, 255);
 }
 

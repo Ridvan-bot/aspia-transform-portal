@@ -133,85 +133,84 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, selected
 
 
   const filteredContent = editedContent ? editedContent.filter(row => Object.values(row).some(value => value !== '' && value !== null && value !== undefined)) : [];
-  const hasValidHeaders = headers.some(header => !header.toLowerCase().startsWith('tomt'));
-  const allHeadersAreTomt = headers.every(header => header.toLowerCase().startsWith('tomt'));
-  
+
   return (
     <>
-      {!allHeadersAreTomt && (
-        <div className="checkbox-container">
-          <div className="checkbox-wrapper-4">
-            <input
-              className="inp-cbx"
-              id="hasHeader"
-              type="checkbox"
-              checked={hasHeader}
-              onChange={(e) => handleHasHeaderChange(e.target.checked)}
-            />
-            <label className="cbx" htmlFor="hasHeader">
-              <span>
-                <svg width="12px" height="10px">
-                  <use xlinkHref="#check-4"></use>
-                </svg>
-              </span>
-              <span>Headers?</span>
-            </label>
-            <svg className="inline-svg">
-              <symbol id="check-4" viewBox="0 0 12 10">
-                <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-              </symbol>
-            </svg>
-          </div>
-        </div>
-      )}
-      <div className="container-tabel overflow-x-scroll mt-2 relative">
-        <table className="table-auto border-collapse w-full mt-1">
-          <thead className="sticky top-0">
-            <tr>
-              {headers.map((header, colIndex) => {
-                const selectedOption = header.toLowerCase().startsWith('tomt_') ? 'Tomt' : header;
-                const isValidHeader = selectedOption === 'Tomt' || options.includes(header);
-                return (
-                  <th key={colIndex} className={`header-row text-ellipsis overflow-hidden whitespace-nowrap ${isValidHeader ? '' : 'bg-red-300'}`}>
-                    <select
-                      value={selectedOption}
-                      onChange={(e) => handleHeaderChange(colIndex, e.target.value)}
-                      className=" px-2 py-1 w-full"
-                    >
-                      <option value={header}>{header}</option>
-                      {options.map((option) => (
-                        <option key={option} value={option}>{option}</option>
-                      ))}
-                    </select>
-                  </th>
-                );
-              })}
-            </tr>
-          </thead>
-          <tbody>
-            {filteredContent.map((row, rowIndex) => (
-              <tr key={rowIndex}>
-                {Object.values(row).map((value, colIndex) => (
-                  <td key={colIndex} className="border border-gray-300 px-2 py-2 break-words">
-                    {value as React.ReactNode}
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      {errorMessages.length > 0 && (
-        <div className="error-messages">
-          <ul>
-            {errorMessages.map((message, index) => (
-              <li key={index} className="text-red-500">{message}</li>
-            ))}
-          </ul>
-        </div>
-      )}
       {fileContent.length > 0 && (
         <>
+          <div className="checkbox-container">
+            <div className="checkbox-wrapper-4">
+              <input
+                className="inp-cbx"
+                id="hasHeader"
+                type="checkbox"
+                checked={hasHeader}
+                onChange={(e) => handleHasHeaderChange(e.target.checked)}
+              />
+              <label className="cbx" htmlFor="hasHeader">
+                <span>
+                  <svg width="12px" height="10px">
+                    <use xlinkHref="#check-4"></use>
+                  </svg>
+                </span>
+                <span>Är första raden en Header?</span>
+              </label>
+              <svg className="inline-svg">
+                <symbol id="check-4" viewBox="0 0 12 10">
+                  <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                </symbol>
+              </svg>
+            </div>
+          </div>
+
+          <div className="container-tabel overflow-x-scroll mt-2 relative">
+            <table className="table-auto border-collapse w-full mt-1">
+              <thead className="sticky top-0">
+                <tr>
+                  {headers.map((header, colIndex) => {
+                    const selectedOption = header.toLowerCase().startsWith('tomt_') ? 'Tomt' : header;
+                    const isValidHeader = selectedOption === 'Tomt' || options.includes(header);
+                    return (
+                      <th key={colIndex} className={`text-ellipsis overflow-hidden whitespace-nowrap ${isValidHeader ? '' : 'bg-red-300'}`}>
+                        <select
+                          value={selectedOption}
+                          onChange={(e) => handleHeaderChange(colIndex, e.target.value)}
+                          className=" px-2 py-1 w-full"
+                        >
+                          <option value={header}>{header}</option>
+                          {options.map((option) => (
+                            <option key={option} value={option}>{option}</option>
+                          ))}
+                        </select>
+                      </th>
+                    );
+                  })}
+                </tr>
+              </thead>
+              <tbody>
+                {filteredContent.map((row, rowIndex) => (
+                  <tr key={rowIndex}>
+                    {Object.values(row).map((value, colIndex) => (
+                      <td key={colIndex} className="border border-gray-300 px-2 py-2 break-words">
+                        {value as React.ReactNode}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {errorMessages.length > 0 && (
+            <div className="error-messages">
+              <ul>
+                {errorMessages.map((message, index) => (
+                  <li key={index} className="text-red-500">{message}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
           <div className="container-payment">
             <Payment
               onDateSelected={(date, field1, field2) => {
