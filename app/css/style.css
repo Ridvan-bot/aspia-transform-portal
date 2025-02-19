@@ -51,6 +51,12 @@ body {
   font-weight: bold;
 }
 
+/* remove this style */
+.header-row {
+  border: 5px solid #004b61;
+  font-weight: bold;
+}
+
 .services__text {
   max-width: 660px;
   font-size: 1.25rem;
@@ -59,10 +65,9 @@ body {
 }
 
 .container-overall {
-  max-height: 30%; /* Ensure the overall container does not exceed the viewport height */
-  max-width: 100%; /* Ensure the overall container does not exceed the viewport width */
-  overflow: auto; /* Enable scrolling if content exceeds the viewport height */
-
+  max-height: 30%; 
+  max-width: 100%;
+  overflow: auto; 
   /*border: 2px solid blue; */  
 }
 
@@ -75,6 +80,7 @@ body {
   margin-right: 0; /* Ensure no margin on right */
   margin-left: 0; /* Ensure no margin on left */
   text-align: center;
+
   /*border: 2px solid green;*/
   box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
 }
@@ -89,11 +95,11 @@ body {
 }
 
 .table-auto {
-  table-layout: auto; /* Purple border for container-tabel */
-  border-collapse: separate; /* Ensure border-radius works */
-  border-spacing: 0; /* Remove spacing between cells */
-  border-radius: 10px; /* Rounded corners for the table */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow to the table */
+  table-layout: auto;
+  border-collapse: separate;
+  border-spacing: 0; 
+  border-radius: 10px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background-color: rgb(255, 255, 255);
 }
 
@@ -259,6 +265,116 @@ footer {
   animation: move-right-36 400ms;
   background: #004b61 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='27' height='27' viewBox='0 0 24 24'%3E%3Cpath stroke='white' fill='white' stroke-linecap='round' d='M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z'/%3E%3C/svg%3E") no-repeat center;
   left: 72px;
+}
+
+.checkbox-wrapper-4 {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+}
+.checkbox-wrapper-4 .cbx {
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: pointer;
+  padding: 6px 8px;
+  border-radius: 6px;
+  overflow: hidden;
+  transition: all 0.2s ease;
+  display: inline-block;
+}
+.checkbox-wrapper-4 .cbx:not(:last-child) {
+  margin-right: 6px;
+}
+
+.checkbox-wrapper-4 .cbx span {
+  float: left;
+  vertical-align: middle;
+  transform: translate3d(0, 0, 0);
+}
+.checkbox-wrapper-4 .cbx span:first-child {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  transform: scale(1);
+  border: 1px solid #cccfdb;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 1px rgba(0,16,75,0.05);
+}
+.checkbox-wrapper-4 .cbx span:first-child svg {
+  position: absolute;
+  top: 3px;
+  left: 2px;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 16px;
+  stroke-dashoffset: 16px;
+  transition: all 0.3s ease;
+  transition-delay: 0.1s;
+  transform: translate3d(0, 0, 0);
+}
+.checkbox-wrapper-4 .cbx span:last-child {
+  line-height: 18px;
+  margin-left: 8px
+}
+.checkbox-wrapper-4 .cbx:hover span:first-child {
+  border-color: #004b61;
+}
+.checkbox-wrapper-4 .inp-cbx {
+  position: absolute;
+  visibility: hidden;
+}
+.checkbox-wrapper-4 .inp-cbx:checked + .cbx span:first-child {
+  background: #004b61;
+  border-color: #004b61;
+  animation: wave-4 0.4s ease;
+}
+.checkbox-wrapper-4 .inp-cbx:checked + .cbx span:first-child svg {
+  stroke-dashoffset: 0;
+}
+.checkbox-wrapper-4 .inline-svg {
+  position: absolute;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  user-select: none;
+}
+
+.checkbox-container {
+  
+  width: 100%;
+  max-height: 10vh;
+  margin-top: 10px;
+  margin-bottom: 0px;
+}
+@media screen and (max-width: 640px) {
+  .checkbox-wrapper-4 .cbx {
+    display: flex;
+    align-items: center;
+  }
+}
+@-moz-keyframes wave-4 {
+  50% {
+    transform: scale(0.9);
+  }
+}
+@-webkit-keyframes wave-4 {
+  50% {
+    transform: scale(0.9);
+  }
+}
+@-o-keyframes wave-4 {
+  50% {
+    transform: scale(0.9);
+  }
+}
+@keyframes wave-4 {
+  50% {
+    transform: scale(0.9);
+  }
 }
 
 @keyframes move-right-36 {
