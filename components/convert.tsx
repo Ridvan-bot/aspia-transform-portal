@@ -79,7 +79,6 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, selected
       const dataObjects = updatedContent.map(row => {
         return headers.reduce((acc, header, index) => {
           acc[header] = row[Object.keys(row)[index]];
-          console.log('acc:', acc);
           return acc;
         }, {} as Record<string, any>);
       });
