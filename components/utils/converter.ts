@@ -1,8 +1,8 @@
 import Papa from 'papaparse';
 import { expectedHeadersWithHeader } from '@/data/staticData';
 import * as XLSX from 'xlsx';
-
-
+import chardet from 'chardet';
+import iconv from 'iconv-lite';
 
 const preprocessCsvData = (csvData: string): string => {
   // Replace all " with an empty string
@@ -29,7 +29,19 @@ const readCsvFile = (file: File): Promise<any[]> => {
     const reader = new FileReader();
 
     reader.onload = (event) => {
-      let csvData = event.target?.result as string;
+      let arrayBuffer = event.target?.result as ArrayBuffer;
+      let buffer = Buffer.from(arrayBuffer);
+      let encoding = chardet.detect(buffer) || 'windows-1252'; 
+
+      let csvData = '';
+      if (encoding === 'UTF-8') {
+        csvData = buffer.toString('utf-8');
+      } else {
+        console.log('Encoding:', encoding);
+        console.log('Converting to UTF-8');
+        csvData = iconv.decode(buffer, encoding); // Convert to UTF-8
+      }
+
 
       // Preprocess CSV data
       csvData = preprocessCsvData(csvData);
@@ -38,6 +50,7 @@ const readCsvFile = (file: File): Promise<any[]> => {
       const firstLine = csvData.split('\n')[0];
       const hasHeader = expectedHeadersWithHeader.some(header => firstLine.includes(header));
 
+      console.log('hasHeader:', hasHeader);
       // Detect the delimiter
       const delimiter = detectDelimiter(firstLine);
 
@@ -85,7 +98,7 @@ const readCsvFile = (file: File): Promise<any[]> => {
       reject(error);
     };
 
-    reader.readAsText(file);
+    reader.readAsArrayBuffer(file);
   });
 };
 

@@ -24,7 +24,6 @@ body {
   box-sizing: border-box; /* Include padding and border in the element's total width and height */
   margin-bottom: 5rem;
   flex-grow: 1;
-  overflow-x: scroll; /* Enable horizontal scrolling */
 }
 
 .child-container {
@@ -60,10 +59,9 @@ body {
 }
 
 .container-overall {
-  max-height: 30%; /* Ensure the overall container does not exceed the viewport height */
-  max-width: 100%; /* Ensure the overall container does not exceed the viewport width */
-  overflow: auto; /* Enable scrolling if content exceeds the viewport height */
-
+  max-height: 30%; 
+  max-width: 100%;
+  overflow: auto; 
   /*border: 2px solid blue; */  
 }
 
@@ -76,6 +74,7 @@ body {
   margin-right: 0; /* Ensure no margin on right */
   margin-left: 0; /* Ensure no margin on left */
   text-align: center;
+
   /*border: 2px solid green;*/
   box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
 }
@@ -90,41 +89,36 @@ body {
 }
 
 .table-auto {
-  table-layout: auto; /* Purple border for container-tabel */
-  border-collapse: separate; /* Ensure border-radius works */
-  border-spacing: 0; /* Remove spacing between cells */
-  border-radius: 10px; /* Rounded corners for the table */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow to the table */
+  table-layout: auto;
+  border-collapse: separate;
+  border-spacing: 0; 
+  border-radius: 10px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background-color: rgb(255, 255, 255);
 }
 
 .table-auto th,
 .table-auto td {
   padding: 0.25rem;
-  /* border: 3px solid rgb(200, 200, 200); */
+  border: 1px solid rgb(200, 200, 200); /* Add border for both th and td */
   min-width: 150px; /* Set a minimum width for columns */
-  
 }
 
 /* Add rounded corners to the first and last cells in the first and last rows */
 .table-auto tr:first-child th:first-child {
   border-top-left-radius: 10px;
-  
 }
 
 .table-auto tr:first-child th:last-child {
   border-top-right-radius: 10px;
-  
 }
 
 .table-auto tr:last-child td:first-child {
   border-bottom-left-radius: 10px;
-  
 }
 
 .table-auto tr:last-child td:last-child {
   border-bottom-right-radius: 10px;
-  
 }
 
 .table-auto tr:nth-child(even) {
@@ -203,7 +197,6 @@ footer {
   visibility: hidden;
 }
 
-
 .input-custom {
   @apply px-4 py-2 rounded w-full max-h-11 text-sm leading-tight flex items-center justify-center shadow-xl;
 }
@@ -233,7 +226,6 @@ footer {
 
 .checkbox-wrapper-36 input {
   display: none;
-  
 }
 
 .checkbox-wrapper-36 label:after {
@@ -262,6 +254,40 @@ footer {
   left: 72px;
 }
 
+.checkbox-container {
+  
+  width: 100%;
+  max-height: 10vh;
+  margin-top: 10px;
+  margin-bottom: 0px;
+}
+@media screen and (max-width: 640px) {
+  .checkbox-wrapper-4 .cbx {
+    display: flex;
+    align-items: center;
+  }
+}
+@-moz-keyframes wave-4 {
+  50% {
+    transform: scale(0.9);
+  }
+}
+@-webkit-keyframes wave-4 {
+  50% {
+    transform: scale(0.9);
+  }
+}
+@-o-keyframes wave-4 {
+  50% {
+    transform: scale(0.9);
+  }
+}
+@keyframes wave-4 {
+  50% {
+    transform: scale(0.9);
+  }
+}
+
 @keyframes move-right-36 {
   0% {
     left: 8px;
@@ -284,4 +310,93 @@ footer {
   100% {
     left: 8px;
   }
+}
+.checkbox-wrapper-7 .tgl {
+  display: none;
+}
+.checkbox-wrapper-7 .tgl,
+.checkbox-wrapper-7 .tgl:after,
+.checkbox-wrapper-7 .tgl:before,
+.checkbox-wrapper-7 .tgl *,
+.checkbox-wrapper-7 .tgl *:after,
+.checkbox-wrapper-7 .tgl *:before,
+.checkbox-wrapper-7 .tgl + .tgl-btn {
+  box-sizing: border-box;
+}
+.checkbox-wrapper-7 .tgl::-moz-selection,
+.checkbox-wrapper-7 .tgl:after::-moz-selection,
+.checkbox-wrapper-7 .tgl:before::-moz-selection,
+.checkbox-wrapper-7 .tgl *::-moz-selection,
+.checkbox-wrapper-7 .tgl *:after::-moz-selection,
+.checkbox-wrapper-7 .tgl *:before::-moz-selection,
+.checkbox-wrapper-7 .tgl + .tgl-btn::-moz-selection,
+.checkbox-wrapper-7 .tgl::selection,
+.checkbox-wrapper-7 .tgl:after::selection,
+.checkbox-wrapper-7 .tgl:before::selection,
+.checkbox-wrapper-7 .tgl *::selection,
+.checkbox-wrapper-7 .tgl *:after::selection,
+.checkbox-wrapper-7 .tgl *:before::selection,
+.checkbox-wrapper-7 .tgl + .tgl-btn::selection {
+  background: none;
+}
+.checkbox-wrapper-7 .tgl + .tgl-btn {
+  outline: 0;
+  display: block;
+  width: 4em;
+  height: 2em;
+  position: relative;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.checkbox-wrapper-7 .tgl + .tgl-btn:after,
+.checkbox-wrapper-7 .tgl + .tgl-btn:before {
+  position: relative;
+  display: block;
+  content: "";
+  width: 50%;
+  height: 100%;
+}
+.checkbox-wrapper-7 .tgl + .tgl-btn:after {
+  left: 0;
+}
+.checkbox-wrapper-7 .tgl + .tgl-btn:before {
+  display: none;
+}
+.checkbox-wrapper-7 .tgl:checked + .tgl-btn:after {
+  left: 50%;
+}
+
+.checkbox-wrapper-7 .tgl-ios + .tgl-btn {
+  background: #fbfbfb;
+  border-radius: 2em;
+  padding: 2px;
+  transition: all 0.4s ease;
+  border: 1px solid #e8eae9;
+}
+.checkbox-wrapper-7 .tgl-ios + .tgl-btn:after {
+  border-radius: 2em;
+  background: #fbfbfb;
+  transition: left 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), padding 0.3s ease, margin 0.3s ease;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 4px 0 rgba(0, 0, 0, 0.08);
+}
+.checkbox-wrapper-7 .tgl-ios + .tgl-btn:hover:after {
+  will-change: padding;
+}
+.checkbox-wrapper-7 .tgl-ios + .tgl-btn:active {
+  box-shadow: inset 0 0 0 2em #e8eae9;
+}
+.checkbox-wrapper-7 .tgl-ios + .tgl-btn:active:after {
+  padding-right: 0.8em;
+}
+.checkbox-wrapper-7 .tgl-ios:checked + .tgl-btn {
+  background: #004b61;
+}
+.checkbox-wrapper-7 .tgl-ios:checked + .tgl-btn:active {
+  box-shadow: none;
+}
+.checkbox-wrapper-7 .tgl-ios:checked + .tgl-btn:active:after {
+  margin-left: -0.8em;
 }

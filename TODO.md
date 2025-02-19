@@ -30,12 +30,15 @@
 - [x] setup a feater branch called Mapping
 - [x] Add Mappning button
 - [x] Add Mappning option - in mapping feature branch
+- [x] Fix multiple not uniqe headers issue in mapping branch. Issue should never occur but can happen if a user is trying to break it.
+- [w] Solve the issue when a file has Ansi format
+- [x] Create a slide option where user can define if first row is a header or not.
+- [ ] Tidy up code
+- [ ] Rename Repo to Aspia-Tranformer
 - [ ] make the deployment faster
 - [ ] Add rightside (or bottomside,  Robin belives it's a better way) where user can select output system such as Hogia, flex etc..
 - [ ] Make the solution more modular
-- [w] Tidy up code
-- [w] Fix multiple not uniqe headers issue in mapping branch. Issue should never occur but can happen if a user is trying to break it.
-- [w] Remove dubbel footer.
+
 
 
 
