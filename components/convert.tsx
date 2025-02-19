@@ -1,5 +1,6 @@
 'use client';
 
+// filepath: /Users/admin/Documents/aspia/az-auto-protal/components/convert.tsx
 import React, { useState, useEffect } from 'react';
 import Payment from './payment';
 import ExportSystems from './exportSystems';
@@ -146,28 +147,19 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, selected
     <>
       {fileContent.length > 0 && (
         <>
-          <div className="checkbox-container">
-            <div className="checkbox-wrapper-4">
+          <div className="checkbox-container flex items-center justify-start">
+            <div className="checkbox-wrapper-7 mt-10">
               <input
-                className="inp-cbx"
-                id="hasHeader"
+                className="tgl tgl-ios"
+                id="cb2-7"
                 type="checkbox"
                 checked={firstRowHeader}
                 onChange={(e) => handleFirstRowHeaderChange(e.target.checked)}
               />
-              <label className="cbx" htmlFor="hasHeader">
-                <span>
-                  <svg width="12px" height="10px">
-                    <use xlinkHref="#check-4"></use>
-                  </svg>
-                </span>
-                <span>Är första raden en Header?</span>
-              </label>
-              <svg className="inline-svg">
-                <symbol id="check-4" viewBox="0 0 12 10">
-                  <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-                </symbol>
-              </svg>
+              <label className="tgl-btn" htmlFor="cb2-7"></label>
+            </div>
+            <div className="ml-2 text-sm font-medium text-gray-700 mt-10">
+              Första raden är header
             </div>
           </div>
 
