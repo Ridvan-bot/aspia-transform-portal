@@ -44,12 +44,14 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, selected
     // Ensure headers are unique
     const headerCounts: { [key: string]: number } = {};
     const uniqueHeaders = newHeaders.map(header => {
-      const baseHeader = header.split('_')[0];
-      if (!headerCounts[baseHeader]) {
-        headerCounts[baseHeader] = 1;
-      } else {
-        headerCounts[baseHeader]++;
-        header = `${baseHeader}_${headerCounts[baseHeader]}`;
+      if (header.toLowerCase().startsWith('tomt')) {
+        const baseHeader = 'Tomt';
+        if (!headerCounts[baseHeader]) {
+          headerCounts[baseHeader] = 1;
+        } else {
+          headerCounts[baseHeader]++;
+        }
+        return `${baseHeader}_${headerCounts[baseHeader]}`;
       }
       return header;
     });
@@ -77,6 +79,7 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, selected
       const dataObjects = updatedContent.map(row => {
         return headers.reduce((acc, header, index) => {
           acc[header] = row[Object.keys(row)[index]];
+          console.log('acc:', acc);
           return acc;
         }, {} as Record<string, any>);
       });
@@ -138,7 +141,6 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, selected
 
   const handleFirstRowHeaderChange = (checked: boolean) => {
     setFirstRowHeader(checked);
-    console.log('First row header:', checked);
   };
 
   const filteredContent = editedContent ? editedContent.filter(row => Object.values(row).some(value => value !== '' && value !== null && value !== undefined)) : [];
