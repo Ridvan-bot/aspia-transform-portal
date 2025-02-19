@@ -20,26 +20,25 @@ const ExportSystems: React.FC<ExportSystemsProps> = ({ handleExport }) => {
 
   return (
     <div className="container-exportSystems border ">
-    <button
-      onClick={handleExport}
-      className="button-custom mb-4"
-    >
-      Exportera
-    </button>
+      <button
+        onClick={handleExport}
+        className="button-custom mb-4"
+      >
+        Exportera
+      </button>
       <div className="flex flex-col space-y-2 ">
         {systems.map((system, index) => (
           <div key={system} className="flex items-center space-x-4">
-            <div className="checkbox-wrapper-36 flex items-center">
+            <div className="checkbox-wrapper-7">
               <input
+                className="tgl tgl-ios"
                 id={`toggle-${index}`}
                 type="checkbox"
                 value={system}
                 checked={selectedSystems.includes(system)}
                 onChange={() => handleCheckboxChange(system)}
-                className="mr-2"
               />
-              <label htmlFor={`toggle-${index}`} className="flex items-center">
-              </label>
+              <label className="tgl-btn" htmlFor={`toggle-${index}`}></label>
             </div>
             <div className="system-description">
               <span>Till {system}</span>
