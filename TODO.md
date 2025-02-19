@@ -32,13 +32,13 @@
 - [x] Add Mappning option - in mapping feature branch
 - [x] Fix multiple not uniqe headers issue in mapping branch. Issue should never occur but can happen if a user is trying to break it.
 - [w] Solve the issue when a file has Ansi format
+- [x] Create a slide option where user can define if first row is a header or not.
+- [ ] Tidy up code
 - [ ] Rename Repo to Aspia-Tranformer
 - [ ] make the deployment faster
 - [ ] Add rightside (or bottomside,  Robin belives it's a better way) where user can select output system such as Hogia, flex etc..
 - [ ] Make the solution more modular
-- [ ] Mark header gray request. If a file has a header, then the user should be able to unmark the headers after import. This could happen if a use wants to use the header as a row in export file.
-- [w] Tidy up code
-- [w] Remove dubbel footer.
+
 
 
 
