@@ -1,4 +1,5 @@
 'use client';
+
 import React, { useState, useEffect } from 'react';
 import Payment from './payment';
 import ExportSystems from './exportSystems';
@@ -17,14 +18,23 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, selected
   const [processedData, setProcessedData] = useState<any[]>([]);
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const [hasHeader, setHasHeader] = useState(true);
+  const [firstRowHeader, setFirstRowHeader] = useState(true);
 
   useEffect(() => {
     if (fileContent && fileContent.length > 0) {
-      setEditedContent(fileContent);
       const newHeaders = Object.keys(fileContent[0]);
       setHeaders(newHeaders);
+      if (firstRowHeader) {
+        setEditedContent(fileContent);
+      } else {
+        const headerRow = newHeaders.reduce((acc, header, index) => {
+          acc[header] = header;
+          return acc;
+        }, {} as Record<string, any>);
+        setEditedContent([headerRow, ...fileContent]);
+      }
     }
-  }, [fileContent]);
+  }, [fileContent, firstRowHeader]);
 
   const handleHeaderChange = (colIndex: number, value: string) => {
     const newHeaders = [...headers];
@@ -123,14 +133,12 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, selected
 
   const handleHasHeaderChange = (checked: boolean) => {
     setHasHeader(checked);
-    if (!checked) {
-      const newHeaders = headers.map((header, index) => `Tomt_${index + 1}`);
-      setHeaders(newHeaders);
-      const updatedContent = mapKeys(editedContent, newHeaders);
-      setEditedContent(updatedContent);
-    }
   };
 
+  const handleFirstRowHeaderChange = (checked: boolean) => {
+    setFirstRowHeader(checked);
+    console.log('First row header:', checked);
+  };
 
   const filteredContent = editedContent ? editedContent.filter(row => Object.values(row).some(value => value !== '' && value !== null && value !== undefined)) : [];
 
@@ -144,8 +152,8 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, selected
                 className="inp-cbx"
                 id="hasHeader"
                 type="checkbox"
-                checked={hasHeader}
-                onChange={(e) => handleHasHeaderChange(e.target.checked)}
+                checked={firstRowHeader}
+                onChange={(e) => handleFirstRowHeaderChange(e.target.checked)}
               />
               <label className="cbx" htmlFor="hasHeader">
                 <span>
