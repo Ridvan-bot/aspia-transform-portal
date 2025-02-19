@@ -1,3 +1,13 @@
+## [1.9.0](https://github.com/Ridvan-bot/az-auto-protal/compare/v1.8.0...v1.9.0) (2025-02-19)
+
+### Bug Fixes
+
+* add logging for encoding detection in CSV file conversion ([51c097d](https://github.com/Ridvan-bot/az-auto-protal/commit/51c097d8a46416a83385edb772d12c17ad754b88))
+* conditionally render header checkbox based on valid headers ([4eb5b7a](https://github.com/Ridvan-bot/az-auto-protal/commit/4eb5b7a5554d45153f53a687b37e3e0bb78d4bff))
+* enhance header uniqueness handling for 'Tomt' prefix in conversion component ([541d236](https://github.com/Ridvan-bot/az-auto-protal/commit/541d236cb98150c94a0b6220592188fd0fb3303c))
+* remove ecosystem configuration file ([9e8d4a0](https://github.com/Ridvan-bot/az-auto-protal/commit/9e8d4a0c6575feefad6c839604b80c6dbe24b292))
+* remove main x scroll ([711a8f7](https://github.com/Ridvan-bot/az-auto-protal/commit/711a8f7666e7d8953442ee98cf50f39046d86949))
+
 ## [1.8.0](https://github.com/Ridvan-bot/az-auto-protal/compare/v1.7.0...v1.8.0) (2025-02-17)
 
 ### Bug Fixes

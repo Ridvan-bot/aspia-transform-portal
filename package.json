@@ -1,6 +1,6 @@
 {
   "name": "az-auto-protal",
-  "version": "1.8.0",
+  "version": "1.9.0",
   "description": "An automation protal hosted in Azure",
   "scripts": {
     "dev": "next dev -p 8080 -H 0.0.0.0",
