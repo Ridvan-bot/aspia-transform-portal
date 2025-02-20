@@ -1,8 +1,8 @@
 import Papa from 'papaparse';
-import { expectedHeadersWithHeader } from '@/data/staticData';
 import * as XLSX from 'xlsx';
 import chardet from 'chardet';
 import iconv from 'iconv-lite';
+import { expectedHeadersWithHeader } from '@/data/staticData';
 
 const preprocessCsvData = (csvData: string): string => {
   // Replace all " with an empty string
@@ -42,7 +42,6 @@ const readCsvFile = (file: File): Promise<any[]> => {
         csvData = iconv.decode(buffer, encoding); // Convert to UTF-8
       }
 
-
       // Preprocess CSV data
       csvData = preprocessCsvData(csvData);
 
@@ -62,16 +61,11 @@ const readCsvFile = (file: File): Promise<any[]> => {
         complete: (results) => {
           let parsedData = results.data;
 
-          let headers: string[];
-          if (hasHeader) {
-            // Use headers from the first line
-            headers = firstLine.split(delimiter).map(header => header.trim());
-            // Remove the first line (header) from the data
-            parsedData = parsedData.slice(1);
-          } else {
-            // Use Tomt + index as headers
-            headers = firstLine.split(delimiter).map((header, index) => `Tomt${index + 1}`);
-          }
+          // Use headers from the first line
+          const headers = firstLine.split(delimiter).map((header, index) => header.trim() || `Tomt_${index + 1}`);
+          console.log('headers:', headers);
+          // Remove the first line (header) from the data
+          parsedData = parsedData.slice(1);
 
           const formattedData = parsedData.map((row: any) => {
             const rowData: any = {};
@@ -80,6 +74,8 @@ const readCsvFile = (file: File): Promise<any[]> => {
             });
             return rowData;
           });
+
+          console.log('formattedData: ', formattedData);
 
           // Filter out rows where all values are empty strings, null, or undefined
           const filteredContent = formattedData.filter(row => Object.values(row).some(value => value !== '' && value !== null && value !== undefined));

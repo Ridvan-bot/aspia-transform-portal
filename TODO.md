@@ -38,6 +38,17 @@
 - [ ] make the deployment faster
 - [ ] Add rightside (or bottomside,  Robin belives it's a better way) where user can select output system such as Hogia, flex etc..
 - [ ] Make the solution more modular
+- [ ] Need a Templet next to Importera Mappning
+- [ ] Mappning includs headers, always, make sure it reads content from line 2
+- [ ] In table header, if a header matches options in static data the the background/border should be aspia Green
+- [ ] During export, user should only be able to select one system. If use tries to select more than one, the make the system unslide one of the systems
+- [ ] km and mil should be optional i Antal.
+- [ ] a button for "Börja om"
+- [ ] Flags Sweden, Norway, Denmark, Finland, Holland och Ukrain in header. Selected flag should set standrad for export output
+- [ ] two slides, at the top of Home. One for Transaktions data and one for Person Data.
+- [ ] fix NANANANA Date in export
+- [ ] fix all decimals should use , and not .
+
 
 
 

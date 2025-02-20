@@ -45,7 +45,7 @@ export const headerDescriptions = [
     'Meddelande', 'Omfattning %', 'Lönekod', 'Semesterkvot', 'Kalenderdagsfaktor', 'Barn', 'Tomt'
   ];
 
-  export const validUnits = ['tim', 'dgr', 'kdgr', ''];
+  export const validUnits = ['tim', 'dgr', 'kdgr', '', null];
   const ssnRegex = /^\d{6}-\d{4}$/;
 
   export const systems = ['Flex', 'AGDA', 'Hogia', 'Nmbers'];
