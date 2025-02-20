@@ -55,6 +55,7 @@
 - [ ] Flags Sweden, Norway, Denmark, Finland, Holland och Ukrain in header. Selected flag should set
 - [ ] two slides, at the top of Home. One for Transaktions data and one for Person Data.
 - [ ] fix NANANANA Date in export
+- [ ] Button "Spara Mall" should only be visible if user types in a letter in Ange mallens namn
 
 
 
