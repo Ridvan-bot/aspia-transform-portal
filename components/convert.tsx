@@ -170,7 +170,7 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, selected
                     const selectedOption = header.toLowerCase().startsWith('tomt_') ? 'Tomt' : header;
                     const isValidHeader = selectedOption === 'Tomt' || options.includes(header);
                     return (
-                      <th key={colIndex} className={`text-ellipsis overflow-hidden whitespace-nowrap ${isValidHeader ? '' : 'bg-red-300'}`}>
+                      <th key={colIndex} className={`text-ellipsis overflow-hidden whitespace-nowrap ${isValidHeader ? 'bg-custom-aspia' : 'bg-red-300'}`}>
                         <select
                           value={selectedOption}
                           onChange={(e) => handleHeaderChange(colIndex, e.target.value)}

@@ -58,6 +58,10 @@ body {
   text-align: center;
 }
 
+.bg-custom-aspia {
+  background-color: #004b61;
+}
+
 .container-overall {
   max-height: 30%; 
   max-width: 100%;
