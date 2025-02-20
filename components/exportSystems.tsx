@@ -5,28 +5,22 @@ import { systems } from '@/data/staticData';
 import style from './exportSystems.module.css';
 
 const ExportSystems: React.FC<ExportSystemsProps> = ({ handleExport }) => {
-  const [selectedSystems, setSelectedSystems] = useState<string[]>([]);
+  const [selectedSystem, setSelectedSystem] = useState<string | null>(null);
 
   const handleCheckboxChange = (system: string) => {
-    setSelectedSystems(prevSelectedSystems =>
-      prevSelectedSystems.includes(system)
-        ? prevSelectedSystems.filter(s => s !== system)
-        : [...prevSelectedSystems, system]
-    );
+    setSelectedSystem(prevSelectedSystem => (prevSelectedSystem === system ? null : system));
   };
 
   useEffect(() => {
-  }, [selectedSystems]);
+    // Any side effects based on selectedSystem can be handled here
+  }, [selectedSystem]);
 
   return (
-    <div className="container-exportSystems border ">
-      <button
-        onClick={handleExport}
-        className="button-custom mb-4"
-      >
+    <div className="container-exportSystems border">
+      <button onClick={handleExport} className="button-custom mb-4">
         Exportera
       </button>
-      <div className="flex flex-col space-y-2 ">
+      <div className="flex flex-col space-y-2">
         {systems.map((system, index) => (
           <div key={system} className="flex items-center space-x-4">
             <div className="checkbox-wrapper-7">
@@ -35,7 +29,7 @@ const ExportSystems: React.FC<ExportSystemsProps> = ({ handleExport }) => {
                 id={`toggle-${index}`}
                 type="checkbox"
                 value={system}
-                checked={selectedSystems.includes(system)}
+                checked={selectedSystem === system}
                 onChange={() => handleCheckboxChange(system)}
               />
               <label className="tgl-btn" htmlFor={`toggle-${index}`}></label>

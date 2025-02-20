@@ -16,4 +16,5 @@ export interface PaymentProps {
 
 export interface ExportSystemsProps {
   handleExport: () => Promise<void>;
+  systems: string[];
   }
