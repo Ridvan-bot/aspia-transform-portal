@@ -59,7 +59,7 @@ const readCsvFile = (file: File): Promise<any[]> => {
           let parsedData = results.data;
 
           // Use headers from the first line
-          const headers = firstLine.split(delimiter).map((header, index) => header.trim() || `Tomt_${index + 1}`);
+          const headers = firstLine.split(delimiter).map((header, index) => `Tomt_${index + 1}`);
           console.log('headers:', headers);
           // Remove the first line (header) from the data
           if ( parsedData.length > 1 ) {

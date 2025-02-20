@@ -19,7 +19,7 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, selected
   const [processedData, setProcessedData] = useState<any[]>([]);
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const [hasHeader, setHasHeader] = useState(true);
-  const [firstRowHeader, setFirstRowHeader] = useState(true);
+  const [firstRowHeader, setFirstRowHeader] = useState(false);
 
   useEffect(() => {
     if (fileContent && fileContent.length > 0) {
@@ -189,11 +189,15 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, selected
               <tbody>
                 {filteredContent.map((row, rowIndex) => (
                   <tr key={rowIndex}>
-                    {Object.values(row).map((value, colIndex) => (
-                      <td key={colIndex} className="border border-gray-300 px-2 py-2 break-words">
-                        {value as React.ReactNode}
-                      </td>
-                    ))}
+                    {headers.map((header, colIndex) => {
+                      const displayHeader = header.replace(/^header_/, '').replace(/_\d+$/, '');
+                      const cellValue = row[header];
+                      return (
+                        <td key={colIndex} className="border border-gray-300 px-2 py-2 break-words">
+                          {cellValue as React.ReactNode}
+                        </td>
+                      );
+                    })}
                   </tr>
                 ))}
               </tbody>
