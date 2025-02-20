@@ -26,6 +26,9 @@ const Home: React.FC = () => {
   const templateListRef = useRef<HTMLUListElement>(null);
   const [isInputVisible, setIsInputVisible] = useState(false);
   const [selectedColumn, setSelectedColumn] = useState<string>(''); 
+  const [firstRowHeader, setFirstRowHeader] = useState(true);
+  const [persondata, setPersonData] = useState(false);
+  const [transaktionsdata, setTransaktionsData] = useState(false);
 
   const handleImportClick = (inputRef: React.RefObject<HTMLInputElement>) => {
     if (inputRef.current) {
@@ -101,6 +104,19 @@ const Home: React.FC = () => {
     }
   };
 
+  const handlePersonDataChange = (checked: boolean) => {
+    setPersonData(checked);
+    if (checked) {
+      setTransaktionsData(false);
+    }
+  };
+  const handleTranskationsDataChange = (checked: boolean) => {
+    setTransaktionsData(checked);
+    if (checked) {
+      setPersonData(false);
+    }
+  };
+
   const handleColumnChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedColumn(e.target.value);
   };
@@ -109,9 +125,45 @@ const Home: React.FC = () => {
     setTableHeaders(newHeaders);
   };
 
+  const handleFirstRowHeaderChange = (checked: boolean) => {
+    setFirstRowHeader(checked);
+  };
+
   return (
-    <div className="container-fluid flex flex-col items-center pt-4 ">
-      <div className="flex space-x-4">
+    <div className="container-fluid flex flex-col items-center">
+      <div className="flex space-x-4 mb-4">
+        <div className="flex items-center">
+          <div className="checkbox-wrapper-7">
+            <input
+              className="tgl tgl-ios"
+              id="cb2-7"
+              type="checkbox"
+              checked={persondata}
+              onChange={(e) => handlePersonDataChange(e.target.checked)}
+            />
+            <label className="tgl-btn" htmlFor="cb2-7"></label>
+          </div>
+          <div className="ml-2 text-sm font-medium text-custom-aspia">
+            Persondata
+          </div>
+        </div>
+        <div className="flex items-center">
+          <div className="checkbox-wrapper-7">
+            <input
+              className="tgl tgl-ios"
+              id="cb2-8"
+              type="checkbox"
+              checked={transaktionsdata}
+              onChange={(e) => handleTranskationsDataChange(e.target.checked)}
+            />
+            <label className="tgl-btn" htmlFor="cb2-8"></label>
+          </div>
+          <div className="ml-2 text-sm font-medium text-custom-aspia">
+            Transaktionsdata
+          </div>
+        </div>
+      </div>
+      <div className="flex space-x-4 border border-blue-300 p-4">
         <button
           title='Klicka för att importera Mappning'
           className="button-custom ml-0"

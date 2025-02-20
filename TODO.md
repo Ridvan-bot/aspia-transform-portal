@@ -47,13 +47,14 @@
 - [x] In table header, if a header matches options in static data the the background/border should be aspia Green
 - [x] fix all decimals should use , and not .
 - [x] During export, user should only be able to select one system. If use tries to select more than one, the make the system unslide one of the systems
+- [x] two slides, at the top of Home. One for Transaktions data and one for Person Data.
 
 
 - [ ] Need a Templet next to Importera Mappning
 
 - [ ] a button for "Börja om"
 - [ ] Flags Sweden, Norway, Denmark, Finland, Holland och Ukrain in header. Selected flag should set
-- [ ] two slides, at the top of Home. One for Transaktions data and one for Person Data.
+
 - [ ] fix NANANANA Date in export
 - [ ] Button "Spara Mall" should only be visible if user types in a letter in Ange mallens namn
 

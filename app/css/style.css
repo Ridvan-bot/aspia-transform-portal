@@ -44,6 +44,11 @@ body {
   /* border: 2px solid red; */
 }
 
+.text-custom-aspia {
+  color: #004b61;
+  font-size: 0,5rem;
+}
+
 .services__header {
   color: #004b61;
   font-size: 3rem;
