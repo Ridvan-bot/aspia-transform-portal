@@ -9,7 +9,7 @@ export const processDataObjects = async (
 ): Promise<string[]> => {
   await Promise.resolve();
 
-  const validUnits = ['tim', 'dgr', 'kdgr', ''];
+  const validUnits = ['tim', 'dgr', 'kdgr', '', 'mil', 'km', null];
   const ssnRegex = /^\d{6}-\d{4}$/;
   const errorMessages: string[] = [];
   const errorSet = new Set<string>(); // Set to keep track of unique error messages
@@ -94,7 +94,7 @@ export const processDataObjects = async (
         case 'Antal enhet':
             const unit = dataObject[key];
             if (!validUnits.includes(unit)) {
-              errorMessages.push('Antal enhet måste vara "tim", "dgr", "kdgr" eller tomt.');
+              errorMessages.push('Antal enhet måste vara "tim", "dgr", "kdgr", "km", "mil" eller tomt.');
                 dataObject[key] = '';
             }
             break;
