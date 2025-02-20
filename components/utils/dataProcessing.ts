@@ -85,9 +85,9 @@ export const processDataObjects = async (
             const quantity = parseFloat(dataObject[key]);
             if (isNaN(quantity)) {
               errorMessages.push('Antal måste vara ett tal.');
-              dataObject[key] = '0.00';
+              dataObject[key] = '0,00';
             } else {
-              dataObject[key] = quantity.toFixed(2);
+              dataObject[key] = quantity.toFixed(2).replace('.', ',');
             }
             break;
     
@@ -102,20 +102,20 @@ export const processDataObjects = async (
         case 'A-pris':
             const unitPrice = parseFloat(dataObject[key]);
             if (isNaN(unitPrice)) {
-              dataObject[key] = '0.00';
+              dataObject[key] = '0,00';
               errorMessages.push('A-pris måste vara ett tal.');
             } else {
-              dataObject[key] = unitPrice.toFixed(2);
+              dataObject[key] = unitPrice.toFixed(2).replace('.', ',');
             }
             break;
         
         case 'Belopp':
             const amount = parseFloat(dataObject[key]);
             if (isNaN(amount)) {
-              dataObject[key] = '0.00';
+              dataObject[key] = '0,00';
               errorMessages.push('Belopp måste vara ett tal.');
             } else {
-              dataObject[key] = amount.toFixed(2);
+              dataObject[key] = amount.toFixed(2).replace('.', ',');
             }
             break;
         
