@@ -47,9 +47,6 @@ const readCsvFile = (file: File): Promise<any[]> => {
 
       // Check if the first line contains headers
       const firstLine = csvData.split('\n')[0];
-      const hasHeader = expectedHeadersWithHeader.some(header => firstLine.includes(header));
-
-      console.log('hasHeader:', hasHeader);
       // Detect the delimiter
       const delimiter = detectDelimiter(firstLine);
 
@@ -64,15 +61,9 @@ const readCsvFile = (file: File): Promise<any[]> => {
           // Use headers from the first line
           const headers = firstLine.split(delimiter).map((header, index) => header.trim() || `Tomt_${index + 1}`);
           console.log('headers:', headers);
-
-          // Remove the first line (header) from the data if headers are present
-          if (hasHeader) {
-            parsedData = parsedData.slice(1);
-          }
-
-          // If there's only one row of data, ensure it's still processed
-          if (parsedData.length === 0) {
-            parsedData = [firstLine.split(delimiter)];
+          // Remove the first line (header) from the data
+          if ( parsedData.length > 1 ) {
+          parsedData = parsedData.slice(1);
           }
 
           const formattedData = parsedData.map((row: any) => {
