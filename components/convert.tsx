@@ -150,12 +150,12 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, selected
             <div className="checkbox-wrapper-7 mt-10">
               <input
                 className="tgl tgl-ios"
-                id="cb2-7"
+                id="cb2-7_header"
                 type="checkbox"
                 checked={firstRowHeader}
                 onChange={(e) => handleFirstRowHeaderChange(e.target.checked)}
               />
-              <label className="tgl-btn" htmlFor="cb2-7"></label>
+              <label className="tgl-btn" htmlFor="cb2-7_header"></label>
             </div>
             <div className="ml-2 text-sm font-medium text-custom-aspia mt-10">
               Första raden är header
