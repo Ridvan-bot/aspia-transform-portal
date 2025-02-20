@@ -3,8 +3,8 @@ import Convert from "@/components/convert";
 
 
 export const metadata = {
-  title: "Automation Portal",
-  description: "Home of the Automation Portal",
+  title: "Transform Portal",
+  description: "A portal for Transforming data",
 };
 
 export default function HomePage() {

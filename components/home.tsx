@@ -163,7 +163,7 @@ const Home: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="flex space-x-4 border border-blue-300 p-4">
+      <div className="flex space-x-4 p-4">
         <button
           title='Klicka för att importera Mappning'
           className="button-custom ml-0"
@@ -241,7 +241,7 @@ const Home: React.FC = () => {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           onFocus={fetchTemplates}
-          placeholder="Alla mallar"
+          placeholder="Sök bland mallar"
           className="input-custom"
         />
         {showTemplateList && filteredValues.length > 0 && (

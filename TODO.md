@@ -50,6 +50,7 @@
 - [x] two slides, at the top of Home. One for Transaktions data and one for Person Data.
 
 
+
 - [ ] Need a Templet next to Importera Mappning
 
 - [ ] a button for "Börja om"
@@ -57,6 +58,7 @@
 
 - [ ] fix NANANANA Date in export
 - [ ] Button "Spara Mall" should only be visible if user types in a letter in Ange mallens namn
+- [ ] Use the values of PersonData and TransaktionsData.
 
 
 

@@ -157,7 +157,7 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, selected
               />
               <label className="tgl-btn" htmlFor="cb2-7"></label>
             </div>
-            <div className="ml-2 text-sm font-medium text-gray-700 mt-10">
+            <div className="ml-2 text-sm font-medium text-custom-aspia mt-10">
               Första raden är header
             </div>
           </div>
