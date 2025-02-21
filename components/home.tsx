@@ -190,7 +190,7 @@ const Home: React.FC = () => {
           className={`input-custom ${isInputVisible ? '' : 'invisible'}`}
         >
           <option value="">Välj Kolumn för mappning</option>
-          {(tableHeaders.length > 0 ? tableHeaders : options).map((header, index) => (
+          {options.map((header, index) => (
             <option key={index} value={header}>{header}</option>
           ))}
         </select>
@@ -225,15 +225,6 @@ const Home: React.FC = () => {
         >
           Spara Mall
         </button>
-        {/* <div className="relative">
-          <button
-            title='Skriv in mallens namn i "Anger mallens namn" och klicka på "Använd Mall" för att använda en befintlig mall.'
-            className="button-custom" 
-            onClick={() => fetchTemplate(templateName)}
-          >
-            Använd Mall
-          </button>
-        </div> */}
         <input
           title='Skriv in mallens namn för att söka efter en befintlig mall. När du valt mall kommer den att användas direkt i tabellen.'
           ref={searchInputRef}
