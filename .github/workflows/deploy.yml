@@ -1,4 +1,4 @@
-name: Build and Deploy Automation Portal in Azure
+name: Build Aspia Transform Portal
 
 on:
   push:

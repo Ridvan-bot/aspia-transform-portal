@@ -7,7 +7,7 @@ interface LayoutProps {
 }
 
 export const metadata = {
-  title: "Transform Portal",
+  title: "Aspia Transform Portal",
   description: "A portal for Transforming data", 
 };
 

@@ -33,8 +33,8 @@
 - [x] Fix multiple not uniqe headers issue in mapping branch. Issue should never occur but can happen if a user is trying to break it.
 - [w] Solve the issue when a file has Ansi format
 - [x] Create a slide option where user can define if first row is a header or not.
+- [x] Rename Repo to Aspia-Tranformer-portal
 - [ ] Tidy up code
-- [ ] Rename Repo to Aspia-Tranformer
 - [ ] make the deployment faster
 - [ ] Add rightside (or bottomside,  Robin belives it's a better way) where user can select output system such as Hogia, flex etc..
 - [ ] Make the solution more modular
@@ -48,8 +48,6 @@
 - [x] fix all decimals should use , and not .
 - [x] During export, user should only be able to select one system. If use tries to select more than one, the make the system unslide one of the systems
 - [x] two slides, at the top of Home. One for Transaktions data and one for Person Data.
-
-
 
 - [ ] Need a Templet next to Importera Mappning
 
