@@ -40,7 +40,7 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, selected
     } else {
       newHeaders[colIndex] = value;
     }
-    console.log('newHeaders:', newHeaders);
+
 
     // Ensure headers are unique
     const headerCounts: { [key: string]: number } = {};

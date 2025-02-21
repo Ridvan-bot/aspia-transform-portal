@@ -22,7 +22,6 @@ export const extractKeys = (data: any[]) => {
     }
     // Check if the input ends with a percentage sign
     if (!omfattningString.endsWith('%')) {
-      console.log('hit?')
       return false;
     }
     // Remove the percentage sign

@@ -37,8 +37,6 @@ const readCsvFile = (file: File): Promise<{ headers: string[], data: any[] }> =>
       if (encoding === 'UTF-8') {
         csvData = buffer.toString('utf-8');
       } else {
-        console.log('Encoding:', encoding);
-        console.log('Converting to UTF-8');
         csvData = iconv.decode(buffer, encoding); // Convert to UTF-8
       }
 
@@ -60,8 +58,6 @@ const readCsvFile = (file: File): Promise<{ headers: string[], data: any[] }> =>
 
           // Use headers from the first line
           const headers = firstLine.split(delimiter).map((header, index) => `header_${index + 1}`);
-          console.log('headers:', headers);
-
           const formattedData = parsedData.map((row: any) => {
             const rowData: any = {};
             headers.forEach((header: string, index: number) => {
@@ -70,13 +66,10 @@ const readCsvFile = (file: File): Promise<{ headers: string[], data: any[] }> =>
             return rowData;
           });
 
-          console.log('formattedData: ', formattedData);
+ 
 
           // Filter out rows where all values are empty strings, null, or undefined
           const filteredContent = formattedData.filter(row => Object.values(row).some(value => value !== '' && value !== null && value !== undefined));
-          console.log('filteredContent:', filteredContent);
-          console.log('headers:', headers);
-          console.log('data:', filteredContent);
           resolve({ headers, data: filteredContent });
         },
         error: (error: Error) => {
