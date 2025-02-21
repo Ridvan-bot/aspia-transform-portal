@@ -69,12 +69,14 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, selected
   };
 
   const handleExport = async () => {
-    let updatedContent = mapValues(editedContent, headers, selectedColumn, mappingContent);
+    let exportContent = [...editedContent]; // Skapa en kopia av editedContent
 
-    // Adjust updatedContent based on firstRowHeader
+    // Adjust exportContent based on firstRowHeader
     if (firstRowHeader) {
-      updatedContent = updatedContent.slice(1);
+      exportContent = exportContent.slice(1);
     }
+
+    let updatedContent = mapValues(exportContent, headers, selectedColumn, mappingContent);
 
     // Filter out columns with header 'Tomt'
     const filteredHeaders = headers.filter(header => !header.toLowerCase().startsWith('tomt'));
@@ -85,8 +87,6 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, selected
       });
       return newRow;
     });
-
-    setEditedContent(updatedContent);
 
     if (updatedContent.length > 0) {
       const dataObjects = updatedContent.map(row => {
