@@ -4,7 +4,6 @@ import Convert from './convert';
 import { handleFileChange } from './utils/converter';
 import { handleSaveTemplate } from './utils/fileHandler';
 import { getTemplate, getTemplates } from '@/services/api';
-import { extractKeys, mapKeys } from './utils/utils';
 import { options } from '@/data/staticData';
 import styles from './home.module.css';
 
@@ -68,9 +67,18 @@ const Home: React.FC = () => {
   const fetchTemplate = async (filename: string) => {
     try {
       const data = await getTemplate(filename);
-      const keys = extractKeys(data);
-      setTableHeaders(keys)
-      const updatedContent = mapKeys(fileContent, keys);
+      const keys = data; // Use the keys directly from the template
+      setTableHeaders(keys);
+
+      // Map the keys from the template to the actual columns in fileContent
+      const updatedContent = fileContent.map(row => {
+        const newRow: any = {};
+        keys.forEach((key: string, index: number) => {
+          newRow[key] = row[Object.keys(row)[index]];
+        });
+        return newRow;
+      });
+
       setFileContent(updatedContent);
     } catch (error) {
       setMessage('Mallen finns inte eller kunde inte hämtas');

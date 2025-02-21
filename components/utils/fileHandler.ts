@@ -1,4 +1,3 @@
-
 import { postTemplet } from '@/services/api';
 
 export const getHeadersFromLocalStorage = (): string[] => {
@@ -38,7 +37,7 @@ export const handleSaveTemplate = async (
   const headers = getHeadersFromLocalStorage();
   const headerCount: Record<string, number> = {};
 
-  const uniqueHeaders = headers.map((header, index) => {
+  const newHeaders = headers.map((header, index) => {
     if (!header) {
       header = `header_${index}`;
     }
@@ -51,15 +50,8 @@ export const handleSaveTemplate = async (
     }
   });
 
-  const dataObjects = fileContent.map(row => {
-    return uniqueHeaders.reduce((acc, header, index) => {
-      acc[header] = row[Object.keys(row)[index]];
-      return acc;
-    }, {} as Record<string, any>);
-  });
-
   try {
-    await postTemplet(dataObjects, templateName);
+    await postTemplet(newHeaders, templateName);
     setMessage('Mall sparad');
     setMessageColor('text-green-500'); // Set the message color to green
   } catch (error) {
