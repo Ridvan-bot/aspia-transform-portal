@@ -34,9 +34,9 @@
 - [w] Solve the issue when a file has Ansi format
 - [x] Create a slide option where user can define if first row is a header or not.
 - [x] Rename Repo to Aspia-Tranformer-portal
+- [x] Add rightside (or bottomside,  Robin belives it's a better way) where user can select output system such as Hogia, flex etc..
 - [ ] Tidy up code
 - [ ] make the deployment faster
-- [ ] Add rightside (or bottomside,  Robin belives it's a better way) where user can select output system such as Hogia, flex etc..
 - [ ] Make the solution more modular
 
 
@@ -49,11 +49,10 @@
 - [x] During export, user should only be able to select one system. If use tries to select more than one, the make the system unslide one of the systems
 - [x] two slides, at the top of Home. One for Transaktions data and one for Person Data.
 
-- [ ] Need a Templet next to Importera Mappning
 
+- [ ] Need a Templet next to Importera Mappning
 - [ ] a button for "Börja om"
 - [ ] Flags Sweden, Norway, Denmark, Finland, Holland och Ukrain in header. Selected flag should set
-
 - [ ] fix NANANANA Date in export
 - [ ] Button "Spara Mall" should only be visible if user types in a letter in Ange mallens namn
 - [ ] Use the values of PersonData and TransaktionsData.
