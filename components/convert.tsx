@@ -16,7 +16,6 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, selected
   const [field2Value, setField2Value] = useState<string>('');
   const [processedData, setProcessedData] = useState<any[]>([]);
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
-  const [hasHeader, setHasHeader] = useState(true);
   const [firstRowHeader, setFirstRowHeader] = useState(false);
 
   useEffect(() => {
@@ -29,7 +28,18 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, selected
 
   const handleHeaderChange = (colIndex: number, value: string) => {
     const newHeaders = [...headers];
-    newHeaders[colIndex] = value;
+    if (value === 'Tomt') {
+      // Ensure the new "Tomt" header is unique
+      let tomtCounter = 1;
+      let uniqueHeader = `Tomt_${tomtCounter}`;
+      while (newHeaders.includes(uniqueHeader)) {
+        tomtCounter++;
+        uniqueHeader = `Tomt_${tomtCounter}`;
+      }
+      newHeaders[colIndex] = uniqueHeader;
+    } else {
+      newHeaders[colIndex] = value;
+    }
     console.log('newHeaders:', newHeaders);
   
     // Ensure headers are unique
@@ -122,10 +132,6 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, selected
     }
   };
 
-  const handleHasHeaderChange = (checked: boolean) => {
-    setHasHeader(checked);
-  };
-
   const handleFirstRowHeaderChange = (checked: boolean) => {
     setFirstRowHeader(checked);
   };
@@ -136,7 +142,13 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, selected
 
   // Function to format header display
   const formatHeader = (header: string) => {
-    return header.toLowerCase().startsWith('header_') ? 'Header' : header;
+    if (header.toLowerCase().startsWith('header_')) {
+      return 'Header';
+    } else if (header.toLowerCase().startsWith('tomt')) {
+      return 'Tomt';
+    } else {
+      return header;
+    }
   };
 
   return (

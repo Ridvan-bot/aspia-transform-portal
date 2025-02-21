@@ -12,7 +12,6 @@ const ExportSystems: React.FC<ExportSystemsProps> = ({ handleExport }) => {
   };
 
   useEffect(() => {
-    // Any side effects based on selectedSystem can be handled here
   }, [selectedSystem]);
 
   return (
