@@ -1,6 +1,4 @@
 'use client';
-
-// filepath: /Users/admin/Documents/aspia/az-auto-protal/components/convert.tsx
 import React, { useState, useEffect } from 'react';
 import Payment from './payment';
 import ExportSystems from './exportSystems';
@@ -25,17 +23,9 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, selected
     if (fileContent && fileContent.length > 0) {
       const newHeaders = Object.keys(fileContent[0]);
       setHeaders(newHeaders);
-      if (firstRowHeader) {
-        setEditedContent(fileContent);
-      } else {
-        const headerRow = newHeaders.reduce((acc, header, index) => {
-          acc[header] = header;
-          return acc;
-        }, {} as Record<string, any>);
-        setEditedContent([headerRow, ...fileContent]);
-      }
+      setEditedContent(fileContent);
     }
-  }, [fileContent, firstRowHeader]);
+  }, [fileContent]);
 
   const handleHeaderChange = (colIndex: number, value: string) => {
     const newHeaders = [...headers];
@@ -140,7 +130,14 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, selected
     setFirstRowHeader(checked);
   };
 
+  // Adjust filteredContent based on firstRowHeader
   const filteredContent = editedContent ? editedContent.filter(row => Object.values(row).some(value => value !== '' && value !== null && value !== undefined)) : [];
+  const adjustedContent = firstRowHeader ? filteredContent.slice(1) : filteredContent;
+
+  // Function to format header display
+  const formatHeader = (header: string) => {
+    return header.toLowerCase().startsWith('header_') ? 'Header' : header;
+  };
 
   return (
     <>
@@ -167,7 +164,7 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, selected
               <thead className="sticky top-0">
                 <tr>
                   {headers.map((header, colIndex) => {
-                    const selectedOption = header.toLowerCase().startsWith('tomt_') ? 'Tomt' : header;
+                    const selectedOption = formatHeader(header);
                     const isValidHeader = selectedOption === 'Tomt' || options.includes(header);
                     return (
                       <th key={colIndex} className={`text-ellipsis overflow-hidden whitespace-nowrap ${isValidHeader ? 'bg-custom-aspia' : 'bg-red-300'}`}>
@@ -176,7 +173,7 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, selected
                           onChange={(e) => handleHeaderChange(colIndex, e.target.value)}
                           className=" px-2 py-1 w-full"
                         >
-                          <option value={header}>{header}</option>
+                          <option value={header}>{selectedOption}</option>
                           {options.map((option) => (
                             <option key={option} value={option}>{option}</option>
                           ))}
@@ -187,10 +184,9 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, selected
                 </tr>
               </thead>
               <tbody>
-                {filteredContent.map((row, rowIndex) => (
+                {adjustedContent.map((row, rowIndex) => (
                   <tr key={rowIndex}>
                     {headers.map((header, colIndex) => {
-                      const displayHeader = header.replace(/^header_/, '').replace(/_\d+$/, '');
                       const cellValue = row[header];
                       return (
                         <td key={colIndex} className="border border-gray-300 px-2 py-2 break-words">

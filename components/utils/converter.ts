@@ -24,7 +24,7 @@ const detectDelimiter = (firstLine: string): string => {
   return mostFrequentDelimiter;
 };
 
-const readCsvFile = (file: File): Promise<any[]> => {
+const readCsvFile = (file: File): Promise<{ headers: string[], data: any[] }> => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
 
@@ -59,12 +59,8 @@ const readCsvFile = (file: File): Promise<any[]> => {
           let parsedData = results.data;
 
           // Use headers from the first line
-          const headers = firstLine.split(delimiter).map((header, index) => `Tomt_${index + 1}`);
+          const headers = firstLine.split(delimiter).map((header, index) => `header_${index + 1}`);
           console.log('headers:', headers);
-          // Remove the first line (header) from the data
-          if ( parsedData.length > 1 ) {
-          parsedData = parsedData.slice(1);
-          }
 
           const formattedData = parsedData.map((row: any) => {
             const rowData: any = {};
@@ -78,8 +74,10 @@ const readCsvFile = (file: File): Promise<any[]> => {
 
           // Filter out rows where all values are empty strings, null, or undefined
           const filteredContent = formattedData.filter(row => Object.values(row).some(value => value !== '' && value !== null && value !== undefined));
-
-          resolve(filteredContent);
+          console.log('filteredContent:', filteredContent);
+          console.log('headers:', headers);
+          console.log('data:', filteredContent);
+          resolve({ headers, data: filteredContent });
         },
         error: (error: Error) => {
           console.error('Error parsing the file:', error);
@@ -124,7 +122,7 @@ const readExcelFiles = (file: File): Promise<{ firstColumn: any[], secondColumn:
   });
 };
 
-const convert = async (file: File) => {
+const convert = async (file: File): Promise<{ headers: string[], data: any[] } | { firstColumn: any[], secondColumn: any[] }> => {
   const fileName = file.name;
   const fileExtension = fileName.split('.').pop()?.toLowerCase();
 
@@ -140,14 +138,12 @@ const convert = async (file: File) => {
       console.error('Error reading the file:', error);
       throw error;
     }
+  } else if (fileExtension === 'xls' || fileExtension === 'xlsx') {
+    const { firstColumn, secondColumn } = await readExcelFiles(file);
+    return { firstColumn, secondColumn };
+  } else {
+    throw new Error('Invalid file type');
   }
-    else if (fileExtension === 'xls' || fileExtension === 'xlsx') {
-      const { firstColumn, secondColumn } = await readExcelFiles(file);
-      return { firstColumn, secondColumn };
-    }
-    else {
-      throw new Error('Invalid file type');
-    }
 };
 
 export const handleFileChange = async (
@@ -158,6 +154,7 @@ export const handleFileChange = async (
   setMessage: (message: string) => void,
   setMessageColor: (color: string) => void,
   allowedExtensions: string[],
+  setHeaders: (headers: string[]) => void, // Lägg till denna rad
   isMapping: boolean = false
 ) => {
   const file = event.target.files?.[0];
@@ -179,8 +176,9 @@ export const handleFileChange = async (
               setMessageColor('');
             }, 5000);
           } else {
-            if (Array.isArray(data)) {
-              setFileContent(data);
+            if ('data' in data && 'headers' in data) {
+              setFileContent(data.data);
+              setHeaders(data.headers);
             } else {
               setFileContent([]);
               setMessage('Unexpected data format');

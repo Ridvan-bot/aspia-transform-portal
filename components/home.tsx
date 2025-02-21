@@ -179,7 +179,7 @@ const Home: React.FC = () => {
           ref={fileMappingInputRef}
           style={{ display: 'none' }}
           onChange={(event) => {
-            handleFileChange(event, setUploadedFileName, setFileContent, setMappingContent, setMessage, setMessageColor, ['xls', 'xlsx'], true);
+            handleFileChange(event, setUploadedFileName, setFileContent, setMappingContent, setMessage, setMessageColor, ['xls', 'xlsx'], setTableHeaders, true);
             setIsInputVisible(true);
           }}
         />
@@ -207,7 +207,7 @@ const Home: React.FC = () => {
           ref={fileInputRef}
           style={{ display: 'none' }}
           onChange={(event) => {
-            handleFileChange(event, setUploadedFileName, setFileContent, setMappingContent, setMessage, setMessageColor, ['csv']);
+            handleFileChange(event, setUploadedFileName, setFileContent, setMappingContent, setMessage, setMessageColor, ['csv'], setTableHeaders);
           }}
         />
         <input
