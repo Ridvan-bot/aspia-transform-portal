@@ -2,11 +2,11 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { faInfoCircle, faRedo } from '@fortawesome/free-solid-svg-icons';
 import { headerDescriptions } from '@/data/staticData';
 import style from './exportSystems.module.css';
 
-const Header: React.FC = () => {
+const Header: React.FC<{ isFileImported: boolean }> = ({ isFileImported }) => {
   const [showTooltip, setShowTooltip] = useState(false);
 
   const handleLogoClick = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
@@ -14,7 +14,10 @@ const Header: React.FC = () => {
     window.location.reload();
   };
 
-  
+  const handleButtonClick = () => {
+    window.location.reload();
+  };
+
   const toggleTooltip = () => {
     setShowTooltip(prevState => !prevState);
   };
@@ -30,6 +33,18 @@ const Header: React.FC = () => {
             </a>
           </Link>
         </div>
+        {/* Reload button */}
+        {isFileImported && (
+          <div className="flex items-center h-full">
+            <button
+              onClick={handleButtonClick}
+              className="bg-gradient-to-r from-turquoise to-custom-skeppsbron text-white px-6 py-3 rounded-full shadow-lg transform transition-transform duration-300 flex items-center"
+            >
+              <FontAwesomeIcon icon={faRedo} className="mr-2" />
+              Börja om
+            </button>
+          </div>
+        )}
         {/* Information icon */}
         <div className="relative flex items-center h-full">
           <FontAwesomeIcon

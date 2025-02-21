@@ -1,4 +1,5 @@
-import React from 'react';
+'use client';
+import React, { useState } from 'react';
 import './css/style.css';
 import Header from '../components/ui/header';
 
@@ -6,19 +7,15 @@ interface LayoutProps {
   children: React.ReactNode;
 }
 
-export const metadata = {
-  title: "Aspia Transform Portal",
-  description: "A portal for Transforming data", 
-};
-
-
 const Layout: React.FC<LayoutProps> = ({ children }) => {
+  const [isFileImported, setIsFileImported] = useState(false);
+
   return (
     <html lang="en">
       <body>
-        <Header />
+        <Header isFileImported={isFileImported} />
         <div className="flex-grow container mx-auto mt-10 mb-100">
-        {children}
+          {React.cloneElement(children as React.ReactElement<any>, { setIsFileImported })}
         </div>
       </body>
     </html>

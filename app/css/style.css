@@ -67,11 +67,16 @@ body {
   background-color: #004b61;
 }
 
-.container-overall {
-  max-height: 30%; 
-  max-width: 100%;
-  overflow: auto; 
-  /*border: 2px solid blue; */  
+.bg-custom-skeppsbron {
+  background-color: #1d2b50;
+}
+
+.bg-turquoise {
+  background-color: #40E0D0; /* Turkos färg */
+}
+
+.bg-gradient-to-r {
+  background: linear-gradient(to right, #40E0D0, #1d2b50);
 }
 
 

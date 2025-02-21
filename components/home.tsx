@@ -1,10 +1,11 @@
-"use client";
+'use client';
 import React, { useRef, useState, useEffect } from 'react';
 import Convert from './convert';
 import { handleFileChange } from './utils/converter';
 import { handleSaveTemplate } from './utils/fileHandler';
 import { getTemplate, getTemplates } from '@/services/api';
 import { options } from '@/data/staticData';
+import Header from './ui/header';
 import styles from './home.module.css';
 
 const Home: React.FC = () => {
@@ -16,7 +17,7 @@ const Home: React.FC = () => {
   const [templateName, setTemplateName] = useState<string>('');
   const [message, setMessage] = useState<string>('');
   const [messageColor, setMessageColor] = useState<string>('');
-  const [tableHeaders, setTableHeaders] = useState<string[]>([]); 
+  const [tableHeaders, setTableHeaders] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [allValues, setAllValues] = useState<any[]>([]);
   const [filteredValues, setFilteredValues] = useState<any[]>([]);
@@ -24,10 +25,11 @@ const Home: React.FC = () => {
   const searchInputRef = useRef<HTMLInputElement>(null);
   const templateListRef = useRef<HTMLUListElement>(null);
   const [isInputVisible, setIsInputVisible] = useState(false);
-  const [selectedColumn, setSelectedColumn] = useState<string>(''); 
+  const [selectedColumn, setSelectedColumn] = useState<string>('');
   const [firstRowHeader, setFirstRowHeader] = useState(true);
   const [persondata, setPersonData] = useState(false);
   const [transaktionsdata, setTransaktionsData] = useState(false);
+  const [isFileImported, setIsFileImported] = useState(false); // Ny state-variabel
 
   const handleImportClick = (inputRef: React.RefObject<HTMLInputElement>) => {
     if (inputRef.current) {
@@ -63,7 +65,7 @@ const Home: React.FC = () => {
       setFilteredValues(allValues);
     }
   }, [searchQuery, allValues]);
-  
+
   const fetchTemplate = async (filename: string) => {
     try {
       const data = await getTemplate(filename);
@@ -139,6 +141,7 @@ const Home: React.FC = () => {
 
   return (
     <div className="container-fluid flex flex-col items-center">
+      <Header isFileImported={isFileImported} />
       <div className="flex space-x-4 mb-4">
         <div className="flex items-center">
           <div className="checkbox-wrapper-7">
@@ -189,6 +192,7 @@ const Home: React.FC = () => {
           onChange={(event) => {
             handleFileChange(event, setUploadedFileName, setFileContent, setMappingContent, setMessage, setMessageColor, ['xls', 'xlsx'], setTableHeaders, true);
             setIsInputVisible(true);
+            setIsFileImported(true); // Uppdatera state när en mappning importeras
           }}
         />
         <select
@@ -216,6 +220,7 @@ const Home: React.FC = () => {
           style={{ display: 'none' }}
           onChange={(event) => {
             handleFileChange(event, setUploadedFileName, setFileContent, setMappingContent, setMessage, setMessageColor, ['csv'], setTableHeaders);
+            setIsFileImported(true); // Uppdatera state när en fil importeras
           }}
         />
         <input
