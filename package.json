@@ -1,5 +1,5 @@
 {
-  "name": "az-auto-protal",
+  "name": "aspia-transform-portal",
   "version": "1.0.0",
   "description": "An automation protal hosted in Azure",
   "scripts": {
@@ -15,16 +15,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Ridvan-bot/az-auto-protal.git"
+    "url": "git+https://github.com/Ridvan-bot/aspia-transform-portal.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/Ridvan-bot/az-auto-protal/issues"
+    "url": "https://github.com/Ridvan-bot/aspia-transform-portal/issues"
   },
-  "homepage": "https://github.com/Ridvan-bot/az-auto-protal#readme",
+  "homepage": "https://github.com/Ridvan-bot/aspia-transform-portal#readme",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
     "@fortawesome/free-solid-svg-icons": "^6.7.2",

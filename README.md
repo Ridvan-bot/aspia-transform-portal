@@ -1,11 +1,11 @@
-# az-auto-protal
+# aspia-transform-portal
 
 
-![Build Status](https://github.com/Ridvan-bot/az-auto-protal/actions/workflows/deploy.yml/badge.svg)
-![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/Ridvan-bot/az-auto-protal?label=version&sort=semver)
-![Last Commit](https://img.shields.io/github/last-commit/Ridvan-bot/az-auto-protal)
-![GitHub issues](https://img.shields.io/github/issues/Ridvan-bot/az-auto-protal)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/Ridvan-bot/az-auto-protal)
+![Build Status](https://github.com/Ridvan-bot/aspia-transform-portal/actions/workflows/deploy.yml/badge.svg)
+![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/Ridvan-bot/aspia-transform-portal?label=version&sort=semver)
+![Last Commit](https://img.shields.io/github/last-commit/Ridvan-bot/aspia-transform-portal)
+![GitHub issues](https://img.shields.io/github/issues/Ridvan-bot/aspia-transform-portal)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/Ridvan-bot/aspia-transform-portal)
 
 ## Project Information
 This project is an automation portal designed to streamline and automate various tasks. It is hosted on Azure and leverages several Azure services to provide a robust and scalable solution.
@@ -57,7 +57,7 @@ To ensure the website starts automatically after a server restart, you can use a
    ```
 2. Start your application with PM2:
    ```sh
-   pm2 start npm --name "az-auto-protal" -- run start
+   pm2 start npm --name "aspia-transform-portal" -- run start
    ```
 3. Save the PM2 process list and corresponding environments:
    ```sh
