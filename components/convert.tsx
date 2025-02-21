@@ -41,7 +41,7 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, selected
       newHeaders[colIndex] = value;
     }
     console.log('newHeaders:', newHeaders);
-  
+
     // Ensure headers are unique
     const headerCounts: { [key: string]: number } = {};
     const uniqueHeaders = newHeaders.map(header => {
@@ -53,14 +53,14 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, selected
       }
       return headerCounts[baseHeader] === 1 ? baseHeader : `${baseHeader}_${headerCounts[baseHeader]}`;
     });
-  
+
     setHeaders(uniqueHeaders);
     localStorage.setItem('headers', JSON.stringify(uniqueHeaders));
-  
+
     // Check if headers match editedContent keys
     const editedContentKeys = Object.keys(editedContent[0] || {});
     const headersMatch = uniqueHeaders.every((header, index) => header === editedContentKeys[index]);
-  
+
     if (!headersMatch) {
       // Update editedContent with uniqueHeaders using mapKeys
       const updatedContent = mapKeys(editedContent, uniqueHeaders);
@@ -69,13 +69,28 @@ const Convert: React.FC<ConvertProps> = ({ fileContent, mappingContent, selected
   };
 
   const handleExport = async () => {
-    const updatedContent = mapValues(editedContent, headers, selectedColumn, mappingContent);
+    let updatedContent = mapValues(editedContent, headers, selectedColumn, mappingContent);
+
+    // Adjust updatedContent based on firstRowHeader
+    if (firstRowHeader) {
+      updatedContent = updatedContent.slice(1);
+    }
+
+    // Filter out columns with header 'Tomt'
+    const filteredHeaders = headers.filter(header => !header.toLowerCase().startsWith('tomt'));
+    updatedContent = updatedContent.map(row => {
+      const newRow: any = {};
+      filteredHeaders.forEach(header => {
+        newRow[header] = row[header];
+      });
+      return newRow;
+    });
 
     setEditedContent(updatedContent);
 
     if (updatedContent.length > 0) {
       const dataObjects = updatedContent.map(row => {
-        return headers.reduce((acc, header, index) => {
+        return filteredHeaders.reduce((acc, header, index) => {
           acc[header] = row[Object.keys(row)[index]];
           return acc;
         }, {} as Record<string, any>);
